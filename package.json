@@ -1,0 +1,36 @@
+{
+  "name": "azure",
+  "version": "1.0.0",
+  "description": "Emulation engine for azure",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakindu95/clocal-azure.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lakindu95/clocal-azure/issues"
+  },
+  "homepage": "https://github.com/lakindu95/clocal-azure#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.15.1",
+    "express": "^4.16.3",
+    "ora": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.46",
+    "@types/express": "^4.11.1",
+    "@types/node": "^8.0.0",
+    "nodemon": "^1.17.3",
+    "ts-node": "^6.0.2",
+    "typescript": "^2.8.3"
+  }
+}
