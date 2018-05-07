@@ -1,7 +1,7 @@
 import commander from 'commander';
 import chalk from 'chalk';
-import AzureFunction from './services/azure-functions/azure-function';
-import AzureApiManagement from './services/azure-api-management/azure-api-management';
+import AzureFunction from '../services/azure-functions/azure-function';
+import AzureApiManagement from '../services/azure-api-management/azure-api-management';
 
 const functions = new AzureFunction();
 const apiManagement = new AzureApiManagement();
@@ -26,9 +26,9 @@ commander.command('api start').action(() => {
   }
 });
 
-commander.command('help').action(() => {
+commander.command('start').action(() => {
   try {
-    console.log(chalk.blueBright('- CLocal Azure Help - \n ------------------- '));
+    console.log(chalk.blueBright('- CLocal Azure \n ------------------- '));
     console.log(chalk.cyanBright('* Azure functions'));
     console.log('func start \nfunc stop');
 
