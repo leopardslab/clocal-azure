@@ -26,18 +26,4 @@ commander.command('api start').action(() => {
   }
 });
 
-commander.command('start').action(() => {
-  try {
-    console.log(chalk.blueBright('- CLocal Azure \n ------------------- '));
-    console.log(chalk.cyanBright('* Azure functions'));
-    console.log('func start \nfunc stop');
-
-    console.log(chalk.cyanBright('* Azure API Management'));
-    console.log('api start');
-  } catch (err){
-    console.log(chalk.blueBright.bgRed(err));
-  }
-}) 
-
-
 commander.parse(process.argv);
