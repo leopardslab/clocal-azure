@@ -1,9 +1,10 @@
-import commander from 'commander';
-import chalk from 'chalk';
-import AzureFunction from '../services/azure-functions/azure-function';
-import AzureApiManagement from '../services/azure-api-management/azure-api-management';
-import AzureStorage from '../services/azure-storage/azure-storage';
-import AzureCDN from '../services/azure-cdn/azure-cdn';
+const commander = require('commander');
+const chalk = require('chalk');
+
+const AzureFunction = require('../services/azure-functions/azure-function');
+const AzureApiManagement = require('../services/azure-api-management/azure-api-management');
+const AzureStorage = require('../services/azure-storage/azure-storage');
+const AzureCDN = require('../services/azure-cdn/azure-cdn');
 
 const functions = new AzureFunction();
 const apiManagement = new AzureApiManagement();
@@ -30,7 +31,7 @@ commander.command('storage start').action(() => {
     }
   });
 
-  commander.command('cdn start').action(() => {
+commander.command('cdn start').action(() => {
     try{
       console.log(chalk.blueBright('starting azure CDN ...'));
       const res = CDN.start();

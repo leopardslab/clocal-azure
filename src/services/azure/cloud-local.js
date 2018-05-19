@@ -1,11 +1,6 @@
-import express from 'express';
-import { Express } from 'express';
-import { Server } from 'http';
+const express = require ('express');
 
-abstract class CloudLocal {
-  protected app: Express;
-  private server: Server;
-  protected port: number;
+class CloudLocal{
 
   constructor() {
     this.app = express();
@@ -24,7 +19,7 @@ abstract class CloudLocal {
     return this.server.listening && this.server.close();
   }
 
-  abstract init(): any;
+  init(){}
 }
 
-export default CloudLocal;
+module.exports = CloudLocal;
