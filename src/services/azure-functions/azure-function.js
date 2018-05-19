@@ -1,7 +1,4 @@
-import express from 'express';
-import { Express } from 'express';
-import { Server } from 'http';
-import CloudLocal from './../azure/cloud-local';
+const CloudLocal = require ('./../azure/cloud-local');
 
 class AzureFunction extends CloudLocal {
   init() {
@@ -12,4 +9,4 @@ class AzureFunction extends CloudLocal {
   }
 }
 
-export default AzureFunction;
+module.exports = AzureFunction;

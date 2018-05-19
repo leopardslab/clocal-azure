@@ -4,9 +4,8 @@
   "description": "Emulation engine for azure",
   "main": "cli.js",
   "scripts": {
-    "start": "node dist/bin/cli.js",
-    "dev": "ts-node src/bin/cli.ts",
-    "build": "tsc",
+    "start": "node src/bin/cli.js",
+    "dev": "node --experimental-modules src/bin/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,8 +28,6 @@
     "@types/core-js": "^0.9.46",
     "@types/express": "^4.11.1",
     "@types/node": "^8.0.0",
-    "nodemon": "^1.17.3",
-    "ts-node": "^6.0.2",
-    "typescript": "^2.8.3"
+    "nodemon": "^1.17.3"
   }
 }
