@@ -1,3 +1,5 @@
+'use strict';
+
 const CloudLocal = require ('./../azure/cloud-local');
 
 class AzureCDN extends CloudLocal {

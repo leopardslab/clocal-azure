@@ -4,9 +4,12 @@
   "description": "Emulation engine for azure",
   "main": "cli.js",
   "scripts": {
-    "start": "node src/bin/cli.js",
-    "dev": "node --experimental-modules src/bin/cli.js",
+    "start": "node src/bin/clocal-azure",
+    "dev": "nodemon src/bin/clocal-azure",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+      "clocal-azure": "./bin/clocal-azure"
   },
   "repository": {
     "type": "git",
