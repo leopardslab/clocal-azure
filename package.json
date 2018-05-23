@@ -2,7 +2,7 @@
   "name": "azure",
   "version": "1.0.0",
   "description": "Emulation engine for azure",
-  "main": "cli.js",
+  "main": "index.js",
   "scripts": {
     "start": "node src/bin/clocal-azure",
     "dev": "nodemon src/bin/clocal-azure",
