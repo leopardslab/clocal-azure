@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/bin/clocal-azure",
+    "start-prod": "node src/core/mock-function",
     "dev": "nodemon src/bin/clocal-azure",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-      "clocal-azure": "./bin/clocal-azure"
+    "clocal-azure": "./bin/clocal-azure"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,15 @@
   },
   "homepage": "https://github.com/lakindu95/clocal-azure#readme",
   "dependencies": {
+    "azure-function-express": "^1.3.0",
+    "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "express": "^4.16.3",
-    "ora": "^2.0.0"
+    "got": "^8.3.1",
+    "ora": "^2.0.0",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.46",
