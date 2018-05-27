@@ -1,10 +1,9 @@
 const express = require ('express');
-const path = require('path');
+
 class CloudLocal{
 
   constructor() {
     this.app = express();
-    this.app.use(express.static(__dirname + '../assets'));
 
     this.init();
   }
