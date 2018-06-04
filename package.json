@@ -2,7 +2,7 @@
   "name": "azure",
   "version": "1.0.0",
   "description": "Emulation engine for azure",
-  "main": "index.js",
+  "main": "./src/bin/clocal-azure.js",
   "scripts": {
     "start": "node src/bin/clocal-azure",
     "start-prod": "node src/core/mock-function",
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "clocal-azure": "./bin/clocal-azure"
+    "clocal-azure": "./src/bin/clocal-azure.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
     "got": "^8.3.1",
     "ora": "^2.0.0",
     "path": "^0.12.7",

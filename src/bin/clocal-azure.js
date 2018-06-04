@@ -6,13 +6,16 @@ const program = require('commander');
 
 const commandsArray = require('../services/index').commands;
 
-program.version('1.0.0').description('CLocal Azure');
+program.version('1.0.0', '-v, --version').description('CLocal Azure');
 
 const commandNameList = [];
 
 commandsArray.map(command => {
   commandNameList.push(command.commandName);
-  program.command(command.commandName).action(command.action);
+  program.command(command.commandName)
+  // .option(command.option)
+  .action(command.action);
+
 });
 
 program.command('list').action(() => {

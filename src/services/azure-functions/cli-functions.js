@@ -8,6 +8,7 @@ const functions = new AzureFunction();
 
 const action = () => {
   try {
+    const res = functions.start();
     console.log(chalk.blueBright(`
                   %%%%%%
                  %%%%%%
@@ -21,17 +22,20 @@ const action = () => {
                 %%
                 %
 
-    Now listening on: http://localhost:`+
-    functions.port + ` Press Ctrl+C to shut down.`
+    \nNow listening on: http://localhost:`+
+    functions.port + ` Press Ctrl+C to shut down.
+    \nNote: Currently HTTP Trigger functions working.`
+    
   ));
 
-    const res = functions.start();
   } catch (err) {
     console.log(chalk.blueBright.bgRed(err));
   }
 };
 
 module.exports = {
-  commandName: 'func start',
+  commandName: 'src-root',
+  // option:"-p, --path', 'Path for the file",
   action: action,
+
 };
