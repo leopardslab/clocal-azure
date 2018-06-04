@@ -17,5 +17,6 @@ const action = () => {
 
 module.exports = {
   commandName: 'cdn start',
+  // option:"-p, --path', 'Path for the file",
   action: action
 };
