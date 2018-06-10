@@ -6,7 +6,11 @@ const chalk = require('chalk');
 const AzureFunction = require('./azure-function');
 const functions = new AzureFunction();
 
-const action = () => {
+
+const action = (source, target) => {
+console.log(source);
+
+// console.log(target);
   try {
     const res = functions.start();
     console.log(chalk.blueBright(`
@@ -23,8 +27,7 @@ const action = () => {
                 %
 
     \nNow listening on: http://localhost:`+
-    functions.port + ` Press Ctrl+C to shut down.
-    \nNote: Currently HTTP Trigger functions working.`
+    functions.port + ` Press Ctrl+C to shut down.\nNote: Currently HTTP Trigger functions working.`
     
   ));
 
@@ -36,6 +39,6 @@ const action = () => {
 module.exports = {
   commandName: 'src-root',
   // option:"-p, --path', 'Path for the file",
+  argument: '<url> <path>',
   action: action,
-
 };

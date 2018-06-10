@@ -14,6 +14,7 @@ commandsArray.map(command => {
   commandNameList.push(command.commandName);
   program.command(command.commandName)
   // .option(command.option)
+  .arguments(command.argument)
   .action(command.action);
 
 });
