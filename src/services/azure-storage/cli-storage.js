@@ -18,5 +18,6 @@ const action = () => {
 module.exports = {
   commandName: 'storage start',
   // option:"-p, --path', 'Path for the file",
+  argument: '<path>',
   action: action
 };
