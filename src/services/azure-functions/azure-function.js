@@ -26,7 +26,15 @@ class AzureFunction extends CloudLocal {
        res.sendFile(path.join(__dirname)+ '/azure-func-home.html')
     });
 
-   // fs.readdir(pathToFunction, function(err, files){
+    this.app.get(localPath, (req, res) => {
+        root(req, res); 
+    });
+  }
+}
+module.exports = AzureFunction;
+
+
+// fs.readdir(pathToFunction, function(err, files){
 
       // fileList = files.filter(function(file) { 
       //     return path.extname(file) === EXTENTION;
@@ -45,10 +53,3 @@ class AzureFunction extends CloudLocal {
    //   function inspectFilter(fileList){
      //   console.log(fileList)
       //}
-
-    this.app.get(localPath, (req, res) => {
-        root(req, res); 
-    });
-  }
-}
-module.exports = AzureFunction;

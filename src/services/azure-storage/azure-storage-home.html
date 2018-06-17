@@ -2,13 +2,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your Function App is up and running</title>
+<title>Your Blob Storage is up and running</title>
 <style>
 body, html {
     height: 100%;
     margin: 0;
     text-align: center;
-
 }
 .container {
   padding-right: 15px;
@@ -49,6 +48,26 @@ font-style:normal;
     background-repeat: no-repeat;
     background-size: cover;
 }
+.btn {
+  border-radius: 24px;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  margin: 1em 0.5em;
+  padding: 1em 2em;
+  border: none;
+}
+.btn:hover {
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.2);
+}
+.btn[disabled] {
+  background-color: #aeb8c0;
+  border: 1px solid #aeb8c0;
+}
+.btn--success {
+  border: 1px solid #008afc;
+  background: #008afc;
+}
+
 </style>
 </head>
 <body>
@@ -62,6 +81,11 @@ font-style:normal;
     left: 0;
     right: 0;
     bottom: 0;">
+
+    <form style="display: inline-block;margin-top:2rem;" method='post' action='upload' enctype="multipart/form-data">
+        <input class="btn btn--success" type='file' name='fileUploaded'>
+        <input class="btn btn--success" type='submit'>
+    </form>
 
 </div>
 </div>
