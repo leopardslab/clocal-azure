@@ -39,6 +39,6 @@ console.log(source);
 module.exports = {
   commandName: 'src-root',
   // option:"-p, --path', 'Path for the file",
-  argument: '<url> <path>',
+  argument: '<path>',
   action: action,
 };
