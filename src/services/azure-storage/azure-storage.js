@@ -46,4 +46,4 @@ class AzureStorage extends CloudLocal {
   }
 }
 
-module.exports = AzureStorage;
+module.exports = AzureStorage
