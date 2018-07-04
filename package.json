@@ -31,6 +31,7 @@
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "connect-busboy": "0.0.2",
+    "dockerode": "^2.5.5",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
     "fs-extra": "^6.0.1",
