@@ -1,49 +1,71 @@
 'use strict';
 
 const CloudLocal = require ('./../azure/cloud-local');
-var busboy = require('connect-busboy');
-const express = require ('express');
-
-var fs = require('fs-extra'); 
-var path = require('path');
-
-let storagePath = "/blob/";
-let filePath = (process.argv[3]);
-//let storageRoot = require('../../example/azure-storage');
-//let root = require('../../example/azure-storage'+filePath);
+let Docker = require('dockerode');
 
 class AzureStorage extends CloudLocal {
-  init() {
-    this.port = 9569;
-    this.app.use(busboy());
-    this.app.use(express.static(__dirname + './../../assets'));
-
-    this.app.get('/', function(req, res) {
-      res.sendFile(path.join(__dirname)+ '/azure-storage-home.html')
-
-    });
-    // this.app.get(storagePath, (req, res) => {
-    //   storageRoot(req, res); 
-    // });
-    this.app.route('/upload')
-    .post(function (req, res, next) {
-
-        var fstream;
-        req.pipe(req.busboy);
-        req.busboy.on('file', function (fieldname, file, filename) {
-            console.log("Uploading: " + filename);
-
-            //Path where image will be uploaded
-            fstream = fs.createWriteStream('./src/example/azure-storage/'+filename);
-            file.pipe(fstream);
-            fstream.on('close', function () {    
-                console.log("Upload Finished of " + filename);              
-                res.redirect('back'); 
-            });
-        });
-    });
-
-  }
 }
+
+let docker = new Docker({
+  socketPath: '/var/run/docker.sock',
+});
+
+/**
+ * Get env list from running container
+ * @param container
+ */
+function runExec(container) {
+
+  let options = {
+    Cmd: ['sh', '-c', 'node bin/${executable} -l /opt/azurite/folder'],
+    AttachStdout: true,
+    AttachStderr: true
+  };
+
+  container.exec(options, function(err, exec) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    exec.start(function(err, stream) {
+      if (err){
+        console.log(err);
+        return;
+      }
+    
+      container.modem.demuxStream(stream, process.stdout, process.stderr);
+
+      exec.inspect(function(err, data) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log(data);
+      });
+    });
+  
+  });
+}
+
+docker.createContainer({
+  Image: 'arafato/azurite',
+  Tty: true,
+  Cmd: ['/bin/sh'],
+  ExposedPorts: {'10000/tcp': {} },
+  PortBindings: {'10000/tcp': [{ 'HostPort': '9569' }] }, 
+  
+}, function(err, container) {
+  if (err){
+    console.log(err);
+    return;
+  }
+  container.start({}, function(err, data) {
+    if (err){
+      console.log(err);
+      return;
+    }
+     runExec(container);
+  });
+});
 
 module.exports = AzureStorage
