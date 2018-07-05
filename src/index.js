@@ -1,9 +1,9 @@
-var express = require('express');
+'use strict';
 
-var Docker = require('dockerode');
+let Docker = require('dockerode');
 
-var docker = new Docker({
-  socketPath: '/var/run/docker.sock'
+let docker = new Docker({
+  socketPath: '/var/run/docker.sock',
 });
 
 /**
@@ -12,9 +12,8 @@ var docker = new Docker({
  */
 function runExec(container) {
 
-  var options = {
+  let options = {
     Cmd: ['sh', '-c', 'node bin/${executable} -l /opt/azurite/folder'],
-    // Env: ['VAR=ttslkfjsdalkfj'],
     AttachStdout: true,
     AttachStderr: true
   };
@@ -29,7 +28,7 @@ function runExec(container) {
         console.log(err);
         return;
       }
-
+    
       container.modem.demuxStream(stream, process.stdout, process.stderr);
 
       exec.inspect(function(err, data) {
@@ -40,13 +39,20 @@ function runExec(container) {
         console.log(data);
       });
     });
+  
   });
 }
 
 docker.createContainer({
   Image: 'arafato/azurite',
   Tty: true,
-  Cmd: ['sh', '-c', 'node bin/${executable} -l /opt/azurite/folder']
+  Cmd: ['/bin/sh'],
+  ExposedPorts: {'10000/tcp': {}, '10001/tcp': {}, '10002/tcp': {} },
+  PortBindings: {'10000/tcp': [{ 'HostPort': '9569' }],
+  '10001/tcp':[{ 'HostPort': '9570'}],
+  '10002/tcp':[{ 'HostPort': '9571'}]
+  }, 
+  
 }, function(err, container) {
   if (err){
     console.log(err);
@@ -57,7 +63,7 @@ docker.createContainer({
       console.log(err);
       return;
     }
-    runExec(container);
+     runExec(container);
   });
 });
 
