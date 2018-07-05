@@ -5,19 +5,37 @@ const accountName = 'devstoreaccount1';
 var devStoreCreds = azure.generateDevelopmentStorageCredentials();
 
 const blobService = azure.createBlobService(devStoreCreds);
+const tableService = azure.createTableService(devStoreCreds);
+const queueService = azure.createQueueService(devStoreCreds);
 
 blobService.logger.level = azure.Logger.LogLevels.DEBUG
+tableService.logger.level = azure.Logger.LogLevels.DEBUG
+queueService.logger.level = azure.Logger.LogLevels.DEBUG
 
 const container = 'taskcontainer';
 const task = 'taskblob';
 const filename = 'data.txt';
 
-var proxy = {
+let proxyBlob = {
     protocol: 'http:',
     host: '127.0.0.1',
     port: 9569,
   };
-  blobService.setProxy(proxy);
+  blobService.setProxy(proxyBlob);
+
+let proxyQueue = {
+    protocol: 'http:',
+    host: '127.0.0.1',
+    port: 9570
+  };
+    queueService.setProxy(proxyQueue);
+
+let proxyTbl = {
+    protocol: 'http:',
+    host: '127.0.0.1',
+    port: 9571,
+  };
+  tableService.setProxy(proxyTbl);
 
 blobService.createContainerIfNotExists(container, error => {
   if (error) return console.log(error);
@@ -31,3 +49,23 @@ blobService.createContainerIfNotExists(container, error => {
     }
   ); 
 });
+
+queueService.createQueueIfNotExists('taskqueue', "Hello world!", function(error, result, response) {
+    if(!error){
+      // Queue length is available in results.approximateMessageCount
+      console.log(response);
+    } else {
+      console.log(error);
+    }
+});
+
+tableService.createTableIfNotExists('mytable', function(error, result, response) {
+    if (!error) {
+      // result contains true if created; false if already exists
+      console.dir(result)
+    } else {
+      console.log(error)
+    }
+  });
+  
+  
