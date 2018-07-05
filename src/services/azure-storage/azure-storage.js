@@ -51,8 +51,11 @@ docker.createContainer({
   Image: 'arafato/azurite',
   Tty: true,
   Cmd: ['/bin/sh'],
-  ExposedPorts: {'10000/tcp': {} },
-  PortBindings: {'10000/tcp': [{ 'HostPort': '9569' }] }, 
+  ExposedPorts: {'10000/tcp': {}, '10001/tcp': {}, '10002/tcp': {} },
+  PortBindings: {'10000/tcp': [{ 'HostPort': '9569' }],
+  '10001/tcp':[{ 'HostPort': '9570'}],
+  '10002/tcp':[{ 'HostPort': '9571'}]
+  }, 
   
 }, function(err, container) {
   if (err){
