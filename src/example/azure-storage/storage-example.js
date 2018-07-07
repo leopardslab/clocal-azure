@@ -8,9 +8,9 @@ const blobService = azure.createBlobService(devStoreCreds);
 const tableService = azure.createTableService(devStoreCreds);
 const queueService = azure.createQueueService(devStoreCreds);
 
-blobService.logger.level = azure.Logger.LogLevels.DEBUG
-tableService.logger.level = azure.Logger.LogLevels.DEBUG
-queueService.logger.level = azure.Logger.LogLevels.DEBUG
+// blobService.logger.level = azure.Logger.LogLevels.DEBUG
+// tableService.logger.level = azure.Logger.LogLevels.DEBUG
+// queueService.logger.level = azure.Logger.LogLevels.DEBUG
 
 const container = 'taskcontainer';
 const task = 'taskblob';
@@ -50,22 +50,42 @@ blobService.createContainerIfNotExists(container, error => {
   ); 
 });
 
-queueService.createQueueIfNotExists('taskqueue', "Hello world!", function(error, result, response) {
-    if(!error){
-      // Queue length is available in results.approximateMessageCount
-      console.log(response);
-    } else {
-      console.log(error);
-    }
+// Create queue
+queueService.createQueueIfNotExists('myqueue', "Hello world!", function(error, results, response){
+  if(!error){
+    // Queue created or exists
+    console.log("Result is "+ results.created);
+    console.log(results);
+  } else {
+    console.log(error)
+  }
 });
 
-tableService.createTableIfNotExists('mytable', function(error, result, response) {
+// Remove queue
+queueService.deleteQueue('myqueue', function(error, response){
+  if(!error){
+    // Queue has been deleted
+    console.log(response)
+  }
+});
+
+//Create Table
+tableService.createTable('mytable', function(error, result, response) {
     if (!error) {
       // result contains true if created; false if already exists
-      console.dir(result)
+      console.dir(result.isSuccessful)
     } else {
       console.log(error)
     }
   });
-  
-  
+
+//Delete Table
+tableService.deleteTable('mytable', function(error, response){
+    if(!error){
+      // Table deleted
+       console.log(response)
+    } else {
+      console.log(error)
+    }
+
+});
