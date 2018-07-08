@@ -45,8 +45,8 @@ function runExec(container) {
 
 docker.createContainer({
   Image: 'arafato/azurite',
-  Tty: true,
-  Cmd: ['/bin/sh'],
+  // Tty: true,
+  // Cmd: ['/bin/sh'],
   ExposedPorts: {'10000/tcp': {}, '10001/tcp': {}, '10002/tcp': {} },
   PortBindings: {'10000/tcp': [{ 'HostPort': '9569' }],
   '10001/tcp':[{ 'HostPort': '9570'}],
@@ -54,16 +54,19 @@ docker.createContainer({
   }, 
   
 }, function(err, container) {
-  if (err){
-    console.log(err);
-    return;
-  }
+  if (!container){
+    console.log("Error ",err);
+    // return;
+  } else {
   container.start({}, function(err, data) {
-    if (err){
-      console.log(err);
-      return;
-    }
-     runExec(container);
+    // if (err){
+    //   console.log(err);
+    //   return;
+    // }
+    //runExec(container);
   });
+  }
 });
+
+
 
