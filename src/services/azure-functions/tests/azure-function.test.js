@@ -6,7 +6,7 @@ let AzureFunction;
 
 beforeEach(() => {
   AzureFunction = proxyquire(
-    './../../src/services/azure-functions/azure-function',
+    './../azure-function',
     {}
   );
 });

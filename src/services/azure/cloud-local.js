@@ -6,6 +6,7 @@ class CloudLocal{
     this.app = express();
 
     this.init();
+    this.runExec();
   }
 
   start() {
@@ -21,6 +22,8 @@ class CloudLocal{
   }
 
   init(){}
+
+  runExec(){}
 }
 
 module.exports = CloudLocal;
