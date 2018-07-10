@@ -86,7 +86,7 @@ class AzureStorage extends CloudLocal {
                             console.log("you entered: [" + 
                                 d.toString().trim() + "]");
                           });
-                    }, 2000);
+                    }, 4000);
                   }
                   // exec.inspect(function(err, data) {
                   //   if (err) {
@@ -103,10 +103,6 @@ class AzureStorage extends CloudLocal {
       }
     });
   }
-
-  // runExec(container) {
-
-  // }
 }
 
 module.exports = AzureStorage;
