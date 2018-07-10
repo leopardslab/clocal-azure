@@ -13,9 +13,17 @@ Currently features are under development.
 _clocal-azure_ spins up the following core Cloud APIs on your local machine:
 
 * **Azure Functions** at http://localhost:9574
-* **Azure Storage** at http://localhost:9569
+* **Azure Storage** at http://localhost:9569, http://localhost:9570, http://localhost:9571
 * **Azure CDN** at http://localhost:9581
 * **Azure API Management** at http://localhost:9567
+
+## Implemented
+
+### Azure Storage Endpoints
+
+* **Azure Blob Service** at http://localhost:9569
+* **Azure Queue Service** at http://localhost:9570
+* **Azure Table Service** at http://localhost:9571
 
 ## Developing
 
