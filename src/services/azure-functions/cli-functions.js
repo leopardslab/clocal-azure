@@ -6,11 +6,7 @@ const chalk = require('chalk');
 const AzureFunction = require('./azure-function');
 const functions = new AzureFunction();
 
-
-const action = (source, target) => {
-console.log(source);
-
-// console.log(target);
+const action = () => {
   try {
     const res = functions.start();
     console.log(chalk.blueBright(`
@@ -37,7 +33,7 @@ console.log(source);
 };
 
 module.exports = {
-  commandName: 'src-root',
+  commandName: 'function-start',
   // option:"-p, --path', 'Path for the file",
   argument: '<path>',
   action: action,
