@@ -13,7 +13,7 @@ class AzureStorage extends CloudLocal {
       this.app.route('/upload')
       .post(function (req, res, next) {
   
-          var fstream;
+          let fstream;
           req.pipe(req.busboy);
           req.busboy.on('file', function (fieldname, file, filename) {
               console.log("Uploading: " + filename);
