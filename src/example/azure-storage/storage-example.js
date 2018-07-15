@@ -2,7 +2,7 @@ const azure = require('azure-storage');
 const accountKey = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
 const accountName = 'devstoreaccount1';
 
-var devStoreCreds = azure.generateDevelopmentStorageCredentials();
+let devStoreCreds = azure.generateDevelopmentStorageCredentials();
 
 const blobService = azure.createBlobService(devStoreCreds);
 const tableService = azure.createTableService(devStoreCreds);
