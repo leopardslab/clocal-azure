@@ -62,9 +62,10 @@ function runExec(container) {
         console.log(err);
         return;
       }
+
       if (process.argv[2] == "storage") {
         container.modem.demuxStream(stream, process.stdout, process.stderr);
-        customTerminal();
+        customTerminal(container);
       }
 
       // exec.inspect(function(err, data) {
@@ -78,7 +79,7 @@ function runExec(container) {
   });
 }
 
-function customTerminal() {
+function customTerminal(container) {
   setTimeout(function() {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
@@ -89,7 +90,8 @@ function customTerminal() {
           return process.exit(0);
         }, 5000);
       } else if (d.toString().trim() == "clocal storage clear") {
-        deleteBlob();
+        // deleteBlob();
+        clearFiles(container);
       } else {
         console.log("Invalid Command");
       }
@@ -108,21 +110,29 @@ function removeContainer() {
   });
 }
 
-function deleteBlob() {
-  const options = {
-    hostname: "127.0.0.1",
-    port: 9569,
-    path: "/devstoreaccount1/taskcontainer/taskblob",
-    method: "DELETE"
-  };
-
-  // Make a request
-  const req = http.request(options);
-  req.end();
-
-  req.on("information", res => {
-    console.log(`Got information prior to main response: ${res.statusCode}`);
-  });
+function clearFiles(container) {
+      let options = {
+        // Cmd: ["rm -rf folder"],
+        // Cmd: ["/bin/sh","folder", "rm -rf /"],
+        // Cmd: ["rm", "/opt/azurite/folder/__blobstorage__"],
+        Cmd: ["sh", "-c", "rm -rf /opt/azurite/folder/*"],
+        AttachStdout: true,
+        AttachStderr: true
+      };
+      container.exec(options, function(err, exec) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        exec.start(function(err, stream) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          container.modem.demuxStream(stream, process.stdout, process.stderr);
+          console.log("Storage successfully deleted.")
+        });
+      });
 }
 
 module.exports = AzureStorage;
