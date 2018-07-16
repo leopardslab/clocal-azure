@@ -112,9 +112,6 @@ function removeContainer() {
 
 function clearFiles(container) {
       let options = {
-        // Cmd: ["rm -rf folder"],
-        // Cmd: ["/bin/sh","folder", "rm -rf /"],
-        // Cmd: ["rm", "/opt/azurite/folder/__blobstorage__"],
         Cmd: ["sh", "-c", "rm -rf /opt/azurite/folder/*"],
         AttachStdout: true,
         AttachStderr: true
@@ -130,7 +127,7 @@ function clearFiles(container) {
             return;
           }
           container.modem.demuxStream(stream, process.stdout, process.stderr);
-          console.log("Storage successfully deleted.")
+          console.log("Storage successfully cleared.")
         });
       });
 }
