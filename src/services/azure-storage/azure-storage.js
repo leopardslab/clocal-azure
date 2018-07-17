@@ -1,12 +1,14 @@
 "use strict";
 
 const CloudLocal = require("./../azure/cloud-local");
-const http = require("http");
 const Docker = require("dockerode");
 
 let docker = new Docker({
   socketPath: "/var/run/docker.sock"
 });
+
+// let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
+// commandHandlers[inputService][inputOperation](param);
 
 class AzureStorage extends CloudLocal {
   /**
@@ -67,14 +69,6 @@ function runExec(container) {
         container.modem.demuxStream(stream, process.stdout, process.stderr);
         customTerminal(container);
       }
-
-      // exec.inspect(function(err, data) {
-      //   if (err) {
-      //     console.log(err);
-      //     return;
-      //   }
-      //   console.log(data);
-      // });
     });
   });
 }
@@ -90,7 +84,6 @@ function customTerminal(container) {
           return process.exit(0);
         }, 5000);
       } else if (d.toString().trim() == "clocal storage clear") {
-        // deleteBlob();
         clearFiles(container);
       } else {
         console.log("Invalid Command");
@@ -111,25 +104,25 @@ function removeContainer() {
 }
 
 function clearFiles(container) {
-      let options = {
-        Cmd: ["sh", "-c", "rm -rf /opt/azurite/folder/*"],
-        AttachStdout: true,
-        AttachStderr: true
-      };
-      container.exec(options, function(err, exec) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        exec.start(function(err, stream) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          container.modem.demuxStream(stream, process.stdout, process.stderr);
-          console.log("Storage successfully cleared.")
-        });
-      });
+  let options = {
+    Cmd: ["sh", "-c", "rm -rf /opt/azurite/folder/*"],
+    AttachStdout: true,
+    AttachStderr: true
+  };
+  container.exec(options, function(err, exec) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    exec.start(function(err, stream) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      container.modem.demuxStream(stream, process.stdout, process.stderr);
+      console.log("Storage successfully cleared.");
+    });
+  });
 }
 
 module.exports = AzureStorage;
