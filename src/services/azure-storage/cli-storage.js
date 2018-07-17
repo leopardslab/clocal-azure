@@ -11,7 +11,7 @@ const action = () => {
     console.log(
       chalk.blueBright(
         "Starting Azure Storage ..." +
-    `\nNow listening on:
+          `\nNow listening on:
     Azure Blob Storage Emulator listening on port http://localhost:9569
     Azure Queue Storage Emulator listening on port http://localhost:9570
     Azure Table Storage Emulator listening on port http://localhost:9571

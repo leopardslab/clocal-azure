@@ -14,8 +14,8 @@ class AzureApiAppService extends CloudLocal {
     this.app.use(bodyParser.json());
     this.app.use(
       swaggerize({
-        api: path.resolve(exampleFolder+"api.json"),
-        handlers: path.resolve(exampleFolder+"handlers"),
+        api: path.resolve(exampleFolder + "api.json"),
+        handlers: path.resolve(exampleFolder + "handlers"),
         docspath: "/swagger"
       })
     );
