@@ -14,8 +14,8 @@ _clocal-azure_ spins up the following core Cloud APIs on your local machine:
 
 * **Azure Functions** at http://localhost:9574
 * **Azure Storage** at http://localhost:9569, http://localhost:9570, http://localhost:9571
-* **Azure CDN** at http://localhost:9581
-* **Azure API Management** at http://localhost:9567
+* **Azure CosmosDB** at http://localhost:9581
+* **Azure API App Service** at http://localhost:9567
 
 ## Implemented
 

@@ -19,7 +19,7 @@ class AzureStorage extends CloudLocal {
   init() {
     docker.createContainer(
       {
-        Image: "arafato/azurite",
+        Image: "microsoft/azure-cosmosdb-emulator",
         // name: 'clocal-azure-storage',
         Tty: true,
         Cmd: ["/bin/sh"],
