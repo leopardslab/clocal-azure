@@ -6,6 +6,10 @@ let swaggerize = require("swaggerize-express");
 let swaggerUi = require("swaggerize-ui");
 let path = require("path");
 let exampleFolder = "./src/example/azure-api-service/";
+// let exampleFolder = "../../example/azure-api-service/"
+// let CLI = require("./cli-api");
+// let apiPath = CLI.apiPath;
+// console.log("CHECK" + apiPath)
 
 class AzureApiAppService extends CloudLocal {
   init() {
