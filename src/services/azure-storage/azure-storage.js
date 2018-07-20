@@ -16,10 +16,10 @@ class AzureStorage extends CloudLocal {
    * @param container
    */
 
-  init() {
+  start() {
     docker.createContainer(
       {
-        Image: "microsoft/azure-cosmosdb-emulator",
+        Image: "arafato/azurite",
         // name: 'clocal-azure-storage',
         Tty: true,
         Cmd: ["/bin/sh"],
@@ -64,8 +64,7 @@ function runExec(container) {
         console.log(err);
         return;
       }
-
-      if (process.argv[2] == "storage") {
+      if (process.argv[2] == "storage-start") {
         container.modem.demuxStream(stream, process.stdout, process.stderr);
         customTerminal(container);
       }
@@ -78,12 +77,13 @@ function customTerminal(container) {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
-      if (d.toString().trim() == "clocal storage stop") {
+      if (d.toString().trim() == "clocal storage-stop") {
         removeContainer();
         setTimeout(function() {
+          console.log("Storage container stopped");
           return process.exit(0);
         }, 5000);
-      } else if (d.toString().trim() == "clocal storage clear") {
+      } else if (d.toString().trim() == "clocal storage-clear") {
         clearFiles(container);
       } else {
         console.log("Invalid Command");
@@ -96,9 +96,6 @@ function removeContainer() {
   docker.listContainers(function(err, containers) {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
-      if (process.argv[2] == "storage") {
-        console.log("Storage container stopped");
-      }
     });
   });
 }
