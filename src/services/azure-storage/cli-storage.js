@@ -15,7 +15,7 @@ const action = () => {
     Azure Blob Storage Emulator listening on port http://localhost:9569
     Azure Queue Storage Emulator listening on port http://localhost:9570
     Azure Table Storage Emulator listening on port http://localhost:9571
-Enter \"clocal storage stop\" to stop service.`
+Enter \"clocal storage-stop\" to stop service.`
       )
     );
     const res = storage.start();
@@ -25,7 +25,7 @@ Enter \"clocal storage stop\" to stop service.`
 };
 
 module.exports = {
-  commandName: "storage start",
-  argument: "<path>",
+  commandName: "storage-start",
+  // argument: "<path>",
   action: action
 };
