@@ -25,12 +25,14 @@ _clocal-azure_ spins up the following core Cloud APIs on your local machine:
 * **Azure Queue Service** at http://localhost:9570
 * **Azure Table Service** at http://localhost:9571
 
+
 ## Developing
 
 Requirements \*
 
 * NodeJS (^8.9.4)
 * yarn (^1.6.0)
+* Docker
 
 ```
 1.  git clone https://github.com/cloudlibz/clocal-azure.git
@@ -47,3 +49,10 @@ Requirements \*
 ```
 4.  yarn dev <command>
 ```
+
+## Commands
+
+* **Azure Functions** : ```clocal function-start, clocal function-stop ```
+* **Azure Storage** : ```clocal storage-start, clocal storage-stop, clocal storage-clear```
+* **Azure CosmosDB** : ```clocal cosmosdb-start, clocal cosmosdb-stop```
+* **Azure API App Service** : ```clocal api-start <folder>/ <init-file>```
