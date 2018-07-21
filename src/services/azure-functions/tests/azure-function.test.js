@@ -1,65 +1,20 @@
-const request = require('supertest');
-const proxyquire = require('proxyquire').noPreserveCache();
-import test, { beforeEach, afterEach } from 'ava';
+import test, { beforeEach, afterEach } from "ava";
+import http from "ava-http";
+const functionUrl = "http://localhost:9574";
 
-let AzureFunction;
-
-beforeEach(() => {
-  AzureFunction = proxyquire(
-    './../azure-function',
-    {}
-  );
+test("Function port check", t => {
+  const res = http.get(functionUrl);
+  t.is(res.port, "9574");
 });
 
-test('get function', async t => {
-  const functionMock = {
-    getFunction: () => {
-      return Promise.resolve({});
-    },
-  };
-  const service = new AzureFunction(functionMock, {});
-  const res = await request(service.app).get(
-    '/'
-  );
-  t.is(res.status, 200);
+test("Function returns an object", t => {
+  const res = http.get(functionUrl);
+  t.true(typeof res === 'object');
+});
+
+test('Function response status', async t => {
+  const res = await http.getResponse(functionUrl);
+  t.is(res.statusCode, 200);
 });
 
 
-test('end point', async t => {
-  const functionMock = {
-    getFunction: () => {
-      return Promise.resolve({});
-    },
-  };
-  const service = new AzureFunction(functionMock, {});
-  const name = 'clocal';
-  const res = await request(service.app).get(
-    '/api/HttpTriggerJS?name="clocal"'
-  );
-    t.is(res.status, 200);
-})
-
-test('endpoint response', async t => {
-  const functionMock = {
-    getFunction: () => {
-      return Promise.resolve({});
-    },
-  };
-  const service = new AzureFunction(functionMock, {});
-  const name = 'clocal';
-  const res = await request(service.app).get(
-    '/api/HttpTriggerJS?name="clocal"'
-  );
-  t.is(res.text, `{"body":"Hello \\"clocal\\""}`)
-  t.is(res.body.body, `Hello "clocal"`)
-})
-
-test('port check', async t=>{
-  const functionMock = {
-    getFunction: () => {
-      return Promise.resolve({});
-    },
-  };
-  const service = new AzureFunction(functionMock, {});
-  t.is(service.port, 9574)
-})
