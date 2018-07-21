@@ -54,38 +54,38 @@ blobService.createContainerIfNotExists(container, error => {
 queueService.createQueueIfNotExists('myqueue', "Hello world!", function(error, results, response){
   if(!error){
     // Queue created or exists
-    console.log("Result is "+ results.created);
+    console.log("Queue result: "+ results.created);
     console.log(results);
   } else {
     console.log(error)
   }
 });
 
-// Remove queue
-queueService.deleteQueue('myqueue', function(error, response){
-  if(!error){
-    // Queue has been deleted
-    console.log(response)
-  }
-});
+// // Remove queue
+// queueService.deleteQueue('myqueue', function(error, response){
+//   if(!error){
+//     // Queue has been deleted
+//     console.log(response)
+//   }
+// });
 
 //Create Table
-tableService.createTable('mytable', function(error, result, response) {
+tableService.createTableIfNotExists('mytable', function(error, result, response) {
     if (!error) {
       // result contains true if created; false if already exists
-      console.dir(result.isSuccessful)
+      console.dir("Table Result: "+result.isSuccessful)
     } else {
       console.log(error)
     }
   });
 
-//Delete Table
-tableService.deleteTable('mytable', function(error, response){
-    if(!error){
-      // Table deleted
-       console.log(response)
-    } else {
-      console.log(error)
-    }
+// //Delete Table
+// tableService.deleteTable('mytable', function(error, response){
+//     if(!error){
+//       // Table deleted
+//        console.log(response)
+//     } else {
+//       console.log(error)
+//     }
 
-});
+// });

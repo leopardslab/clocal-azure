@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const stream = require('stream');
 
 let docker = new Docker({
   socketPath: "/var/run/docker.sock"
@@ -27,6 +28,8 @@ class AzureFunction extends CloudLocal {
         }
         container.start({}, function(err, data) {
           if (err) {
+            containerLogs(container);
+
             console.log(err);
             return;
           }
@@ -86,6 +89,33 @@ function removeContainer() {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
     });
+  });
+}
+
+function containerLogs(container) {
+
+  // create a single stream for stdin and stdout
+  var logStream = new stream.PassThrough();
+  logStream.on('data', function(chunk){
+    console.log(chunk.toString('utf8'));
+  });
+
+  container.logs({
+    follow: true,
+    stdout: true,
+    stderr: true
+  }, function(err, stream){
+    if(err) {
+      return logger.error(err.message);
+    }
+    container.modem.demuxStream(stream, logStream, logStream);
+    stream.on('end', function(){
+      logStream.end('!stop!');
+    });
+
+    setTimeout(function() {
+      stream.destroy();
+    }, 2000);
   });
 }
 
