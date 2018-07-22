@@ -9,12 +9,10 @@ test("API app port check", t => {
 
 test("API app returns an object", t => {
   const res = http.get(APIUrl);
-  t.true(typeof res === 'object');
+  t.true(typeof res === "object");
 });
 
-test('API app response status', async t => {
+test("API app response status", async t => {
   const res = await http.getResponse(APIUrl);
   t.is(res.statusCode, 200);
 });
-
-
