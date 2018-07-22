@@ -1,0 +1,12 @@
+version: '3'
+services:
+  azure-storage:
+    image: "arafato/azurite:latest"
+    ports:
+     - "9569:10000"
+     - "9570:10001"
+     - "9571:10002"
+  azure-functions:
+    image: "microsoft/azure-functions-node8:latest"
+    ports:
+     - "9574:80"

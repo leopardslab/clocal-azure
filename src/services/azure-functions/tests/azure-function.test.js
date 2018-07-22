@@ -9,12 +9,10 @@ test("Function port check", t => {
 
 test("Function returns an object", t => {
   const res = http.get(functionUrl);
-  t.true(typeof res === 'object');
+  t.true(typeof res === "object");
 });
 
-test('Function response status', async t => {
+test("Function response status", async t => {
   const res = await http.getResponse(functionUrl);
   t.is(res.statusCode, 200);
 });
-
-
