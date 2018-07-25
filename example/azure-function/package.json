@@ -1,8 +1,0 @@
-{
-	"name": "avatarfacedetection",
-	"version": "0.0.1",
-	"devDependencies": {
-		"request": "^2.81.0",
-		"uuid": "^3.0.1"
-	}
-}

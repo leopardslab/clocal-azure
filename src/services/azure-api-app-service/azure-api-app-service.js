@@ -25,8 +25,8 @@ class AzureApiAppService extends CloudLocal {
     if (process.argv[2] == "api-start") {
       this.app.use(
         swaggerize({
-          api: path.resolve(workingDir + folder + initFile),
-          handlers: path.resolve(workingDir + folder + "handlers"),
+          api: path.resolve(workingDir + folder + "/" + initFile),
+          handlers: path.resolve(workingDir + folder + "/" + "handlers"),
           docspath: "/swagger"
         })
       );

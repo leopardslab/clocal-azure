@@ -2,42 +2,91 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
-const stream = require('stream');
+const stream = require("stream");
 
 let docker = new Docker({
   socketPath: "/var/run/docker.sock"
 });
+let workingDir = "./example/azure-functions/";
+let initFile;
+let folder;
+
+if (process.argv[2] == "function-init") {
+  folder = process.argv[3];
+  initFile = process.argv[4];
+}
 
 class AzureFunction extends CloudLocal {
   start() {
-    docker.createContainer(
+    docker.buildImage(
+      workingDir + folder + "/" + initFile,
       {
-        Image: "microsoft/azure-functions-runtime:v2.0.0-beta1",
-        // name: 'clocal-azure-function',
-        Tty: true,
-        Cmd: ["/bin/sh"],
-        ExposedPorts: { "80/tcp": {} },
-        PortBindings: {
-          "80/tcp": [{ HostPort: "9574" }]
-        }
+        t: "azurefunctiondemo"
       },
-      function(err, container) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        container.start({}, function(err, data) {
-          if (err) {
-            containerLogs(container);
-
-            console.log(err);
-            return;
+      function(err, stream) {
+        console.log(err);
+        stream.pipe(
+          process.stdout,
+          {
+            end: true
           }
-          runExec(container);
+        );
+        stream.on("end", function() {
+          customTerminal();
         });
       }
     );
   }
+}
+
+function customTerminal(container) {
+  setTimeout(function() {
+    console.log("$ Clocal >");
+    let stdin = process.openStdin();
+    stdin.addListener("data", function(d) {
+      if (d.toString().trim() == "clocal function-start") {
+        startContainer();
+      } else if (d.toString().trim() == "clocal function-stop") {
+        removeContainer();
+        setTimeout(function() {
+          console.log("Functions container stopped");
+          return process.exit(0);
+        }, 5000);
+      } else {
+        console.log("Invalid Command");
+      }
+    });
+  }, 4000);
+}
+
+function startContainer() {
+  docker.createContainer(
+    {
+      Image: "azurefunctiondemo",
+      Tty: true,
+      Cmd: ["/bin/sh"],
+      ExposedPorts: { "80/tcp": {} },
+      PortBindings: {
+        "80/tcp": [{ HostPort: "9574" }]
+      }
+    },
+    function(err, container) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      container.start({}, function(err, data) {
+        if (err) {
+          containerLogs(container);
+
+          console.log(err);
+          return;
+        }
+        console.log("Starting azure function container");
+        runExec(container);
+      });
+    }
+  );
 }
 
 function runExec(container) {
@@ -65,25 +114,6 @@ function runExec(container) {
   });
 }
 
-
-function customTerminal(container) {
-  setTimeout(function() {
-    console.log("$ Clocal >");
-    let stdin = process.openStdin();
-    stdin.addListener("data", function(d) {
-      if (d.toString().trim() == "clocal function-stop") {
-        removeContainer();
-        setTimeout(function() {
-          console.log("Functions container stopped");
-          return process.exit(0);
-        }, 5000);
-      } else {
-        console.log("Invalid Command");
-      }
-    });
-  }, 4000);
-}
-
 function removeContainer() {
   docker.listContainers(function(err, containers) {
     containers.forEach(function(containerInfo) {
@@ -93,30 +123,32 @@ function removeContainer() {
 }
 
 function containerLogs(container) {
-
   // create a single stream for stdin and stdout
   var logStream = new stream.PassThrough();
-  logStream.on('data', function(chunk){
-    console.log(chunk.toString('utf8'));
+  logStream.on("data", function(chunk) {
+    console.log(chunk.toString("utf8"));
   });
 
-  container.logs({
-    follow: true,
-    stdout: true,
-    stderr: true
-  }, function(err, stream){
-    if(err) {
-      return logger.error(err.message);
+  container.logs(
+    {
+      follow: true,
+      stdout: true,
+      stderr: true
+    },
+    function(err, stream) {
+      if (err) {
+        return logger.error(err.message);
+      }
+      container.modem.demuxStream(stream, logStream, logStream);
+      stream.on("end", function() {
+        logStream.end("!stop!");
+      });
+
+      setTimeout(function() {
+        stream.destroy();
+      }, 2000);
     }
-    container.modem.demuxStream(stream, logStream, logStream);
-    stream.on('end', function(){
-      logStream.end('!stop!');
-    });
-
-    setTimeout(function() {
-      stream.destroy();
-    }, 2000);
-  });
+  );
 }
 
 module.exports = AzureFunction;

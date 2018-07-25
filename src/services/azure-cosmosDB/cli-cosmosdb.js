@@ -17,7 +17,5 @@ const action = () => {
 
 module.exports = {
   commandName: "cosmosdb-start",
-  // option:"-p, --path', 'Path for the file",
-  // argument: '<path>',
   action: action
 };
