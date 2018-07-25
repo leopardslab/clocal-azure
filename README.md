@@ -3,7 +3,6 @@
 ![[CLocal-Azure](https://github.com/cloudlibz/clocal-azure)](https://img.shields.io/badge/CLocal-Azure-blue.svg)
 [![Join the chat at https://gitter.im/cloudlibz/clocal-azure](https://badges.gitter.im/cloudlibz/clocal-azure.svg)](https://gitter.im/cloudlibz/clocal-azure?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Hackage-Deps](https://img.shields.io/hackage-deps/v/lens.svg)
 
 Emulation engine for Azure Services 
 
