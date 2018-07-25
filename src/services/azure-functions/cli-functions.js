@@ -34,6 +34,6 @@ const action = () => {
 };
 
 module.exports = {
-  commandName: "function-start",
+  commandName: "function-init",
   action: action
 };
