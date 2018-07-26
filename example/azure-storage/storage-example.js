@@ -8,9 +8,13 @@ const blobService = azure.createBlobService(devStoreCreds);
 const tableService = azure.createTableService(devStoreCreds);
 const queueService = azure.createQueueService(devStoreCreds);
 
-// blobService.logger.level = azure.Logger.LogLevels.DEBUG
-// tableService.logger.level = azure.Logger.LogLevels.DEBUG
-// queueService.logger.level = azure.Logger.LogLevels.DEBUG
+/*
+Use to debug the results
+
+blobService.logger.level = azure.Logger.LogLevels.DEBUG
+tableService.logger.level = azure.Logger.LogLevels.DEBUG
+queueService.logger.level = azure.Logger.LogLevels.DEBUG
+*/
 
 const container = 'taskcontainer';
 const task = 'taskblob';
