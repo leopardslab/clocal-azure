@@ -93,7 +93,7 @@ clocal storage-start
 ```
 * **Stop Storage**
 ```
-clocal storage-stop, 
+clocal storage-stop
 ```
 * **Clear all files created**
 ```
@@ -104,7 +104,7 @@ clocal storage-clear
 
 * **Start CosmosDB**
 ```
-clocal cosmosdb-start, 
+clocal cosmosdb-start
 ```
 * **Stop CosmosDB**
 ```
@@ -117,11 +117,16 @@ Azure API working directory is located in example/azure-api-service.
 You can create a folder inside the location and give the folder location.
 Then attach the init file where the service starting file.
 
-Example: ```clocal api-start example1 api.json```
+Example: ```clocal api-start api-sample api.json```
 
 ```
 clocal api-start <folder> <init-file>
 ```
+
+## Examples Documents
+
+* **[Azure Functions](./docs/azure-functions.md)**
+* **[Azure Storage](./docs/azure-storage.md)**
 
 ## Testing
 

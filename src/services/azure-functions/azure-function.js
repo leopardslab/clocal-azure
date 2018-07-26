@@ -3,6 +3,7 @@
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 const stream = require("stream");
+const chalk = require("chalk");
 
 let docker = new Docker({
   socketPath: "/var/run/docker.sock"
@@ -19,7 +20,7 @@ if (process.argv[2] == "function-init") {
 class AzureFunction extends CloudLocal {
   start() {
     docker.buildImage(
-      workingDir + folder + "/" + initFile,
+      workingDir+folder+'/'+initFile,
       {
         t: "azurefunctiondemo"
       },
@@ -83,6 +84,25 @@ function startContainer() {
           return;
         }
         console.log("Starting azure function container");
+        console.log(
+          chalk.blueBright(
+            `
+                      %%%%%%
+                     %%%%%%
+                @   %%%%%%    @
+              @@   %%%%%%      @@
+           @@@    %%%%%%%%%%%    @@@
+         @@      %%%%%%%%%%        @@
+           @@         %%%%       @@
+             @@      %%%       @@
+               @@    %%      @@
+                    %%
+                    %
+    
+        \nNow listening on: http://localhost:9574` +
+              ` Clocal function-stop to shut down.\nNote: Currently HTTP Trigger functions working.`
+          )
+        );
         runExec(container);
       });
     }

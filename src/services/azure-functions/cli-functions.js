@@ -9,25 +9,7 @@ const functions = new AzureFunction();
 const action = () => {
   try {
     const res = functions.start();
-    console.log(
-      chalk.blueBright(
-        `
-                  %%%%%%
-                 %%%%%%
-            @   %%%%%%    @
-          @@   %%%%%%      @@
-       @@@    %%%%%%%%%%%    @@@
-     @@      %%%%%%%%%%        @@
-       @@         %%%%       @@
-         @@      %%%       @@
-           @@    %%      @@
-                %%
-                %
-
-    \nNow listening on: http://localhost:9574` +
-          ` Press Ctrl+C to shut down.\nNote: Currently HTTP Trigger functions working.`
-      )
-    );
+   
   } catch (err) {
     console.log(chalk.blueBright.bgRed(err));
   }
