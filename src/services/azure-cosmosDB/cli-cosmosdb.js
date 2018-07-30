@@ -8,7 +8,7 @@ const cosmosdb = new AzureCosmosDB();
 
 const action = () => {
   try {
-    console.log(chalk.blueBright("starting azure cosmosDB ..."));
+    console.log(chalk.blueBright("Starting Azure Cosmos DB ..."));
     const res = cosmosdb.start();
   } catch (err) {
     console.log(chalk.blueBright.bgRed(err));

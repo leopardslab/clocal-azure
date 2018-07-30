@@ -4,7 +4,7 @@ const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 
 let docker = new Docker({
-   socketPath: "//./pipe/docker_engine"
+  socketPath: "//./pipe/docker_engine"
 });
 
 class AzureCosmosDB extends CloudLocal {
@@ -14,12 +14,11 @@ class AzureCosmosDB extends CloudLocal {
    */
   start() {
     docker.buildImage(
-      "./src/services/azure-cosmosdb/azure-cosmosdb-image.tar",
+      "./src/services/azure-cosmosdb/cosmosdb-image/cosmosdb-image.tar",
       {
         t: "azure-cosmosdb"
       },
       function(err, stream) {
-        console.log(err);
         stream.pipe(
           process.stdout,
           {
@@ -33,7 +32,6 @@ class AzureCosmosDB extends CloudLocal {
     );
   }
 }
-
 
 function customTerminal(container) {
   setTimeout(function() {
@@ -55,10 +53,9 @@ function customTerminal(container) {
   }, 4000);
 }
 
-function startContainer(){
+function startContainer() {
   docker.createContainer(
     {
-      // Image: "microsoft/azure-cosmosdb-emulator",
       Image: "azure-cosmosdb",
       Tty: true,
       AttachStderr: true,
@@ -70,14 +67,23 @@ function startContainer(){
         Memory: 2048
       },
       Cmd: ["cmd"],
+      ExposedPorts: {
+        "8081/tcp": {},
+        "10250/tcp": {},
+        "10250/tcp": {},
+        "10251/tcp": {},
+        "10252/tcp": {},
+        "10253/tcp": {},
+        "10254/tcp": {}
+      },
       HostConfig: {
         PortBindings: {
-          "8081/tcp": [{HostPort: "9500"}],
-          "10250/tcp": [{HostPort: "9502"}],
-          "10251/tcp": [{HostPort: "9503"}],
-          "10252/tcp": [{HostPort: "9504"}],
-          "10253/tcp": [{HostPort: "9505"}],
-          "10254/tcp": [{HostPort: "9506"}]
+          "8081/tcp": [{ HostPort: "9500" }],
+          "10250/tcp": [{ HostPort: "9502" }],
+          "10251/tcp": [{ HostPort: "9503" }],
+          "10252/tcp": [{ HostPort: "9504" }],
+          "10253/tcp": [{ HostPort: "9505" }],
+          "10254/tcp": [{ HostPort: "9506" }]
         }
       }
     },
@@ -91,9 +97,6 @@ function startContainer(){
           console.log(err);
           return;
         }
-        container.inspect(function(err, data) {
-          console.log(data);
-        });
         runExec(container);
       });
     }
@@ -110,7 +113,6 @@ function runExec(container) {
     StdinOnce: true,
     Tty: true
   };
-
   container.exec(options, function(err, exec) {
     if (err) {
       console.log(err);
