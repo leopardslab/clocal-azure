@@ -16,6 +16,6 @@ const action = () => {
 };
 
 module.exports = {
-  commandName: "cosmosdb-start",
+  commandName: "cosmosdb-init",
   action: action
 };
