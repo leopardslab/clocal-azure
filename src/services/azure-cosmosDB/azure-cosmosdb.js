@@ -4,9 +4,7 @@ const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 
 let docker = new Docker({
-  // socketPath: "//./pipe/docker_engine"
-  socketPath: "/var/run/docker.sock"
-
+   socketPath: "//./pipe/docker_engine"
 });
 
 class AzureCosmosDB extends CloudLocal {
