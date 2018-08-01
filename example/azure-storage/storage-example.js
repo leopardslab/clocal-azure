@@ -65,14 +65,6 @@ queueService.createQueueIfNotExists('myqueue', "Hello world!", function(error, r
   }
 });
 
-// // Remove queue
-// queueService.deleteQueue('myqueue', function(error, response){
-//   if(!error){
-//     // Queue has been deleted
-//     console.log(response)
-//   }
-// });
-
 //Create Table
 tableService.createTableIfNotExists('mytable', function(error, result, response) {
     if (!error) {
@@ -82,6 +74,14 @@ tableService.createTableIfNotExists('mytable', function(error, result, response)
       console.log(error)
     }
   });
+
+// // Remove queue
+// queueService.deleteQueue('myqueue', function(error, response){
+//   if(!error){
+//     // Queue has been deleted
+//     console.log(response)
+//   }
+// });
 
 // //Delete Table
 // tableService.deleteTable('mytable', function(error, response){
