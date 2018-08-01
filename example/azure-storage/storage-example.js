@@ -65,8 +65,7 @@ queueService.createQueueIfNotExists('myqueue', "Hello world!", function(error, r
   }
 });
 
-//Create Table
-tableService.createTableIfNotExists('mytable', function(error, result, response) {
+tableService.createTable('tablesample', function(error, result, response) {
     if (!error) {
       // result contains true if created; false if already exists
       console.dir("Table Result: "+result.isSuccessful)
@@ -83,7 +82,7 @@ tableService.createTableIfNotExists('mytable', function(error, result, response)
 //   }
 // });
 
-// //Delete Table
+//Delete Table
 // tableService.deleteTable('mytable', function(error, response){
 //     if(!error){
 //       // Table deleted
