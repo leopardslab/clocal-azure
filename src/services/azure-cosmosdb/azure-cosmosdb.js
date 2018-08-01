@@ -4,9 +4,13 @@ const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 
 let docker = new Docker({
-  // socketPath: "//./pipe/docker_engine"
-  socketPath: "/var/run/docker.sock"
+  //Windows
+  socketPath: "//./pipe/docker_engine"
 
+  /*
+  Linux
+  socketPath: "/var/run/docker.sock"
+  */
 });
 
 class AzureCosmosDB extends CloudLocal {
@@ -16,12 +20,12 @@ class AzureCosmosDB extends CloudLocal {
    */
   start() {
     docker.buildImage(
-      "./cosmosdb-image.tar",
+      "./src/services/azure-cosmosdb/cosmosdb-image/cosmosdb-image.tar",
       {
         t: "azure-cosmosdb"
       },
       function(err, stream) {
-        console.log(err)
+        console.log(err);
         stream.pipe(
           process.stdout,
           {
@@ -127,7 +131,6 @@ function runExec(container) {
         return;
       }
       container.modem.demuxStream(stream, process.stdout, process.stderr);
-      
     });
   });
 }
