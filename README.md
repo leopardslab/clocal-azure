@@ -19,7 +19,7 @@ _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 ## Services & Ports
 * **Azure Functions** at http://localhost:9574
 * **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
-* **Azure CosmosDB** at http://localhost:9581
+* **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
 * **Azure API App Service** at http://localhost:9567
 
 ## Getting Started
@@ -102,7 +102,13 @@ clocal storage-stop
 clocal storage-clear
 ```
 
-### Azure CosmosDB 
+### Azure CosmosDB (Only Windows Supported)
+
+* **Init CosmosDB**
+```
+clocal cosmosdb-init
+```
+This will create the in-built image on the TAR file of the Cosmos DB emulator and will be on ready state to start the container.
 
 * **Start CosmosDB**
 ```
@@ -129,6 +135,7 @@ clocal api-start <folder> <init-file>
 
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
+* **[Azure CosmosDB](./docs/azure-cosmosdb.md)**
 
 ## Testing
 
