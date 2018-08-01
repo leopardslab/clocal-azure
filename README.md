@@ -49,7 +49,7 @@ yarn
 
 Step 4: Run the commands via following method
 ```
-yarn dev <command> 
+yarn start <command> 
 ```
 or
 ```
