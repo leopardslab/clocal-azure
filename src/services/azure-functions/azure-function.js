@@ -28,7 +28,7 @@ class AzureFunction extends CloudLocal {
     docker.buildImage(
       tarStream,
       {
-        t: "azurefunctiondemo"
+        t: "azure-functions-image"
       },
       function(err, stream) {
         stream.pipe(
@@ -66,7 +66,7 @@ function customTerminal(container) {
 function startContainer() {
   docker.createContainer(
     {
-      Image: "azurefunctiondemo",
+      Image: "azure-functions-image",
       Tty: true,
       Cmd: ["/bin/sh"],
       ExposedPorts: { "80/tcp": {} },
@@ -81,8 +81,6 @@ function startContainer() {
       }
       container.start({}, function(err, data) {
         if (err) {
-          containerLogs(container);
-
           console.log(err);
           return;
         }
@@ -114,9 +112,13 @@ function startContainer() {
 
 function runExec(container) {
   let options = {
-    Cmd: ["/bin/sh"],
+    Cmd: ["sh"],
+    AttachStderr: true,
     AttachStdout: true,
-    AttachStderr: true
+    AttachStdin: true,
+    OpenStdin: true,
+    StdinOnce: true,
+    Tty: true
   };
 
   container.exec(options, function(err, exec) {

@@ -23,7 +23,7 @@ class AzureCosmosDB extends CloudLocal {
     docker.buildImage(
       tarStream,
       {
-        t: "azure-cosmosdb"
+        t: "azure-cosmosdb-image"
       },
       function(err, stream) {
         stream.pipe(
@@ -54,18 +54,6 @@ function customTerminal(container) {
       } else {
         console.log("Invalid Command");
       }
-
-      // if (d.toString().trim() == "clocal cosmosdb-start") {
-      //   startContainer();
-      // } else if (d.toString().trim() == "clocal cosmosdb-stop") {
-      //   removeContainer();
-      //   setTimeout(function() {
-      //     console.log("CosmosDB container stopped");
-      //     return process.exit(0);
-      //   }, 5000);
-      // } else {
-      //   console.log("Invalid Command");
-      // }
     });
   }, 4000);
 }
@@ -126,8 +114,6 @@ function runExec(container) {
     AttachStderr: true,
     AttachStdout: true,
     AttachStdin: true,
-    OpenStdin: true,
-    StdinOnce: true,
     Tty: true
   };
   container.exec(options, function(err, exec) {
