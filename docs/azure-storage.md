@@ -13,7 +13,9 @@ Azure storage comprises of three main services. Blob storage, queue storage and 
 
 Make a node project first, which is given in the example/azure-storage folder.
 
-```npm init --yes```
+```
+npm init --yes
+```
 
 ## Step 2:
 
@@ -31,7 +33,9 @@ $ az storage container create --name 'test' --connection-string 'DefaultEndpoint
 
 Pull the docker image
 
-```docker pull arafato/azurite```
+```
+docker pull arafato/azurite
+```
 
 ## Step 4: 
 
@@ -55,6 +59,7 @@ clocal storage-stop
 ```
 clocal storage-clear
 ```
+
 ## Step 6:
 
 Go to the project you have created using azure storage. And start the project.

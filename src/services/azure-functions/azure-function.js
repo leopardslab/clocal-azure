@@ -4,23 +4,25 @@ const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 const stream = require("stream");
 const chalk = require("chalk");
+const tar = require("tar-fs");
 
 let docker = new Docker({
   socketPath: "/var/run/docker.sock"
 });
+
 let workingDir = "./example/azure-functions/";
-let initFile;
 let folder;
 
 if (process.argv[2] == "function-init") {
   folder = process.argv[3];
-  initFile = process.argv[4];
 }
 
 class AzureFunction extends CloudLocal {
   start() {
+    let tarStream = tar.pack(workingDir + folder);
+
     docker.buildImage(
-      workingDir+folder+'/'+initFile,
+      tarStream,
       {
         t: "azurefunctiondemo"
       },
