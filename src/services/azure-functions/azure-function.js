@@ -17,17 +17,20 @@ if (process.argv[2] == "function-init") {
   folder = process.argv[3];
 }
 
+let commandHandlers = {
+  "clocal function-start": startContainer,
+  "clocal function-stop": removeContainer
+};
+
 class AzureFunction extends CloudLocal {
   start() {
     let tarStream = tar.pack(workingDir + folder);
-
     docker.buildImage(
       tarStream,
       {
         t: "azurefunctiondemo"
       },
       function(err, stream) {
-        console.log(err);
         stream.pipe(
           process.stdout,
           {
@@ -47,14 +50,12 @@ function customTerminal(container) {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
-      if (d.toString().trim() == "clocal function-start") {
-        startContainer();
-      } else if (d.toString().trim() == "clocal function-stop") {
-        removeContainer();
-        setTimeout(function() {
-          console.log("Functions container stopped");
-          return process.exit(0);
-        }, 5000);
+      let inputService = d.toString().trim();
+      if (
+        inputService == "clocal function-start" ||
+        inputService == "clocal function-stop"
+      ) {
+        commandHandlers[inputService](container);
       } else {
         console.log("Invalid Command");
       }
@@ -101,7 +102,7 @@ function startContainer() {
                     %%
                     %
     
-        \nNow listening on: http://localhost:9574` +
+          \nNow listening on: http://localhost:9574` +
               ` Clocal function-stop to shut down.\nNote: Currently HTTP Trigger functions working.`
           )
         );
@@ -113,7 +114,7 @@ function startContainer() {
 
 function runExec(container) {
   let options = {
-    Cmd: ["sh", "-c", "cp /grpc/libs/opt/libgrpc_csharp_ext.so.1.12.1 /output"],
+    Cmd: ["/bin/sh"],
     AttachStdout: true,
     AttachStderr: true
   };
@@ -128,10 +129,7 @@ function runExec(container) {
         console.log(err);
         return;
       }
-      if (process.argv[2] == "function-start") {
-        container.modem.demuxStream(stream, process.stdout, process.stderr);
-        customTerminal(container);
-      }
+      container.modem.demuxStream(stream, process.stdout, process.stderr);
     });
   });
 }
@@ -140,37 +138,12 @@ function removeContainer() {
   docker.listContainers(function(err, containers) {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
+      setTimeout(function() {
+        console.log("Functions container stopped");
+        return process.exit(0);
+      }, 5000);
     });
   });
-}
-
-function containerLogs(container) {
-  // create a single stream for stdin and stdout
-  var logStream = new stream.PassThrough();
-  logStream.on("data", function(chunk) {
-    console.log(chunk.toString("utf8"));
-  });
-
-  container.logs(
-    {
-      follow: true,
-      stdout: true,
-      stderr: true
-    },
-    function(err, stream) {
-      if (err) {
-        return logger.error(err.message);
-      }
-      container.modem.demuxStream(stream, logStream, logStream);
-      stream.on("end", function() {
-        logStream.end("!stop!");
-      });
-
-      setTimeout(function() {
-        stream.destroy();
-      }, 2000);
-    }
-  );
 }
 
 module.exports = AzureFunction;

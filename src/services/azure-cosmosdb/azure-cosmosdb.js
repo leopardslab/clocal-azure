@@ -5,12 +5,13 @@ const Docker = require("dockerode");
 const tar = require("tar-fs");
 
 let docker = new Docker({
-  /* Windows */
   socketPath: "//./pipe/docker_engine"
-
-  /* Linux */
-  // socketPath: "/var/run/docker.sock"
 });
+
+let commandHandlers = {
+  "clocal cosmosdb-start": startContainer,
+  "clocal cosmosdb-stop": removeContainer
+};
 
 class AzureCosmosDB extends CloudLocal {
   /**
@@ -44,17 +45,27 @@ function customTerminal(container) {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
-      if (d.toString().trim() == "clocal cosmosdb-start") {
-        startContainer();
-      } else if (d.toString().trim() == "clocal cosmosdb-stop") {
-        removeContainer();
-        setTimeout(function() {
-          console.log("CosmosDB container stopped");
-          return process.exit(0);
-        }, 5000);
+      let inputService = d.toString().trim();
+      if (
+        inputService == "clocal cosmosdb-start" ||
+        inputService == "clocal cosmosdb-stop"
+      ) {
+        commandHandlers[inputService](container);
       } else {
         console.log("Invalid Command");
       }
+
+      // if (d.toString().trim() == "clocal cosmosdb-start") {
+      //   startContainer();
+      // } else if (d.toString().trim() == "clocal cosmosdb-stop") {
+      //   removeContainer();
+      //   setTimeout(function() {
+      //     console.log("CosmosDB container stopped");
+      //     return process.exit(0);
+      //   }, 5000);
+      // } else {
+      //   console.log("Invalid Command");
+      // }
     });
   }, 4000);
 }
@@ -138,6 +149,10 @@ function removeContainer() {
   docker.listContainers(function(err, containers) {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
+      setTimeout(function() {
+        console.log("Cosmos DB container stopped");
+        return process.exit(0);
+      }, 5000);
     });
   });
 }
