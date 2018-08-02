@@ -8,7 +8,10 @@ let docker = new Docker({
 });
 
 // let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
-// commandHandlers[inputService][inputOperation](param);
+let commandHandlers = {
+  "clocal storage-clear": clearFiles,
+  "clocal storage-stop": removeContainer
+};
 
 class AzureStorage extends CloudLocal {
   /**
@@ -20,7 +23,6 @@ class AzureStorage extends CloudLocal {
     docker.createContainer(
       {
         Image: "arafato/azurite",
-        // name: 'clocal-azure-storage',
         Tty: true,
         Cmd: ["/bin/sh"],
         ExposedPorts: { "10000/tcp": {}, "10001/tcp": {}, "10002/tcp": {} },
@@ -77,14 +79,12 @@ function customTerminal(container) {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
-      if (d.toString().trim() == "clocal storage-stop") {
-        removeContainer();
-        setTimeout(function() {
-          console.log("Storage container stopped");
-          return process.exit(0);
-        }, 5000);
-      } else if (d.toString().trim() == "clocal storage-clear") {
-        clearFiles(container);
+      let inputService = d.toString().trim();
+      if (
+        inputService == "clocal storage-stop" ||
+        inputService == "clocal storage-clear"
+      ) {
+        commandHandlers[inputService](container);
       } else {
         console.log("Invalid Command");
       }
@@ -96,6 +96,10 @@ function removeContainer() {
   docker.listContainers(function(err, containers) {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
+      setTimeout(function() {
+        console.log("Storage container stopped");
+        return process.exit(0);
+      }, 5000);
     });
   });
 }

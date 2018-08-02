@@ -136,6 +136,10 @@ clocal api-start <folder> <init-file>
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
 
+## Demo Video Series
+
+* **[Video Playlist](https://www.youtube.com/watch?v=rpUJ44D_7Tk&list=PLbd4A5tkijhDGRQp6BcrwGhRvS0TU8zhQ)**
+
 ## Testing
 
 ```
