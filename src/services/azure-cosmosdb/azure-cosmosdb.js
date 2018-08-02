@@ -2,15 +2,14 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const tar = require("tar-fs");
 
 let docker = new Docker({
-  //Windows
+  /* Windows */
   socketPath: "//./pipe/docker_engine"
 
-  /*
-  Linux
-  socketPath: "/var/run/docker.sock"
-  */
+  /* Linux */
+  // socketPath: "/var/run/docker.sock"
 });
 
 class AzureCosmosDB extends CloudLocal {
@@ -19,13 +18,13 @@ class AzureCosmosDB extends CloudLocal {
    * @param container
    */
   start() {
+    let tarStream = tar.pack("./src/services/azure-cosmosdb/cosmosdb-image");
     docker.buildImage(
-      "./src/services/azure-cosmosdb/cosmosdb-image/cosmosdb-image.tar",
+      tarStream,
       {
         t: "azure-cosmosdb"
       },
       function(err, stream) {
-        console.log(err);
         stream.pipe(
           process.stdout,
           {

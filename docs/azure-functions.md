@@ -19,7 +19,7 @@ After installing the pre requisities, you need to create a project in the above 
 
 With the above command, you will be creating a functions project. Then at the end we will be providing a "--docker" in order to create a Dockerfile along with the initial stage.
 
-In MacOS, this wasn't working for some reason, if so create a dockerfile after initializing the project.
+If Dockerfile is not created, create the file as below. 
 
 ### DockerFile
 
@@ -46,42 +46,24 @@ Change the authLevel to "anonymous".
 
 ## Step 4: 
 
-Create a .tar file for the azure function project.
-
-Go to the project directory where Dockerfile is placed.
-
-MacOS: 
-
-From the Terminal, you can simply do this:
-```tar czf archive_folder_name.tar folder_to_copy```
-Replace the archive_folder_name.tar with your own init file name.
-Place the folder_to_copy to the folder you want to add (which is your project directory).
-
-Example:
-```tar czf function-sample.tar ./```
-
-Windows:
-Use some tool such as [7ZIP](https://www.7-zip.org)
-
-## Step 5: 
-
 Pull the docker image
 
-```docker pull microsoft/azure-functions-node8```
+```
+docker pull microsoft/azure-functions-node8
+```
 
-## Step 6: 
+## Step 5: 
 
 Go to project terminal and init the file
 
 * **Init Functions**
 ```
-clocal function-init <folder> <init-file>
+clocal function-init <folder>
 ```
 Azure functions working directory is located in example/azure-functions.
 You can create a folder inside the location and give the folder location.
 Then attach the init file where the service starting file.
-
-Example: ```clocal function-init function-sample function-sample.tar```
+Example: ```clocal function-init function-sample```
 
 * **Start Functions**
 ```

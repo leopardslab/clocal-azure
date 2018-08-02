@@ -69,13 +69,12 @@ docker-compose up
 
 * **Init Functions**
 ```
-clocal function-init <folder> <init-file>
+clocal function-init <folder>
 ```
 Azure functions working directory is located in example/azure-functions.
 You can create a folder inside the location and give the folder location.
 Then attach the init file where the service starting file.
-
-Example: ```clocal function-init function-sample function-sample.tar```
+Example: ```clocal function-init function-sample```
 
 * **Start Functions**
 ```
@@ -108,7 +107,7 @@ clocal storage-clear
 ```
 clocal cosmosdb-init
 ```
-This will create the in-built image on the TAR file of the Cosmos DB emulator and will be on ready state to start the container.
+This will create the in-built image of the Cosmos DB emulator and will be on ready state to start the container.
 
 * **Start CosmosDB**
 ```
@@ -135,7 +134,7 @@ clocal api-start <folder> <init-file>
 
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
-* **[Azure CosmosDB](./docs/azure-cosmosdb.md)**
+* **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
 
 ## Testing
 

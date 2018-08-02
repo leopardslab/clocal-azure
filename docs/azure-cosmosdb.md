@@ -1,4 +1,4 @@
-# Azure CosmosDB Example (Only Windows Supported)
+# Azure Cosmos DB Example (Only Windows Supported)
 
 ## Pre Requisites 
 
@@ -35,7 +35,7 @@ clocal cosmosdb-start
 After starting the container, navigate to the Host URL given in the terminal. 
 For an example: https://172.19.85.204:8081/_explorer/index.html
 
-You will be able to see the home page of the CosmosDB emulator.
+You will be able to see the home page of the Cosmos DB emulator.
 
 
 ![CosmosDB-Result1](./../src/assets/cosmosdb-result1.png)
@@ -55,7 +55,7 @@ and
 
 ![CosmosDB-Result3](./../src/assets/cosmosdb-result3.png)
 
-* **Stop CosmosDB**
+* **Stop Cosmos DB**
 ```
 clocal cosmosdb-stop
 ```
