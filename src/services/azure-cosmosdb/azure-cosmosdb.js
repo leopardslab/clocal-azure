@@ -61,7 +61,7 @@ function customTerminal(container) {
 function startContainer() {
   docker.createContainer(
     {
-      Image: "azure-cosmosdb",
+      Image: "azure-cosmosdb-image",
       Tty: true,
       AttachStderr: true,
       AttachStdout: true,

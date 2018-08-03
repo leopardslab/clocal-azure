@@ -10,12 +10,12 @@ services:
     image: "azurefunctiondemo"
     ports:
      - "9574:80"
-  cosmosdb:
-    image: "azure-cosmosdb"
-    ports:
-      - "9500:8081"
-      - "9502:10250"
-      - "9503:10251"
-      - "9504:10252"
-      - "9505:10253"
-      - "9506:10254"
+  # cosmosdb:
+  #   image: "azure-cosmosdb"
+  #   ports:
+  #     - "9500:8081"
+  #     - "9502:10250"
+  #     - "9503:10251"
+  #     - "9504:10252"
+  #     - "9505:10253"
+  #     - "9506:10254"
