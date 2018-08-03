@@ -124,7 +124,7 @@ Azure API working directory is located in example/azure-api-service.
 You can create a folder inside the location and give the folder location.
 Then attach the init file where the service starting file.
 
-Example: ```clocal api-start api-sample api.json```
+Example: ```clocal api-start ./ api.json```
 
 ```
 clocal api-start <folder> <init-file>

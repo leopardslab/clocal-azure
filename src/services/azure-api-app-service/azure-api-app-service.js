@@ -5,7 +5,7 @@ let bodyParser = require("body-parser");
 let swaggerize = require("swaggerize-express");
 let swaggerUi = require("swaggerize-ui");
 let path = require("path");
-let workingDir = "./example/azure-api-service/";
+let workingDir = "./example/azure-api-app-service/";
 let initFile;
 let folder;
 // let workingDir = "../../example/azure-api-service/"
