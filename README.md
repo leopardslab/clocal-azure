@@ -146,5 +146,16 @@ clocal api-start <folder> <init-file>
 yarn test
 ```
 
+## Contributing
+
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./LICENSE) file for details
+
+## Acknowledgments
+
+clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [@rehrumesh](https://github.com/rehrumesh), [@lasitha-petthawadu](https://github.com/lasitha-petthawadu) and [@rajikaimal](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
 
 
