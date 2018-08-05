@@ -7,15 +7,23 @@ services:
      - "9570:10001"
      - "9571:10002"
   functions:
-    image: "azurefunctiondemo"
+    build: ./example/azure-functions/function-sample
+    image: "azure-functions-image"
     ports:
      - "9574:80"
+  api-app:
+    build: ./src/services/azure-api-app-service/Image/ContactList
+    image: "azure-api-app-image"
+    ports: 
+     - "9567:9000"
+     
+  # Uncomment if your using windows OS 
   # cosmosdb:
-  #   image: "azure-cosmosdb"
+  #   image: "azure-cosmosdb-image"
   #   ports:
   #     - "9500:8081"
   #     - "9502:10250"
   #     - "9503:10251"
   #     - "9504:10252"
-  #     - "9505:10253"
+  #     - "9505:10253"n
   #     - "9506:10254"

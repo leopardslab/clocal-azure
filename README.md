@@ -61,11 +61,24 @@ clocal <command>
 ### All Services at once
 
 Go to root folder where docker compose file is located.
+
+Step 1: Build images in the local repository.
+```
+docker-compose build
+```
+
+Step 2: Run all services
 ```
 docker-compose up
 ```
 
-### Azure Functions 
+OR
+
+```
+docker-compose build & docker-compose up
+```
+
+### Azure Functions
 
 * **Init Functions**
 ```
@@ -130,7 +143,7 @@ Example: ```clocal api-start ./ api.json```
 clocal api-start <folder> <init-file>
 ```
 
-## Examples Documents
+## Example Documents
 
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
