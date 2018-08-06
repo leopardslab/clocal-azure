@@ -60,23 +60,14 @@ clocal <command>
 
 ### All Services at once
 
-Go to root folder where docker compose file is located.
+Step 1: Go to ```command.env``` file and specify the path to create the images for *azure functions* and *azure api app service* and *azure cosmosdb*.
 
-Step 1: Build images in the local repository.
+Step 2: Run the shell script below.
 ```
-docker-compose build
+sh compose.sh
 ```
+![Compose-Result](./../src/assets/compose-result.png)
 
-Step 2: Run all services
-```
-docker-compose up
-```
-
-OR
-
-```
-docker-compose build & docker-compose up
-```
 
 ### Azure Functions
 
