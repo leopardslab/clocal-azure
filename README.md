@@ -66,7 +66,7 @@ Step 2: Run the shell script below.
 ```
 sh compose.sh
 ```
-![Compose-Result](./../src/assets/compose-result.png)
+![Compose-Result](./src/assets/compose-result.png)
 
 
 ### Azure Functions
