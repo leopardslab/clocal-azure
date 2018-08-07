@@ -1,28 +1,24 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const program = require('commander');
+const program = require("commander");
 
-const commandsArray = require('../services/index').commands;
+const commandsArray = require("../services/index").commands;
 
-program.version('1.0.0', '-v, --version').description('CLocal Azure');
+program.version("1.0.0", "-v, --version").description("CLocal Azure");
 
 const commandNameList = [];
 
 commandsArray.map(command => {
   commandNameList.push(command.commandName);
-  program.command(command.commandName)
-  // .option(command.option)
-  // .arguments(command.argument)
-  .action(command.action);
-
+  program.command(command.commandName).action(command.action);
 });
 
-program.command('list').action(() => {
+program.command("list").action(() => {
   const commandNames = commandNameList.reduce((prev, current) => {
     return `${prev}\n${current}`;
-  }, '');
+  }, "");
   console.log(commandNameList.toString());
 });
 

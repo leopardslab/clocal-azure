@@ -5,7 +5,7 @@
   "main": "./src/bin/clocal-azure.js",
   "scripts": {
     "start": "node src/bin/clocal-azure",
-    "start-prod": "node src/core/mock-function",
+    "service": "sh compose.sh",
     "dev": "nodemon src/bin/clocal-azure",
     "test": "node_modules/.bin/ava src/services/**/tests/*.test.js --verbose",
     "test:watch": "node_modules/.bin/ava --verbose --watch",
