@@ -66,6 +66,10 @@ Step 2: Run the shell script below.
 ```
 sh compose.sh
 ```
+or
+```
+yarn service
+```
 ![Compose-Result](./src/assets/compose-result.png)
 
 
