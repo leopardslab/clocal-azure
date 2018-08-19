@@ -1,20 +1,20 @@
 // Todo App
-var DocumentDBClient = require('documentdb').DocumentClient;
-var config = require('./config');
-var TaskList = require('./routes/tasklist');
-var TaskDao = require('./models/taskDao');
+const DocumentDBClient = require('documentdb').DocumentClient;
+let config = require('./config');
+let TaskList = require('./routes/tasklist');
+let TaskDao = require('./models/taskDao');
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+let routes = require('./routes/index');
+let users = require('./routes/users');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,11 +29,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Todo App
-var docDbClient = new DocumentDBClient(config.host, {
+let docDbClient = new DocumentDBClient(config.host, {
     masterKey: config.authKey
 });
-var taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
-var taskList = new TaskList(taskDao);
+let taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
+let taskList = new TaskList(taskDao);
 taskDao.init(function(err) { if(err) throw err; });
 
 app.get('/', taskList.showTasks.bind(taskList));
@@ -42,7 +42,7 @@ app.post('/completetask', taskList.completeTask.bind(taskList));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

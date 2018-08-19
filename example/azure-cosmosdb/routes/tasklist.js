@@ -1,5 +1,5 @@
-var DocumentDBClient = require('documentdb').DocumentClient;
-var async = require('async');
+let DocumentDBClient = require('documentdb').DocumentClient;
+const async = require('async');
 
 function TaskList(taskDao) {
   this.taskDao = taskDao;
@@ -7,9 +7,9 @@ function TaskList(taskDao) {
 
 TaskList.prototype = {
   showTasks: function(req, res) {
-    var self = this;
+    let self = this;
 
-    var querySpec = {
+    let querySpec = {
       query: 'SELECT * FROM root r WHERE r.completed=@completed',
       parameters: [{
         name: '@completed',
@@ -30,8 +30,8 @@ TaskList.prototype = {
   },
 
   addTask: function(req, res) {
-    var self = this;
-    var item = req.body;
+    let self = this;
+    let item = req.body;
 
     self.taskDao.addItem(item, function(err) {
       if (err) {
@@ -43,8 +43,8 @@ TaskList.prototype = {
   },
 
   completeTask: function(req, res) {
-    var self = this;
-    var completedTasks = Object.keys(req.body);
+    let self = this;
+    let completedTasks = Object.keys(req.body);
 
     async.forEach(completedTasks, function taskIterator(completedTask, callback) {
       self.taskDao.updateItem(completedTask, function(err) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var test = require('tape'),
+const test = require('tape'),
     path = require('path'),
     express = require('express'),
     enjoi = require('enjoi'),
@@ -8,7 +8,7 @@ var test = require('tape'),
     request = require('supertest');
 
 test('api', function (t) {
-    var app = express();
+    let app = express();
 
     
 
@@ -20,7 +20,7 @@ test('api', function (t) {
     
     t.test('test get /contacts/{id}', function (t) {
         
-        var responseSchema = enjoi({
+        let responseSchema = enjoi({
             'type': "array", 
             'items': {"$ref":"#/definitions/Contacts"}
         }, {

@@ -1,17 +1,17 @@
 'use strict';
 
-var port = process.env.PORT || 9000; // first change
+let port = process.env.PORT || 9000; // first change
 
-var http = require('http');
-var express = require('express');
-var bodyParser = require('body-parser');
-var swaggerize = require('swaggerize-express');
-var swaggerUi = require('swaggerize-ui'); // second change
-var path = require('path');
+const http = require('http');
+const express = require('express');
+const bodyParser = require('body-parser');
+const swaggerize = require('swaggerize-express');
+const swaggerUi = require('swaggerize-ui'); // second change
+const path = require('path');
 
-var app = express();
+let app = express();
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 app.use(bodyParser.json());
 
