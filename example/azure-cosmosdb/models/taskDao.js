@@ -1,5 +1,5 @@
-var DocumentDBClient = require('documentdb').DocumentClient;
-var docdbUtils = require('./docdbUtils');
+let DocumentDBClient = require('documentdb').DocumentClient;
+let docdbUtils = require('./docdbUtils');
 
 function TaskDao(documentDBClient, databaseId, collectionId) {
   this.client = documentDBClient;
@@ -12,7 +12,7 @@ function TaskDao(documentDBClient, databaseId, collectionId) {
 
 TaskDao.prototype = {
   init: function(callback) {
-    var self = this;
+    let self = this;
 
     docdbUtils.getOrCreateDatabase(self.client, self.databaseId, function(err, db) {
       if (err) {
@@ -31,7 +31,7 @@ TaskDao.prototype = {
   },
 
   find: function(querySpec, callback) {
-    var self = this;
+    let self = this;
 
     self.client.queryDocuments(self.collection._self, querySpec).toArray(function(err, results) {
       if (err) {
@@ -43,7 +43,7 @@ TaskDao.prototype = {
   },
 
   addItem: function(item, callback) {
-    var self = this;
+    let self = this;
     item.date = Date.now();
     item.completed = false;
     self.client.createDocument(self.collection._self, item, function(err, doc) {
@@ -56,7 +56,7 @@ TaskDao.prototype = {
   },
 
   updateItem: function(itemId, callback) {
-    var self = this;
+    let self = this;
 
     self.getItem(itemId, function(err, doc) {
       if (err) {
@@ -75,9 +75,9 @@ TaskDao.prototype = {
   },
 
   getItem: function(itemId, callback) {
-    var self = this;
+    let self = this;
 
-    var querySpec = {
+    let querySpec = {
       query: 'SELECT * FROM root r WHERE r.id=@id',
       parameters: [{
         name: '@id',

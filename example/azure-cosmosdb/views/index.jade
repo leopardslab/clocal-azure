@@ -18,10 +18,10 @@
             tr
               td #{task.name}
               td #{task.category}
-              - var date  = new Date(task.date);
-              - var day   = date.getDate();
-              - var month = date.getMonth() + 1;
-              - var year  = date.getFullYear();
+              - let date  = new Date(task.date);
+              - let day   = date.getDate();
+              - let month = date.getMonth() + 1;
+              - let year  = date.getFullYear();
               td #{month + "/" + day + "/" + year}
               td
                 input(type="checkbox", name="#{task.id}", value="#{!task.completed}", checked=task.completed)
