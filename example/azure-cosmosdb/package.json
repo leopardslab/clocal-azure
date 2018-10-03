@@ -1,0 +1,24 @@
+{
+  "name": "Todo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "description": "Building a Todo List application with DocumentDB",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "documentdb": "^1.10.2",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
+  }
+}
