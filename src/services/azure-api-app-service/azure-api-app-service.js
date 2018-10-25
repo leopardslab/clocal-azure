@@ -10,6 +10,14 @@ let initFile;
 let folder;
 // let workingDir = "../../example/azure-api-service/"
 
+let docker = new Docker({                      //for windows
+  socketPath: "//./pipe/docker_engine"
+});
+
+let docker = new Docker({                      //for linux
+  socketPath: "/var/run/docker.sock"
+});
+
 if (process.argv[2] == "api-start") {
   folder = process.argv[3];
   initFile = process.argv[4];
