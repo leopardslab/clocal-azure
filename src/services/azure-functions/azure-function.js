@@ -6,7 +6,11 @@ const stream = require("stream");
 const chalk = require("chalk");
 const tar = require("tar-fs");
 
-let docker = new Docker({
+let docker = new Docker({                  //for windows
+  socketPath: "//./pipe/docker_engine"
+});
+
+let docker = new Docker({                 //for linux 
   socketPath: "/var/run/docker.sock"
 });
 
