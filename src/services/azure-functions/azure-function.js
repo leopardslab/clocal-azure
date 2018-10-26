@@ -5,14 +5,20 @@ const Docker = require("dockerode");
 const stream = require("stream");
 const chalk = require("chalk");
 const tar = require("tar-fs");
+var OSName="Unknown OS";
 
-let docker = new Docker({                  //for windows
-  socketPath: "//./pipe/docker_engine"
+if (navigator.appVersion.indexOf("Win")!=-1) //checks for windows
+{
+  let docker = new Docker({
+  socketPath: "//./pipe/docker_engine"           //for windows
 });
-
+}
+else
+{
 let docker = new Docker({                 //for linux 
   socketPath: "/var/run/docker.sock"
 });
+}
 
 let workingDir = "./example/azure-functions/";
 let folder;
