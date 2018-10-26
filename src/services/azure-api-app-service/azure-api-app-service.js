@@ -8,15 +8,21 @@ let path = require("path");
 let workingDir = "./example/azure-api-app-service/";
 let initFile;
 let folder;
+var OSName="Unknown OS";
 // let workingDir = "../../example/azure-api-service/"
 
-let docker = new Docker({                      //for windows
-  socketPath: "//./pipe/docker_engine"
+if (navigator.appVersion.indexOf("Win")!=-1) //checks for windows
+{
+  let docker = new Docker({
+  socketPath: "//./pipe/docker_engine"           //for windows
 });
-
-let docker = new Docker({                      //for linux
+}
+else
+{
+let docker = new Docker({                 //for linux 
   socketPath: "/var/run/docker.sock"
 });
+}
 
 if (process.argv[2] == "api-start") {
   folder = process.argv[3];
