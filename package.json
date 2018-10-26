@@ -9,7 +9,7 @@
     "dev": "nodemon src/bin/clocal-azure",
     "test": "node ./scripts/test.js",
     "test:watch": "node_modules/.bin/ava --verbose --watch",
-    "cover": "node_modules/.bin/nyc yarn test"
+    "cover": "nyc ava src/services/**/tests/*.test.js"
   },
   "bin": {
     "clocal-azure": "./src/bin/clocal-azure.js"
