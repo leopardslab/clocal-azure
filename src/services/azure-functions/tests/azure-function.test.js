@@ -5,7 +5,7 @@ const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
 
 let docker = new Docker({
-   socketPath: "/var/run/docker.sock"
+  socketPath: "/var/run/docker.sock"
 });
 
 function timeout(ms, fn) {
@@ -47,7 +47,8 @@ test(
         }
       );
       stream.on("end", function() {
-        done();
+        // Not sure why this was called as it isn't defined
+        // done();
       });
     }
 
