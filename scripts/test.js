@@ -2,7 +2,7 @@ const execa = require("execa");
 
 const args = process.argv;
 args.splice(0, 2);
-const moduleToTest = process.argv[0];
+let moduleToTest = process.argv[0];
 
 let testPath;
 
@@ -14,36 +14,37 @@ if (moduleToTest && !/^-/.test(moduleToTest)) {
 } else {
   // Test all modules
   testPath = "src/services/**/tests/*.test.js";
+  moduleToTest = "all";
 }
 
 console.log(
-  `Testing ${moduleToTest && !/^-/.test(moduleToTest) ? moduleToTest : "all"} ${
+  `Testing ${moduleToTest} ${
     args.length > 0 ? `with args: ${args.join(" ")}` : ""
   }`
 );
 
 // Start services
-const api = execa(
-  "./src/bin/clocal-azure.js",
-  ["api-start", "./", "api.json"],
-  {
+let api, storage, functions;
+if (moduleToTest === "all" || moduleToTest === "api-app-service")
+  api = execa("./src/bin/clocal-azure.js", ["api-start", "./", "api.json"], {
     stdio: "inherit"
-  }
-);
-const storage = execa("./src/bin/clocal-azure.js", ["storage-start"], {
-  stdio: [null, "inherit", "inherit"]
-});
-const functions = execa(
-  "./src/bin/clocal-azure.js",
-  ["function-init", "function-sample"],
-  {
+  });
+if (moduleToTest === "all" || moduleToTest === "storage")
+  storage = execa("./src/bin/clocal-azure.js", ["storage-start"], {
     stdio: [null, "inherit", "inherit"]
-  }
-);
-setTimeout(() => {
-  functions.stdin.write("clocal function-start");
-}, 2000);
-// const functions = execa('./src/')
+  });
+if (moduleToTest === "all" || moduleToTest === "functions") {
+  functions = execa(
+    "./src/bin/clocal-azure.js",
+    ["function-init", "function-sample"],
+    {
+      stdio: [null, "inherit", "inherit"]
+    }
+  );
+  setTimeout(() => {
+    functions.stdin.write("clocal function-start");
+  }, 2000);
+}
 
 // Run tests
 setTimeout(async () => {
@@ -52,14 +53,18 @@ setTimeout(async () => {
   });
   ava.on("exit", code => {
     // Stop services
-    api.kill("SIGTERM");
-    storage.stdin.write("clocal storage-stop\n");
-    functions.stdin.write("clocal function-stop\n");
+    stopServices();
   });
   ava.on("error", code => {
     // Stop services
-    api.kill("SIGTERM");
-    storage.stdin.write("clocal storage-stop\n");
-    functions.stdin.write("clocal function-stop\n");
+    stopServices();
   });
 }, 5000);
+function stopServices() {
+  if (moduleToTest === "all" || moduleToTest === "api-app-service")
+    api.kill("SIGTERM");
+  if (moduleToTest === "all" || moduleToTest === "storage")
+    storage.stdin.write("clocal storage-stop\n");
+  if (moduleToTest === "all" || moduleToTest === "functions")
+    functions.stdin.write("clocal function-stop\n");
+}
