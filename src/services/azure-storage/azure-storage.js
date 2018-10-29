@@ -2,10 +2,24 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const os = require('os');
 
-let docker = new Docker({
-  socketPath: "/var/run/docker.sock"
-});
+
+// Detecting OS
+
+if (os.platform == "linux") { //Linux
+
+  let docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+
+}else if (os.platform == "win32"){ // Windows
+
+  let docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  });
+
+}
 
 // let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
