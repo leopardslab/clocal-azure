@@ -33,6 +33,13 @@ test("Function response status", async t => {
   t.is(res.statusCode, 200);
 });
 
+test("Responds with functions website introduction", async t => {
+  const { body } = await http.getResponse(functionUrl);
+  t.true(
+    body.match("Your Function App 2.0 preview is up and running").length > 0
+  );
+});
+
 test(
   "Build Image",
   timeout(60000, t => {
