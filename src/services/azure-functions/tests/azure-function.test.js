@@ -1,12 +1,26 @@
-import test, { beforeEach, afterEach } from "ava";
+import test from "ava";
 import http from "ava-http";
 const Docker = require("dockerode");
 const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
+const os = require('os');
 
-let docker = new Docker({
-   socketPath: "/var/run/docker.sock"
-});
+
+// Detecting OS
+
+if (os.platform == "linux") { //Linux
+
+  let docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+
+}else if (os.platform == "win32"){ // Windows
+
+  let docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  });
+
+}
 
 function timeout(ms, fn) {
   return function(t) {

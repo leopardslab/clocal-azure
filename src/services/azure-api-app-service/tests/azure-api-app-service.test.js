@@ -1,6 +1,6 @@
-import test, { beforeEach, afterEach } from "ava";
+import test from "ava";
 import http from "ava-http";
-const APIUrl = "http://localhost:9567";
+const APIUrl = "http://localhost:9567/";
 
 test("API app port check", t => {
   const res = http.get(APIUrl);
@@ -15,4 +15,14 @@ test("API app returns an object", t => {
 test("API app response status", async t => {
   const res = await http.getResponse(APIUrl);
   t.is(res.statusCode, 200);
+});
+
+test("Swagger UI is running", async t => {
+  const res  = await http.getResponse(APIUrl + "swagger");
+  t.is(res.info.title, "Contact List");
+});
+
+test("API app response message", async t => {
+  const res = await http.getResponse(APIUrl);
+  t.is(res, "Welcome to clocal azure api app service");
 });
