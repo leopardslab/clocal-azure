@@ -108,6 +108,15 @@ clocal storage-stop
 ```
 clocal storage-clear
 ```
+* **List files**
+To list all files
+```
+clocal storage-query
+```
+To list specific folder files
+```
+clocal storage-query folder_name
+```
 
 ### Azure CosmosDB (Only Windows Supported)
 
