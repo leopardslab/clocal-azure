@@ -11,7 +11,6 @@ let initFile;
 let folder;
 // let workingDir = "../../example/azure-api-service/"
 
-
 if (process.argv[2] == "api-start") {
   folder = process.argv[3];
   initFile = process.argv[4];
