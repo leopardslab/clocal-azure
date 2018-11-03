@@ -55,6 +55,12 @@ clocal storage-start
 ```
 clocal storage-stop
 ```
+* **Query Created Files**
+```
+clocal storage-query <query>
+```
+Where query is `ls` or `ls <filename>` . when query is `ls` it lists all the files and if `filename` is specified , it lists only specific files.
+
 * **Clear all files created**
 ```
 clocal storage-clear

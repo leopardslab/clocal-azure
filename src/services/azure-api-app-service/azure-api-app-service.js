@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const os = require('os');
+const Docker = require("dockerode");
 
 let bodyParser = require("body-parser");
 let swaggerize = require("swaggerize-express");

@@ -12,6 +12,7 @@ if (os.platform == "linux") { //Linux
   let docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
+  
 
 }else if (os.platform == "win32"){ // Windows
 
@@ -23,6 +24,7 @@ if (os.platform == "linux") { //Linux
 
 // let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
+  "clocal storage-query": queryFiles ,
   "clocal storage-clear": clearFiles,
   "clocal storage-stop": removeContainer
 };
@@ -99,7 +101,11 @@ function customTerminal(container) {
         inputService == "clocal storage-clear"
       ) {
         commandHandlers[inputService](container);
-      } else {
+      }else if(inputService.includes("clocal storage-query")){
+        let queryString = inputService.slice(21);
+        commandHandlers['clocal storage-query'](container, queryString);
+        console.log("Querying . . .");
+      }else {
         console.log("Invalid Command");
       }
     });
@@ -117,6 +123,44 @@ function removeContainer() {
     });
   });
 }
+
+function queryFiles(container, queryString) {
+  queryString = queryString.trim()
+  let hasFilename = queryString.length > 2;
+  let fileName;
+
+  if (hasFilename){
+    fileName = queryString.slice(2);
+  }
+
+  let options;
+  if(!fileName || fileName === ""){
+    options = {
+      Cmd: ["sh", "-c", "ls /opt/azurite/folder/*"],
+      AttachStdout: true,
+      AttachStderr: true
+    };
+  } else {
+    options = {
+      Cmd: ["sh", "-c", "ls /opt/azurite/folder/${fileName}"],
+      AttachStdout: true,
+      AttachStderr: true
+    };
+  };
+  container.exec(options, function(err, exec) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    exec.start(function(err, stream) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      container.modem.demuxStream(stream, process.stdout, process.stdin);
+    });
+  });
+};
 
 function clearFiles(container) {
   let options = {
