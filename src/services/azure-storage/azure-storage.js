@@ -126,7 +126,7 @@ function listFiles(container, fileName) {
     };
   } else {
     options = {
-      Cmd: ["sh", "-c", `ls /opt/azurite/folder/${fileName}`],
+      Cmd: ["sh", "-c", `ls "/opt/azurite/folder/${fileName}"`],
       AttachStdout: true,
       AttachStderr: true
     };
