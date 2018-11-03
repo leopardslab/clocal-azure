@@ -60,7 +60,7 @@ clocal <command>
 
 ### All Services at once
 
-Step 1: Go to ```command.env``` file and specify the path to create the images for *azure functions* and *azure api app service* and *azure cosmosdb*.
+Step 1: Go to ```compose.env``` file and specify the path to create the images for *azure functions* and *azure api app service* and *azure cosmosdb*.
 
 Step 2: Run the shell script below.
 ```
