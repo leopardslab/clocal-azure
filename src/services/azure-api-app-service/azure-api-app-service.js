@@ -1,8 +1,6 @@
 "use strict";
 
 const CloudLocal = require("./../azure/cloud-local");
-const os = require('os');
-const Docker = require("dockerode");
 
 let bodyParser = require("body-parser");
 let swaggerize = require("swaggerize-express");
@@ -13,22 +11,6 @@ let initFile;
 let folder;
 // let workingDir = "../../example/azure-api-service/"
 
-
-// Detecting OS
-
-if (os.platform == "linux") { //Linux
-
-  let docker = new Docker({
-    socketPath: "/var/run/docker.sock"
-  });
-
-}else if (os.platform == "win32"){ // Windows
-
-  let docker = new Docker({
-    socketPath: "//./pipe/docker_engine"
-  });
-
-}
 
 if (process.argv[2] == "api-start") {
   folder = process.argv[3];
