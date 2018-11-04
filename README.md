@@ -109,14 +109,10 @@ clocal storage-stop
 clocal storage-clear
 ```
 * **List files**
-To list all files
 ```
-clocal storage-query
+clocal storage-query <query>
 ```
-To list specific folder files
-```
-clocal storage-query folder_name
-```
+Where query is `ls` or `ls <filename>` . when query is `ls` it lists all the files and if `filename` is specified , it lists only specific files.
 
 ### Azure CosmosDB (Only Windows Supported)
 

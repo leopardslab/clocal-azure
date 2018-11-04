@@ -94,8 +94,9 @@ function customTerminal(container) {
       ) {
         commandHandlers[inputService](container);
       }
-      else if ( inputService.includes("clocal storage-query") ) {
-        commandHandlers['clocal storage-query'](container, inputService);
+      else if(inputService.includes("clocal storage-query")){
+        let queryString = inputService.slice(21);
+        commandHandlers['clocal storage-query'](container, queryString);
       } else {
         console.log("Invalid Command");
       }
@@ -115,8 +116,14 @@ function removeContainer() {
   });
 }
 
-function listFiles(container, fileName) {
-  fileName = fileName.split(" ")[2];
+function listFiles(container, queryString) {
+  queryString = queryString.trim();
+  let hasFilename = queryString.length > 2;
+  let fileName;
+
+  if (hasFilename){
+    fileName = queryString.slice(2);
+  }
   let options;
   if(!fileName || fileName === ""){
     options = {
