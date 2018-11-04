@@ -5,7 +5,7 @@ const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
 
 let docker = new Docker({
-   socketPath: "/var/run/docker.sock"
+  socketPath: "/var/run/docker.sock"
 });
 
 function timeout(ms, fn) {
@@ -33,6 +33,13 @@ test("Function response status", async t => {
   t.is(res.statusCode, 200);
 });
 
+test("Responds with functions website introduction", async t => {
+  const { body } = await http.getResponse(functionUrl);
+  t.true(
+    body.match("Your Function App 2.0 preview is up and running").length > 0
+  );
+});
+
 test(
   "Build Image",
   timeout(60000, t => {
@@ -47,7 +54,8 @@ test(
         }
       );
       stream.on("end", function() {
-        done();
+        // Not sure why this was called as it isn't defined
+        // done();
       });
     }
 

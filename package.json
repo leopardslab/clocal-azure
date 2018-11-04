@@ -7,9 +7,9 @@
     "start": "node src/bin/clocal-azure",
     "service": "sh compose.sh",
     "dev": "nodemon src/bin/clocal-azure",
-    "test": "node_modules/.bin/ava src/services/**/tests/*.test.js --verbose",
+    "test": "node ./scripts/test.js",
     "test:watch": "node_modules/.bin/ava --verbose --watch",
-    "cover": "node_modules/.bin/nyc yarn test"
+    "cover": "nyc ava src/services/**/tests/*.test.js"
   },
   "bin": {
     "clocal-azure": "./src/bin/clocal-azure.js"
@@ -58,6 +58,7 @@
     "@types/express": "^4.11.1",
     "@types/node": "^8.0.0",
     "ava-http": "^1.0.0",
+    "execa": "^1.0.0",
     "nodemon": "^1.17.3"
   }
 }
