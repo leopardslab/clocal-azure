@@ -4,9 +4,16 @@ const Docker = require("dockerode");
 const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
 
-let docker = new Docker({
-   socketPath: "/var/run/docker.sock"
-});
+let docker;
+if(process.platform != 'win32'){
+  docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+} else {
+  docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  })
+} 
 
 function timeout(ms, fn) {
   return function(t) {
