@@ -15,6 +15,17 @@ if (process.argv[2] == "api-start") {
   initFile = process.argv[4];
 }
 
+if (navigator.appVersion.indexOf("Linux") != -1)
+{
+  let docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+} else if (navigator.appVersion.indexOf("Win") != -1) {
+  let docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  });
+}
+
 class AzureApiAppService extends CloudLocal {
   init() {
     this.port = 9567;
