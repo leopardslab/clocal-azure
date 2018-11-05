@@ -33,6 +33,11 @@ test("Function response status", async t => {
   t.is(res.statusCode, 200);
 });
 
+test("Checking /api/HttpTriggerJS endpoint", async t => {
+  const res = await http.getResponse(functionUrl+"/api/HttpTriggerJS?name=RohanCode");
+  t.is(res.statusCode, 200);
+});
+
 test(
   "Build Image",
   timeout(60000, t => {

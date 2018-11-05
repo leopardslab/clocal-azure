@@ -25,3 +25,8 @@ test("Blob List returns true with an object", t => {
   const res = http.get(blobUrl + "/devstoreaccount1?comp=list");
   t.true(typeof res === "object");
 });
+
+test("Check if testcontainer contains a taskblob", async t => {
+  const res = await http.getResponse(blobUrl + urlPath + "/taskcontainer/taskblob");
+  t.is(res.statusCode, 200);
+});

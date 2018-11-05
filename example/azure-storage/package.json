@@ -1,7 +1,6 @@
 {
   "name": "azure-storage-sample",
   "version": "1.0.0",
-  "description": "",
   "main": "storage-example.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,5 +14,6 @@
     "async": "^2.6.1",
     "azure-storage": "^2.10.0",
     "request": "^2.87.0"
-  }
+  },
+  "description": ""
 }

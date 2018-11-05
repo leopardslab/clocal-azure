@@ -8,11 +8,16 @@ test("API app port check", t => {
 });
 
 test("API app returns an object", t => {
-  const res = http.get(APIUrl);
+  const res = http.get(APIUrl+"/contacts");
   t.true(typeof res === "object");
 });
 
-test("API app response status", async t => {
-  const res = await http.getResponse(APIUrl);
+test("API fetch contacts", async t => {
+  const res = await http.getResponse(APIUrl+"/contacts");
+  t.is(res.statusCode, 200);
+});
+
+test("API single contact fetching", async t => {
+  const res = await http.getResponse(APIUrl+"/contacts/1");
   t.is(res.statusCode, 200);
 });
