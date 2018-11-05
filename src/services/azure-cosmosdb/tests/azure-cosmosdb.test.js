@@ -1,4 +1,5 @@
 import test, { beforeEach, afterEach } from "ava";
+import http from "ava-http";
 const Docker = require("dockerode");
 const tar = require("tar-fs");
 
@@ -67,3 +68,51 @@ test(
     t.pass();
   })
 );
+
+test.before(async () => {
+  console.log('Testing Docker, Container & Ports');
+});
+
+const Port9500 = "http://localhost:9500";
+const Port9501 = "http://localhost:9501";
+const Port9502 = "http://localhost:9502";
+const Port9503 = "http://localhost:9503";
+const Port9504 = "http://localhost:9504";
+const Port9505 = "http://localhost:9505";
+const Port9506 = "http://localhost:9506";
+
+test("Host Port 9500 check", t => {
+  const res = http.get(Port9500);
+  t.is(res.port, "9500");
+});
+
+test("Host Port 9501 check", t => {
+  const res = http.get(Port9501);
+  t.is(res.port, "9501");
+});
+
+test("Host Port 9502 check", t => {
+  const res = http.get(Port9502);
+  t.is(res.port, "9502");
+});
+test("Host Port 9503 check", t => {
+  const res = http.get(Port9503);
+  t.is(res.port, "9503");
+});
+test("Host Port 9504 check", t => {
+  const res = http.get(Port9504);
+  t.is(res.port, "9504");
+});
+test("Host Port 9505 check", t => {
+  const res = http.get(Port9505);
+  t.is(res.port, "9505");
+});
+test("Host Port 9506 check", t => {
+  const res = http.get(Port9506);
+  t.is(res.port, "9506");
+});
+
+
+test.after(async () => {
+  console.log('Completed!');
+});
