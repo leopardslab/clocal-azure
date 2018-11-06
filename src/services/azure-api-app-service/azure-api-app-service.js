@@ -1,3 +1,4 @@
+"use strict";
 
 const CloudLocal = require("./../azure/cloud-local");
 let bodyParser = require("body-parser");
