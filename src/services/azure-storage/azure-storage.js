@@ -3,9 +3,17 @@
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 
-let docker = new Docker({
-  socketPath: "/var/run/docker.sock"
-});
+let docker;
+
+if (process.platform === "win32") {
+  docker = new Docker({
+    socketPath: "//./pipe/docker_engine",
+  });
+} else {
+  docker = new Docker({
+    socketPath: "/var/run/docker.sock",
+  });
+}
 
 // let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
@@ -32,12 +40,12 @@ class AzureStorage extends CloudLocal {
           "10002/tcp": [{ HostPort: "9571" }]
         }
       },
-      function(err, container) {
+      function (err, container) {
         if (err) {
           console.log(err);
           return;
         }
-        container.start({}, function(err, data) {
+        container.start({}, function (err, data) {
           if (err) {
             console.log(err);
             return;
@@ -56,12 +64,12 @@ function runExec(container) {
     AttachStderr: true
   };
 
-  container.exec(options, function(err, exec) {
+  container.exec(options, function (err, exec) {
     if (err) {
       console.log(err);
       return;
     }
-    exec.start(function(err, stream) {
+    exec.start(function (err, stream) {
       if (err) {
         console.log(err);
         return;
@@ -75,10 +83,10 @@ function runExec(container) {
 }
 
 function customTerminal(container) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
-    stdin.addListener("data", function(d) {
+    stdin.addListener("data", function (d) {
       let inputService = d.toString().trim();
       if (
         inputService == "clocal storage-stop" ||
@@ -93,10 +101,10 @@ function customTerminal(container) {
 }
 
 function removeContainer() {
-  docker.listContainers(function(err, containers) {
-    containers.forEach(function(containerInfo) {
+  docker.listContainers(function (err, containers) {
+    containers.forEach(function (containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
-      setTimeout(function() {
+      setTimeout(function () {
         console.log("Storage container stopped");
         return process.exit(0);
       }, 5000);
@@ -110,12 +118,12 @@ function clearFiles(container) {
     AttachStdout: true,
     AttachStderr: true
   };
-  container.exec(options, function(err, exec) {
+  container.exec(options, function (err, exec) {
     if (err) {
       console.log(err);
       return;
     }
-    exec.start(function(err, stream) {
+    exec.start(function (err, stream) {
       if (err) {
         console.log(err);
         return;

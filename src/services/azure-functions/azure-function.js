@@ -6,9 +6,17 @@ const stream = require("stream");
 const chalk = require("chalk");
 const tar = require("tar-fs");
 
-let docker = new Docker({
-  socketPath: "/var/run/docker.sock"
-});
+let docker;
+
+if (process.platform === "win32") {
+  docker = new Docker({
+    socketPath: "//./pipe/docker_engine",
+  })
+} else {
+  docker = new Docker({
+    socketPath: "/var/run/docker.sock",
+  })
+}
 
 let workingDir = "./example/azure-functions/";
 let folder;
@@ -30,14 +38,14 @@ class AzureFunction extends CloudLocal {
       {
         t: "azure-functions-image"
       },
-      function(err, stream) {
+      function (err, stream) {
         stream.pipe(
           process.stdout,
           {
             end: true
           }
         );
-        stream.on("end", function() {
+        stream.on("end", function () {
           customTerminal();
         });
       }
@@ -46,10 +54,10 @@ class AzureFunction extends CloudLocal {
 }
 
 function customTerminal(container) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log("$ Clocal >");
     let stdin = process.openStdin();
-    stdin.addListener("data", function(d) {
+    stdin.addListener("data", function (d) {
       let inputService = d.toString().trim();
       if (
         inputService == "clocal function-start" ||
@@ -74,12 +82,12 @@ function startContainer() {
         "80/tcp": [{ HostPort: "9574" }]
       }
     },
-    function(err, container) {
+    function (err, container) {
       if (err) {
         console.log(err);
         return;
       }
-      container.start({}, function(err, data) {
+      container.start({}, function (err, data) {
         if (err) {
           console.log(err);
           return;
@@ -101,7 +109,7 @@ function startContainer() {
                     %
     
           \nNow listening on: http://localhost:9574` +
-              ` Clocal function-stop to shut down.\nNote: Currently HTTP Trigger functions working.`
+            ` Clocal function-stop to shut down.\nNote: Currently HTTP Trigger functions working.`
           )
         );
         runExec(container);
@@ -121,12 +129,12 @@ function runExec(container) {
     Tty: true
   };
 
-  container.exec(options, function(err, exec) {
+  container.exec(options, function (err, exec) {
     if (err) {
       console.log(err);
       return;
     }
-    exec.start(function(err, stream) {
+    exec.start(function (err, stream) {
       if (err) {
         console.log(err);
         return;
@@ -137,10 +145,10 @@ function runExec(container) {
 }
 
 function removeContainer() {
-  docker.listContainers(function(err, containers) {
-    containers.forEach(function(containerInfo) {
+  docker.listContainers(function (err, containers) {
+    containers.forEach(function (containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
-      setTimeout(function() {
+      setTimeout(function () {
         console.log("Functions container stopped");
         return process.exit(0);
       }, 5000);
