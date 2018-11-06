@@ -1,4 +1,3 @@
-"use strict";
 
 const CloudLocal = require("./../azure/cloud-local");
 let bodyParser = require("body-parser");
@@ -8,11 +7,22 @@ let path = require("path");
 let workingDir = "./example/azure-api-app-service/";
 let initFile;
 let folder;
-// let workingDir = "../../example/azure-api-service/"
 
 if (process.argv[2] == "api-start") {
   folder = process.argv[3];
   initFile = process.argv[4];
+}
+
+if (navigator.appVersion.indexOf("Linux") != -1) {
+  /*OS is Linux*/
+  let docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+} else if (navigator.appVersion.indexOf("Win") != -1) {
+  /*OS is Windows*/
+  let docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  });
 }
 
 class AzureApiAppService extends CloudLocal {
@@ -41,3 +51,5 @@ class AzureApiAppService extends CloudLocal {
 }
 
 module.exports = AzureApiAppService;
+        });
+
