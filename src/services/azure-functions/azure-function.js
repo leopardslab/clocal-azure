@@ -154,5 +154,13 @@ function removeContainer() {
     });
   });
 }
+import sleeps from "./sleeps.js";
+ 
+test("Request has required parameters", 
+    function (t) {
+        const req = { "query" : {}};
+        t.false(sleeps.has_required_params(req));
+    });
+
 
 module.exports = AzureFunction;
