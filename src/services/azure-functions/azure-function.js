@@ -142,6 +142,17 @@ function runExec(container) {
     });
   });
 }
+import sleeps from "./sleeps.js";
+ 
+...
+ 
+    if (sleeps.has_required_params(req)) {
+        const target = moment({year: req.query.year,
+            month: (parseInt(req.query.month) - 1), // JS Dates are zero indexed!!!
+            day: req.query.day });
+ 
+...
+
 
 function removeContainer() {
   docker.listContainers(function(err, containers) {
