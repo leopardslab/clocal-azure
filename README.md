@@ -12,49 +12,32 @@ _Clocal-azure_ provides an easy-to-use test/mocking framework for developing Clo
 
 Currently features are under development.
 
-# Overview
+## 🚀 Install
 
-_Clocal-azure_ spins up the following core Cloud APIs on your local machine:
-
-## Services & Ports
-* **Azure Functions** at http://localhost:9574
-* **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
-* **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
-* **Azure API App Service** at http://localhost:9567
-
-## Getting Started
-
-### Requirements \*
+### Requirements
 
 * NodeJS (^8.9.4)
 * yarn (^1.6.0)
 * Docker
 
-### Steps
-
-Step 1: Clone the project
 ```
-git clone https://github.com/cloudlibz/clocal-azure.git
-```
-
-Step 2: Go to the working directory
-```
-cd clocal-azure
+$ git clone https://github.com/cloudlibz/clocal-azure.git
+$ cd clocal-azure
+$ yarn
+$ yarn start <command>
+         or
+$ clocal <command>
 ```
 
-Step 3: Install yarn and dependencies
-```
-yarn
-```
+# 📚 Overview
 
-Step 4: Run the commands via following method
-```
-yarn start <command> 
-```
-or
-```
-clocal <command>
-```
+_Clocal-azure_ spins up the following core Cloud APIs on your local machine:
+
+## 📟 Services & Ports
+* **Azure Functions** at http://localhost:9574
+* **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
+* **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
+* **Azure API App Service** at http://localhost:9567
 
 ## Commands
 
@@ -64,11 +47,11 @@ Step 1: Go to ```compose.env``` file and specify the path to create the images f
 
 Step 2: Run the shell script below.
 ```
-sh compose.sh
+$ sh compose.sh
 ```
 or
 ```
-yarn service
+$ yarn service
 ```
 ![Compose-Result](./src/assets/compose-result.png)
 
@@ -77,7 +60,7 @@ yarn service
 
 * **Init Functions**
 ```
-clocal function-init <folder>
+$ clocal function-init <folder>
 ```
 Azure functions working directory is located in example/azure-functions.
 You can create a folder inside the location and give the folder location.
@@ -86,11 +69,11 @@ Example: ```clocal function-init function-sample```
 
 * **Start Functions**
 ```
-clocal function-start
+$ clocal function-start
 ```
 * **Stop Functions**
 ```
- clocal function-stop 
+$ clocal function-stop 
  ```
 
 ### Azure Storage 
@@ -98,41 +81,41 @@ Azure storage comprises of azure blobs, queues and tables. See the example/azure
 
 * **Start Storage**
 ```
-clocal storage-start
+$ clocal storage-start
 ```
 * **Stop Storage**
 ```
-clocal storage-stop
+$ clocal storage-stop
 ```
 * **Clear all files created**
 ```
-clocal storage-clear
+$ clocal storage-clear
 ```
 * **List files**
 To list all files
 ```
-clocal storage-query
+$ clocal storage-query
 ```
 To list specific folder files
 ```
-clocal storage-query folder_name
+$ clocal storage-query folder_name
 ```
 
 ### Azure CosmosDB (Only Windows Supported)
 
 * **Init CosmosDB**
 ```
-clocal cosmosdb-init
+$ clocal cosmosdb-init
 ```
 This will create the in-built image of the Cosmos DB emulator and will be on ready state to start the container.
 
 * **Start CosmosDB**
 ```
-clocal cosmosdb-start
+$ clocal cosmosdb-start
 ```
 * **Stop CosmosDB**
 ```
-clocal cosmosdb-stop
+$ clocal cosmosdb-stop
 ```
 
 ### Azure API App Service 
@@ -144,30 +127,30 @@ Then attach the init file where the service starting file.
 Example: ```clocal api-start ./ api.json```
 
 ```
-clocal api-start <folder> <init-file>
+$ clocal api-start <folder> <init-file>
 ```
 
-## Example Documents
+## 📝 Example Documents
 
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
 
-## Demo Video Series
+## 📺 Demo Video Series
 
 * **[Video Playlist](https://www.youtube.com/watch?v=rpUJ44D_7Tk&list=PLbd4A5tkijhDGRQp6BcrwGhRvS0TU8zhQ)**
 
-## Testing
+## 🔧 Testing
 
 ```
-yarn test
+$ yarn test
 ```
 
-## Contributing
+## 🙋 Contributing
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## License
+## 📜 License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./LICENSE) file for details
 
