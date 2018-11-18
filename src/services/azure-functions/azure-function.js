@@ -6,16 +6,15 @@ const stream = require("stream");
 const chalk = require("chalk");
 const tar = require("tar-fs");
 
-let docker;
-if(process.platform != 'win32'){
-  docker = new Docker({
+if (navigator.appVersion.indexOf("Linux") != -1) {
+  let docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
-} else {
-  docker = new Docker({
+} else if (navigator.appVersion.indexOf("Win") != -1) {
+  let docker = new Docker({
     socketPath: "//./pipe/docker_engine"
-  })
-} 
+  });
+}
 
 let workingDir = "./example/azure-functions/";
 let folder;
