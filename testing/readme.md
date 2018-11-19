@@ -19,7 +19,7 @@ Set path of tests in package.json in AVA to find the tests:
 Add some simple test code. 
 These parameters will be in the Azure Functions request object:
 
-    import sleeps from "./wrapper.js";
+    import sleeps from "./src/services/azure-functions/azure-function.js";
  
     test("Request has required parameters", 
     function (t) {
@@ -47,7 +47,7 @@ for eg.
  
     });
     
-import sleeps from "./wrapper.js";
+import sleeps from "./src/services/azure-functions/azure-function.js";
  
 ...
  
