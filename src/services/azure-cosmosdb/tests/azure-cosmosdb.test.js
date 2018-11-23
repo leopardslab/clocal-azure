@@ -2,7 +2,6 @@ import test, { beforeEach, afterEach } from "ava";
 import http from "ava-http";
 const Docker = require("dockerode");
 const tar = require("tar-fs");
-const cosmosdbUrl = ""
 
 let docker = new Docker({
   // socketPath: "//./pipe/docker_engine"
@@ -18,18 +17,6 @@ function timeout(ms, fn) {
     fn(t);
   };
 }
-
-
-test("CosmosDB endpoint check", t => {
-  const res = http.get(cosmosdbUrl);
-  t.is(res.port, "8081");
-});
-
-test("CosmosDB endpoint response status", async t => {
-  const res = await http.getResponse(cosmosdbUrl);
-  t.is(res.statusCode, 200);
-});
-
 
 test(
   "Build Image",
