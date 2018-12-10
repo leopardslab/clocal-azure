@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 "use strict";
-
+const common = require('../common/cli');
 const chalk = require("chalk");
 const AzureStorage = require("./azure-storage");
 const storage = new AzureStorage();
 
 const action = () => {
   try {
+    console.log(common.figlet());
     console.log(
       chalk.blueBright(
         "Starting Azure Storage ..." +
