@@ -16,7 +16,7 @@ test(<COUNTER_API>, async t => {
   const cache = true;
   const revolver = false;
   const response = await request(app)
-    .get(<request>)
+    .get(request)
     .query({cache, revolver});
 
     t.is(response.status, 200);
