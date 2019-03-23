@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lakindu95/clocal-azure.git"
+    "url": "git+https://github.com/cloudlibz/clocal-azure.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lakindu95/clocal-azure/issues"
+    "url": "https://github.com/cloudlibz/clocal-azure/issues"
   },
-  "homepage": "https://github.com/lakindu95/clocal-azure#readme",
+  "homepage": "https://github.com/cloudlibz/clocal-azure#readme",
   "dependencies": {
     "async": "^2.6.1",
     "ava": "^0.25.0",
