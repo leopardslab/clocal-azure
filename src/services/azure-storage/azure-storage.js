@@ -21,7 +21,8 @@ if(process.platform != 'win32'){
 // let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
   "clocal storage-clear": clearFiles,
-  "clocal storage-stop": removeContainer
+  "clocal storage-stop": removeContainer,
+  "clocal storage-query": listFiles
 };
 
 class AzureStorage extends CloudLocal {
@@ -93,9 +94,12 @@ function customTerminal(container) {
       let inputService = d.toString().trim();
       if (
         inputService == "clocal storage-stop" ||
-        inputService == "clocal storage-clear"
+        inputService == "clocal storage-clear" 
       ) {
         commandHandlers[inputService](container);
+      }
+      else if ( inputService.includes("clocal storage-query") ) {
+        commandHandlers['clocal storage-query'](container, inputService);
       } else {
         console.log("Invalid Command");
       }
@@ -114,6 +118,38 @@ function removeContainer() {
     });
   });
 }
+
+function listFiles(container, fileName) {
+  fileName = fileName.split(" ")[2];
+  let options;
+  if(!fileName || fileName === ""){
+    options = {
+      Cmd: ["sh", "-c", `ls /opt/azurite/folder/*`],
+      AttachStdout: true,
+      AttachStderr: true
+    };
+  } else {
+    options = {
+      Cmd: ["sh", "-c", `ls "/opt/azurite/folder/${fileName}"`],
+      AttachStdout: true,
+      AttachStderr: true
+    };
+  };
+  container.exec(options, function(err, exec) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    exec.start(function(err, stream) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      container.modem.demuxStream(stream, process.stdout, process.stdin);
+      console.log("All files listed.");
+    });
+  });
+};
 
 function clearFiles(container) {
   let options = {
