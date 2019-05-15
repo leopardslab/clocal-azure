@@ -1,5 +1,5 @@
 {
-  "name": "azure",
+  "name": "clocal-azure",
   "version": "1.0.0",
   "description": "Emulation engine for azure",
   "main": "./src/bin/clocal-azure.js",

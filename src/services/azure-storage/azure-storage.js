@@ -2,8 +2,8 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
-
 let docker;
+
 if(process.platform != 'win32'){
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
@@ -14,7 +14,6 @@ if(process.platform != 'win32'){
   })
 } 
 
-// let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
   "clocal storage-clear": clearFiles,
   "clocal storage-stop": removeContainer,
