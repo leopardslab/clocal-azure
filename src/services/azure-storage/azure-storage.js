@@ -14,7 +14,6 @@ if(process.platform != 'win32'){
   })
 } 
 
-// let commandHandlers = {"storage": {"clear": clearFiles, "stop": removeContainer }}
 let commandHandlers = {
   "clocal storage-clear": clearFiles,
   "clocal storage-stop": removeContainer,

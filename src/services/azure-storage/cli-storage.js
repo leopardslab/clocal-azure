@@ -26,6 +26,5 @@ Enter \"clocal storage-stop\" to stop service.`
 
 module.exports = {
   commandName: "storage-start",
-  // argument: "<path>",
   action: action
 };
