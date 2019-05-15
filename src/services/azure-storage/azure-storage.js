@@ -2,12 +2,8 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
-
-
-// let docker = new Docker({
-//   socketPath: "/var/run/docker.sock"
-// });
 let docker;
+
 if(process.platform != 'win32'){
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
