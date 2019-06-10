@@ -12,7 +12,7 @@
     "cover": "node_modules/.bin/nyc yarn test"
   },
   "bin": {
-    "clocal-azure": "./src/bin/clocal-azure.js"
+    "clocal": "./src/bin/clocal-azure.js"
   },
   "repository": {
     "type": "git",
@@ -34,13 +34,15 @@
     "connect-busboy": "0.0.2",
     "death": "^1.1.0",
     "dockerode": "^2.5.5",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
     "fs-extra": "^6.0.1",
-    "fstream": "^1.0.11",
+    "fstream": "^1.0.12",
     "got": "^8.3.1",
     "inquirer": "^6.0.0",
     "jsonpath": "^1.0.0",
+    "mysql": "^2.17.1",
     "nyc": "^12.0.2",
     "ora": "^2.0.0",
     "path": "^0.12.7",

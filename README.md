@@ -26,6 +26,7 @@ Currently features are under development.
 $ git clone https://github.com/cloudlibz/clocal-azure.git
 $ cd clocal-azure
 $ yarn
+$ yarn link
 $ yarn start <command>
          or
 $ clocal <command>
