@@ -21,6 +21,7 @@ Currently features are under development.
 * NodeJS (^8.9.4)
 * yarn (^1.6.0)
 * Docker
+* MYSQL 
 
 ```
 $ git clone https://github.com/cloudlibz/clocal-azure.git
@@ -40,7 +41,9 @@ _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 * **Azure Functions** at http://localhost:9574
 * **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
 * **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
+* **Azure Search** at http://localhost:9520
 * **Azure API App Service** at http://localhost:9567
+* **Azure CLI 2.0** No ports
 
 ## Commands
 
@@ -119,6 +122,24 @@ $ clocal cosmosdb-start
 * **Stop CosmosDB**
 ```
 $ clocal cosmosdb-stop
+```
+
+### Azure Search
+
+* **Start Search**
+```
+$ clocal search-start
+```
+
+### Azure CLI 2.0
+
+* **Start CLI**
+```
+$ clocal cli-start
+```
+* **Exit CLI**
+```
+$ exit
 ```
 
 ### Azure API App Service 

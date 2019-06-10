@@ -1,36 +1,20 @@
 "use strict";
 
 const CloudLocal = require("./../azure/cloud-local");
-const mysql = require("mysql");
 const express = require("express");
 let config = require("./config");
 
-// let app = express();
-
-let connection = mysql.createConnection({
-  host: config.serviceHost,
-  user: config.databaseUser,
-  password: config.databasePassword,
-  database: config.databaseName
-});
 
 class AzureSearch extends CloudLocal {
   init() {
-    connection.connect(err => {
-      if (!err) console.log("DB connection successful");
-      else
-        console.log(
-          "DB connection failed \n Error: " + JSON.stringify(err, undefined, 2)
-        );
-    });
-
+    
     this.app.set("views", __dirname + "/views");
     this.app.use(express.static(__dirname + "/img"));
     this.app.use(express.static(__dirname + "/css"));
     this.app.set("view engine", "ejs");
     this.app.engine("html", require("ejs").renderFile);
 
-    this.port = 9920;
+    this.port = config.servicePort;
     this.app.get("/", (req, res) => {
       res.render("index.html");
     });

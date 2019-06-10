@@ -2,7 +2,7 @@ var config = {};
 
 config.serviceHost = "localhost";
 
-config.servicePort = "9920";
+config.servicePort = "9520";
 
 config.databaseName = "employeedb";
 
