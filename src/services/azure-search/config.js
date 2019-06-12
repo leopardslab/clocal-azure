@@ -1,19 +1,19 @@
 var config = {};
 
-config.serviceHost = "localhost";
+config.serviceHost = 'localhost';
 
-config.servicePort = "9520";
+config.servicePort = '9520';
 
-config.databaseName = "employeedb";
+config.databaseName = 'employeedb';
 
-config.databaseUser = "root";
+config.databaseUser = 'root';
 
-config.databasePassword = "";
+config.databasePassword = '';
 
-config.databaseTable = "employee";
+config.databaseTable = 'customer';
 
-config.searchValue1 = "Name";
+config.searchValue1 = 'name';
 
-config.searchValue2 = "EmpID";
+config.searchValue2 = 'email';
 
 module.exports = config;

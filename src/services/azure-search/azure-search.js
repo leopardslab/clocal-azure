@@ -2,12 +2,19 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const express = require("express");
+const mysql = require("mysql");
+
 let config = require("./config");
 
+let connection = mysql.createConnection({
+  host: config.serviceHost,
+  user: config.databaseUser,
+  password: config.databasePassword,
+  database: config.databaseName
+});
 
 class AzureSearch extends CloudLocal {
   init() {
-    
     this.app.set("views", __dirname + "/views");
     this.app.use(express.static(__dirname + "/img"));
     this.app.use(express.static(__dirname + "/css"));
@@ -19,19 +26,18 @@ class AzureSearch extends CloudLocal {
       res.render("index.html");
     });
 
+    connection.connect(err => {
+      if (!err);
+      else
+        console.log(
+          "Database connection failed \n Error: " + JSON.stringify(err, undefined, 2)
+        );
+    });
+
     this.app.get("/search", function(req, res) {
       connection.query(
-        "SELECT * FROM " +
-          config.databaseTable +
-          "  WHERE " +
-          config.searchValue1 +
-          ' like "%' +
-          req.query.key +
-          '%" or ' +
-          config.searchValue2 +
-          ' like "%' +
-          req.query.key +
-          '%"',
+        "SELECT * FROM "+config.databaseTable + " WHERE " + config.searchValue1 +' like "%' + req.query.key +
+          '%" or ' + config.searchValue2 +' like "%' + req.query.key +'%"',
         function(err, rows, fields) {
           if (err) throw err;
 
