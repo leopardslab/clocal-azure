@@ -36,8 +36,13 @@ class AzureSearch extends CloudLocal {
 
     this.app.get("/search", function(req, res) {
       connection.query(
-        "SELECT * FROM "+config.databaseTable + " WHERE " + config.searchValue1 +' like "%' + req.query.key +
-          '%" or ' + config.searchValue2 +' like "%' + req.query.key +'%"',
+        "SELECT "+ config.column1+" AS column1, "+ 
+        config.column2+" AS column2, "+
+        config.column3+" AS column3, "+
+        config.column4+" AS column4 "+
+
+        " FROM "+config.databaseTable + " WHERE " + config.searchValue1 +' like "%' + req.query.key +
+        '%" or ' + config.searchValue2 +' like "%' + req.query.key +'%"',
         function(err, rows, fields) {
           if (err) throw err;
 

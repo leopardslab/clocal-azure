@@ -44,10 +44,10 @@
           <tbody>
             <% for (var i=0; i< rows.length; i++){ %>
             <tr>
-              <td><%= rows[i].id %></td>
-              <td><%= rows[i].name %></td>
-              <td><%= rows[i].email %></td>
-              <td><%= rows[i].phone %></td>
+              <td><%= rows[i].column1 %></td>
+              <td><%= rows[i].column2 %></td>
+              <td><%= rows[i].column3 %></td>
+              <td><%= rows[i].column4 %></td>
             </tr>
             <% } %>
           </tbody>
@@ -57,7 +57,7 @@
 
         <!-- <% for (var i=0; i< rows.length; i++){ %>
             <tr>
-              <td><%= JSON.stringify(rows[i]).replace("[", "").replace("\"", "").replace("{", "").replace("}", "").replace(/\"/g, "")  %></td>
+              <td><%= JSON.stringify(rows[i]).replace("[", "").replace("\"", "").replace("{", "\n").replace("}", "").replace(/\"/g, "")  %></td>
             </tr>
             <% } %> -->
 
