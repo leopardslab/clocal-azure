@@ -29,7 +29,7 @@ class AzureStorage extends CloudLocal {
   start() {
     docker.createContainer(
       {
-        Image: "arafato/azurite",
+        Image: "microsoft/azure-storage-emulator",
         Tty: true,
         Cmd: ["/bin/sh"],
         ExposedPorts: { "10000/tcp": {}, "10001/tcp": {}, "10002/tcp": {} },

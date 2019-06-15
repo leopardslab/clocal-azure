@@ -1,4 +1,6 @@
-var config = {};
+const mysql = require("mysql");
+
+let config = {};
 
 config.serviceHost = 'localhost';
 
@@ -24,4 +26,11 @@ config.column3 = 'email';
 
 config.column4 = 'phone';
 
+config.connection = mysql.createConnection({
+    host: config.serviceHost,
+    user: config.databaseUser,
+    password: config.databasePassword,
+    database: config.databaseName
+  });
+  
 module.exports = config;

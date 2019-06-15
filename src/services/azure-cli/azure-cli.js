@@ -2,7 +2,6 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
-const chalk = require("chalk");
 
 let docker;
 if (process.platform != "win32") {
@@ -17,7 +16,7 @@ if (process.platform != "win32") {
 
 class AzureCLI extends CloudLocal {
     start() {
-    let optsc = {
+    const optsc = {
         'Hostname': '',
         'User': '',
         'AttachStdin': true,
@@ -34,19 +33,22 @@ class AzureCLI extends CloudLocal {
         'VolumesFrom': []
       };
       
-      var previousKey,
+      let previousKey,
           CTRL_P = '\u0010',
           CTRL_Q = '\u0011';
       
       function handler(err, container) {
-        var attach_opts = {stream: true, stdin: true, stdout: true, stderr: true};
+        if (err) throw err;
+        const attach_opts = {stream: true, stdin: true, stdout: true, stderr: true};
       
         container.attach(attach_opts, function handler(err, stream) {
+          if (err) throw err;
+
           // Show outputs
           stream.pipe(process.stdout);
       
           // Connect stdin
-          var isRaw = process.isRaw;
+          let isRaw = process.isRaw;
           process.stdin.resume();
           process.stdin.setEncoding('utf8');
           process.stdin.setRawMode(true);
@@ -59,6 +61,7 @@ class AzureCLI extends CloudLocal {
           });
       
           container.start(function(err, data) {
+            if (err) throw err;
             resize(container);
             process.stdout.on('resize', function() {
               resize(container);
@@ -73,7 +76,7 @@ class AzureCLI extends CloudLocal {
       
       // Resize tty
       function resize (container) {
-        var dimensions = {
+        let dimensions = {
           h: process.stdout.rows,
           w: process.stderr.columns
         };
