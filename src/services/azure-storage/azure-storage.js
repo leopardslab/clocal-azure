@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+
 let docker;
 
 if(process.platform != 'win32'){
@@ -29,7 +30,7 @@ class AzureStorage extends CloudLocal {
   start() {
     docker.createContainer(
       {
-        Image: "microsoft/azure-storage-emulator",
+        Image: "arafato/azurite",
         Tty: true,
         Cmd: ["/bin/sh"],
         ExposedPorts: { "10000/tcp": {}, "10001/tcp": {}, "10002/tcp": {} },

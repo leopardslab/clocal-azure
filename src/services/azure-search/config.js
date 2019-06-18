@@ -6,31 +6,31 @@ config.serviceHost = 'localhost';
 
 config.servicePort = '9520';
 
-config.databaseName = 'employeedb';
+config.databaseName = 'mysampledb';
 
 config.databaseUser = 'root';
 
 config.databasePassword = '';
 
-config.databaseTable = 'customer';
+config.databaseTable = 'inventory';
 
 config.searchValue1 = 'name';
 
-config.searchValue2 = 'email';
+config.searchValue2 = 'quantity';
 
 config.column1 = 'id';
 
 config.column2 = 'name';
 
-config.column3 = 'email';
-
-config.column4 = 'phone';
+config.column3 = 'quantity';
 
 config.connection = mysql.createConnection({
     host: config.serviceHost,
     user: config.databaseUser,
     password: config.databasePassword,
-    database: config.databaseName
+    database: config.databaseName,
+    port: '3306',
+
   });
   
 module.exports = config;
