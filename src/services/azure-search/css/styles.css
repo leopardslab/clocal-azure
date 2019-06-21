@@ -63,6 +63,10 @@ form > .button:hover {
   margin-top: 20px;
 }
 
+.columnBottom  {
+  margin-bottom:35px;
+}
+
 table {
   margin: auto;
   width: 50% !important;

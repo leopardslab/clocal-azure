@@ -51,11 +51,11 @@ class AzureSQL extends CloudLocal {
           if (err) throw err;
           setTimeout(function() {
             runExec(container);
-          }, 30000);
+          }, 50000);
           process.stdout.on("resize", function() {
             setTimeout(function() {
               runExec(container);
-            }, 30000);
+            }, 50000);
           });
         });
       });

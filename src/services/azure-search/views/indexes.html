@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Azure Search Emulator 1.0</title>
     <link rel="icon" type="image/png" href="Azure-Search.png" />
-
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <link
       rel="stylesheet"
@@ -28,49 +27,24 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://kit.fontawesome.com/e4e1a5e341.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#button").click(function(e) {
-          let inputvalue = $("#input").val();
-          window.location.replace("/search?key=" + inputvalue);
-        });
-      });
-    </script>
   </head>
+
   <body>
-    <div class="container firstContainer">
+    <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-          <h1>Clocal Azure - Azure Search Emulator 1.0</h1>
-          <img src="Azure-Search.png" width="250px" />
+          <h4><%= title %></h4>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-12 columnBottom">
-          <form>
-            <input
-              type="text"
-              id="input"
-              autocomplete="off"
-              spellcheck="false"
-              class="textbox"
-              placeholder="Search"
-            />
-            <button type="button" id="button" title="Search" class="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-      <hr>
-      <div class="row text-center">
         <div class="col-12">
-          <a href="/indexes" class="btn btn-primary">View Indexes</a>
-          <a href="/indexes/create" class="btn btn-success">Create Index</a>
-          <a href="/indexes/drop" class="btn btn-danger">Drop Index</a>
-
+          <p class="text-center">Message: <%= msg %></p>
+          <p> Server: </p>
+          <pre style="background-color: #e4e4e4">
+            <%= JSON.stringify(rows, null, 4) %>
+          </pre>
+          <p class="text-center"><a href="/">Back</a></p>
         </div>
       </div>
     </div>

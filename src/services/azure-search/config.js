@@ -6,6 +6,8 @@ config.serviceHost = 'localhost';
 
 config.servicePort = '9520';
 
+config.dbServicePort = '3306';
+
 config.databaseName = 'mysampledb';
 
 config.databaseUser = 'root';
@@ -14,22 +16,26 @@ config.databasePassword = '';
 
 config.databaseTable = 'inventory';
 
-config.searchValue1 = 'name';
+config.searchable1 = 'name';
 
-config.searchValue2 = 'quantity';
+config.searchable2 = 'quantity';
 
-config.column1 = 'id';
+config.filter1 = 'id';
 
-config.column2 = 'name';
+config.filter2 = 'name';
 
-config.column3 = 'quantity';
+config.filter3 = 'quantity';
+
+config.indexName = 'idx_inventory';
+
+config.indexColumns = 'name, quantity';
 
 config.connection = mysql.createConnection({
     host: config.serviceHost,
     user: config.databaseUser,
     password: config.databasePassword,
     database: config.databaseName,
-    port: '3306',
+    port: config.dbServicePort
 
   });
   

@@ -20,14 +20,66 @@ class AzureSearch extends CloudLocal {
 
     this.app.get("/search", function(req, res) {
       config.connection.query(
-        "SELECT "+ config.column1+" AS column1, "+ 
-        config.column2+" AS column2, "+
-        config.column3+" AS column3 "+
-        " FROM "+config.databaseTable + " WHERE " + config.searchValue1 +' like "%' + req.query.key +
-        '%" or ' + config.searchValue2 +' like "%' + req.query.key +'%"',
+        // "SELECT "+ config.filter1+" AS column1, "+ 
+        // config.filter2+" AS column2, "+
+        // config.filter3+" AS column3 "+
+        // " FROM "+config.databaseTable + " WHERE " + config.searchable1 +' like "%' + req.query.key +
+        // '%" or ' + config.searchable2 +' like "%' + req.query.key +'%"',
+
+        "SELECT "+ config.filter1+" AS column1, "+ 
+        config.filter2+" AS column2, "+
+        config.filter3+" AS column3 "+
+        "FROM " +config.databaseTable + " USE INDEX ("+ config.indexName +") WHERE " 
+        + config.searchable1 +' like "%' + req.query.key +
+        '%" or ' + config.searchable2 +' like "%' + req.query.key +'%"',
+
         function(err, rows, fields) {
-          if (err) throw err;
-          res.render("results.html", { rows: rows });
+          if (err) {
+            res.status(500).render("error.html",{ error: err })
+          } else {
+          res.status(200).render("results.html", { rows: rows, title: "View Results"});
+          }
+        }
+      );
+    });
+
+    this.app.get("/indexes/create", function(req, res) {
+      config.connection.query(
+        "CREATE INDEX "+ config.indexName +
+        " ON "+config.databaseTable + "(" + config.indexColumns +")",
+        function(err, rows, fields) {
+          if (err) {
+            res.status(500).render("error.html",{ error: err })
+          } else {
+            res.status(200).render("indexes.html", { rows: rows, title:"Create Indexes", msg: "Index Created"});
+          }
+        }
+      );
+    });
+
+    this.app.get("/indexes/drop", function(req, res) {
+      config.connection.query(
+        "DROP INDEX "+ config.indexName +
+        " ON "+config.databaseTable,
+        function(err, rows, fields) {
+          if (err){
+            res.status(500).render("error.html",{ error: err })
+          } else {
+            res.status(200).render("indexes.html", { rows: rows, title: "Drop Indexes", msg: "Index Dropped"});
+          }
+        }
+      );
+    });
+
+    this.app.get("/indexes", function(req, res) {
+      config.connection.query(
+        "SHOW INDEX FROM "+ config.databaseTable,
+        function(err, rows, fields) {
+          if (err){
+            res.status(500).send({ error: err })
+          } else {
+            res.status(200).render("indexes.html", { rows: rows, title: "View Indexes", msg: "Your current Indexes"});
+          }
         }
       );
     });
