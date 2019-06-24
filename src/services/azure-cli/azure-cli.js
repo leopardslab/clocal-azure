@@ -17,20 +17,14 @@ if (process.platform != "win32") {
 class AzureCLI extends CloudLocal {
     start() {
     const optsc = {
-        'Hostname': '',
-        'User': '',
         'AttachStdin': true,
         'AttachStdout': true,
         'AttachStderr': true,
         'Tty': true,
         'OpenStdin': true,
         'StdinOnce': false,
-        'Env': null,
         'Cmd': ['bash'],
-        'Dns': ['8.8.8.8', '8.8.4.4'],
         'Image': 'microsoft/azure-cli',
-        'Volumes': {},
-        'VolumesFrom': []
       };
       
       let previousKey,

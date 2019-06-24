@@ -33,6 +33,7 @@
     "commander": "^2.15.1",
     "connect-busboy": "0.0.2",
     "death": "^1.1.0",
+    "delay": "^4.3.0",
     "dockerode": "^2.5.5",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
