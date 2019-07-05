@@ -111,7 +111,7 @@ class AzureSearch extends CloudLocal {
         "SHOW INDEX FROM " + config.databaseTable,
         function(err, rows, fields) {
           if (err) {
-            res.status(500).send({ error: err });
+            res.status(500).render("error.html", { error: err });
           } else {
             res.status(200).render("indexes.html", {
               rows: rows,
@@ -132,27 +132,34 @@ class AzureSearch extends CloudLocal {
     this.app.get("/nosql/search", function(req, res) {});
 
     this.app.get("/nosql/explore", function(req, res) {
-      var pageNo = parseInt(req.query.pageNo);
-      var size = parseInt(req.query.size);
-      var query = {};
+      let pageNo = parseInt(req.query.pageNo);
+      let size = parseInt(req.query.size);
+      let query = {};
       let response;
       if (pageNo < 0 || pageNo === 0) {
         response = {
           error: true,
-          message: "invalid page number, should start with 1"
+          message: "Invalid page number, should start with 1"
         };
         return res.json(response);
       }
       query.skip = size * (pageNo - 1);
       query.limit = size;
 
-      nosql.find({}, {}, query, function(err, data) {
+      nosql.find({}, {}, query, function(err, rows) {
         if (err) {
-          response = { error: true, message: "Error fetching data" };
+          // response = { error: true, message: "Error fetching data" };
+          res.status(500).render("error.html", { error: true, message: "Error fetching data"});
+
         } else {
-          response = { error: false, message: data };
+          // response = { error: false, message: data };
+          res.status(200).render("explore.html", {
+            rows: rows,
+            title: "NoSQL Data",
+            msg: "Your current data"
+          });
         }
-        res.json(response);
+        // res.json(response);
       });
     });
   }
