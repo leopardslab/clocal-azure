@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Azure Search Emulator 1.0</title>
-    <link rel="icon" type="image/png" href="Azure-Search.png" />
+    <link rel="icon" type="image/png" href="../Azure-Search.png" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <link
       rel="stylesheet"
@@ -38,8 +38,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-center">
-        <table class="table table-hover">
+      <div class="col-4 text-center"></div>
+
+      <div class="col-4">
+        <!-- <table class="table table-hover">
          
           <tbody>
             <% for (let i=0; i< rows.length; i++){ %>
@@ -50,17 +52,19 @@
             </tr>
             <% } %>
           </tbody>
-        </table>
-
-        <a href="/">Back</a>
-
+        </table> -->
+        <pre style="background-color: #e4e4e4">
+          <%= JSON.stringify(rows, null, 4) %>
+        </pre>
+        <p class="text-center"><a href="/sql/">Back</a>
+        </p>
         <!-- <% for (var i=0; i< rows.length; i++){ %>
             <tr>
               <td><%= JSON.stringify(rows[i]).replace("[", "").replace("\"", "").replace("{", "\n").replace("}", "").replace(/\"/g, "")  %></td>
             </tr>
             <% } %> -->
-
       </div>
+      <div class="col-4 text-center"></div>
     </div>
   </body>
 </html>

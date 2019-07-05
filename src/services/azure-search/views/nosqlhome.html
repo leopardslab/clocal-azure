@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Azure Search Emulator 1.0</title>
-    <link rel="icon" type="image/png" href="Azure-Search.png" />
+    <link rel="icon" type="image/png" href="../Azure-Search.png" />
 
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"
     ></script>
@@ -29,25 +28,48 @@
     ></script>
     <script src="https://kit.fontawesome.com/e4e1a5e341.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#button").click(function(e) {
+          let inputvalue = $("#input").val();
+          window.location.replace("/nosql/search?key=" + inputvalue);
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="container firstContainer">
       <div class="row">
         <div class="col-12 text-center">
           <h1>Clocal Azure - Azure Search Emulator 1.0</h1>
-          <img src="Azure-Search.png" width="250px" />
+          <img src="../Azure-Search.png" width="250px" />
         </div>
       </div>
 
-      <hr />
-
+      <div class="row">
+        <div class="col-12 columnBottom">
+          <form>
+            <input
+              type="text"
+              id="input"
+              autocomplete="off"
+              spellcheck="false"
+              class="textbox"
+              placeholder="Search Explorer"
+            />
+            <button type="button" id="button" title="Search" class="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <hr>
       <div class="row text-center">
         <div class="col-12">
-          <p>Your URL endpoint: http://localhost:9520</p>
-        </div>
-        <div class="col-12">
-          <a href="/sql/" class="btn btn-primary">SQL</a>
-          <a href="/nosql/" class="btn btn-success">No SQL</a>
+          <a href="/nosql/explore" class="btn btn-danger">Explore</a>
+
+          <a href="/" class="btn btn-secondary">Back</a>
+
         </div>
       </div>
     </div>

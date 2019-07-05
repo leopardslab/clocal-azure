@@ -1,5 +1,3 @@
-const mysql = require("mysql");
-
 let config = {};
 
 config.serviceHost = 'localhost';
@@ -8,35 +6,32 @@ config.servicePort = '9520';
 
 config.dbServicePort = '3306';
 
+config.nosqlDbServicePort = '27017';
+
 config.databaseName = 'mysampledb';
 
 config.databaseUser = 'root';
 
 config.databasePassword = '';
 
-config.databaseTable = 'inventory';
+config.databaseTable = 'users';
 
-config.searchable1 = 'name';
+config.searchable1 = 'first_name';
 
-config.searchable2 = 'quantity';
+config.searchable2 = 'last_name';
 
-config.filter1 = 'id';
+config.filter1 = 'first_name';
 
-config.filter2 = 'name';
+config.filter2 = 'last_name';
 
-config.filter3 = 'quantity';
+config.filter3 = 'email';
 
-config.indexName = 'idx_inventory';
+config.filter4 = 'gender';
 
-config.indexColumns = 'name, quantity';
+config.filter5 = 'ip_address';
 
-config.connection = mysql.createConnection({
-    host: config.serviceHost,
-    user: config.databaseUser,
-    password: config.databasePassword,
-    database: config.databaseName,
-    port: config.dbServicePort
+config.indexName = 'idx_users';
 
-  });
-  
+config.indexColumns = 'first_name, last_name';
+
 module.exports = config;
