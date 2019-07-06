@@ -1,7 +1,17 @@
 const mongoose = require('mongoose');
 const config = require('./config');
 
-mongoose.connect('mongodb://'+ config.serviceHost +':'+ config.nosqlDbServicePort +'/' + config.databaseName, { useNewUrlParser: true });
+mongoose.connect('mongodb://'+ config.serviceHost +':'+ config.nosqlDbServicePort +'/' + config.databaseName, { useNewUrlParser: true }, err => {
+    if (!err) {
+      console.log("NoSQL Database connection success");
+    } else {
+      console.log(
+        "NoSQL database connection failed \n Error: " +
+          JSON.stringify(err, undefined, 2)
+      );
+    }
+  }
+  );
 let mongoSchema =   mongoose.Schema;
 
 let userSchema  = {

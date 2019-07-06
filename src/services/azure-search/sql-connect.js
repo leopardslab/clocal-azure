@@ -13,10 +13,10 @@ sql.connection = mysql.createConnection({
 
   sql.connection.connect(err => {
     if (!err) {
-      console.log("Database connection success");
+      console.log("SQL Database connection success");
     } else {
       console.log(
-        "Database connection failed \n Error: " +
+        "SQL Database connection failed \n Error: " +
           JSON.stringify(err, undefined, 2)
       );
     }
