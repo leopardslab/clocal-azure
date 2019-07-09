@@ -32,6 +32,8 @@ config.filter5 = 'ip_address';
 
 config.indexName = 'idx_users';
 
-config.indexColumns = 'first_name, last_name';
+config.indexSQLColumns = 'first_name, last_name';
+
+config.indexNoSQLColumns = {first_name: 1, last_name: 1};
 
 module.exports = config;

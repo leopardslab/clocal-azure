@@ -56,7 +56,10 @@ class AzureSearch extends CloudLocal {
             } else {
               res
                 .status(200)
-                .render("results.html", { rows: rows, title: "View Results" });
+                .render("sqlresults.html", { rows: rows, 
+                  title: "Searched Results",
+                  msg: ""
+                });
             }
           }
         );
@@ -69,13 +72,13 @@ class AzureSearch extends CloudLocal {
             " ON " +
             config.databaseTable +
             "(" +
-            config.indexColumns +
+            config.indexSQLColumns +
             ")",
           function(err, rows, fields) {
             if (err) {
               res.status(500).render("error.html", { error: err });
             } else {
-              res.status(200).render("indexes.html", {
+              res.status(200).render("sqlresults.html", {
                 rows: rows,
                 title: "Create Indexes",
                 msg: "Index Created"
@@ -92,7 +95,7 @@ class AzureSearch extends CloudLocal {
             if (err) {
               res.status(500).render("error.html", { error: err });
             } else {
-              res.status(200).render("indexes.html", {
+              res.status(200).render("sqlresults.html", {
                 rows: rows,
                 title: "Drop Indexes",
                 msg: "Index Dropped"
@@ -109,7 +112,7 @@ class AzureSearch extends CloudLocal {
             if (err) {
               res.status(500).render("error.html", { error: err });
             } else {
-              res.status(200).render("indexes.html", {
+              res.status(200).render("sqlresults.html", {
                 rows: rows,
                 title: "View Indexes",
                 msg: "Your current Indexes"
@@ -122,14 +125,17 @@ class AzureSearch extends CloudLocal {
       this.app.get("/sql/count", function(req, res) {
         let top = parseInt(req.query.top);
         let skip = parseInt(req.query.skip);
-        if (top !== top) {
+        let orderby = req.query.orderby;
+        let query;
+
+        if (top !== top && skip !== skip && orderby == undefined) {
           sql.connection.query(
             "SELECT * FROM " + config.databaseTable,
             function(err, rows, fields) {
               if (err) {
                 res.status(500).render("error.html", { error: err });
               } else {
-                res.status(200).render("indexes.html", {
+                res.status(200).render("sqlresults.html", {
                   rows: rows,
                   title: "SQL Data",
                   msg: "Your current data"
@@ -138,21 +144,36 @@ class AzureSearch extends CloudLocal {
             }
           );
         } else {
-          sql.connection.query(
-            "SELECT * FROM " + config.databaseTable +
-            " LIMIT "+ skip +","+ top ,
-            function(err, rows, fields) {
-              if (err) {
-                res.status(500).render("error.html", { error: err });
-              } else {
-                res.status(200).render("indexes.html", {
-                  rows: rows,
-                  title: "SQL Data",
-                  msg: "Your current data"
-                });
-              }
+          if (top !== top && skip !== skip) {
+            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby;
+          }
+
+          else if (skip !== skip && orderby == undefined) {
+            query = "SELECT * FROM " + config.databaseTable + " LIMIT " + top;
+      
+          } else if (skip !== skip) {
+            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby +
+              " LIMIT " + top;
+          
+          } else if (orderby == undefined) {
+            query = "SELECT * FROM " + config.databaseTable + " LIMIT " +
+              skip + "," + top;
+
+          } else {
+            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby +
+              " LIMIT " + skip + "," + top;
+          }
+          sql.connection.query(query, function(err, rows, fields) {
+            if (err) {
+              res.status(500).render("error.html", { error: err });
+            } else {
+              res.status(200).render("sqlresults.html", {
+                rows: rows,
+                title: "SQL Data",
+                msg: "Your current data"
+              });
             }
-          );
+          });
         }
       });
 
@@ -164,22 +185,24 @@ class AzureSearch extends CloudLocal {
 
       this.app.get("/nosql/search", function(req, res) {
         var token = new RegExp(req.query.key);
-        var query = { "$or":[
-          {[config.filter1]: token},
-          {[config.filter2]: token},
-          {[config.filter3]: token},
-          {[config.filter4]: token},
-          {[config.filter5]: token} ]
+        var query = {
+          $or: [
+            { [config.filter1]: token },
+            { [config.filter2]: token },
+            { [config.filter3]: token },
+            { [config.filter4]: token },
+            { [config.filter5]: token }
+          ]
         };
 
-      nosql.find(query, function(err, rows) {
+        nosql.find(query, function(err, rows) {
           if (err) {
             res.status(500).render("error.html", {
               error: true,
               message: "Error fetching data"
             });
           } else {
-            res.status(200).render("count.html", {
+            res.status(200).render("nosqlresults.html", {
               rows: rows,
               title: "NoSQL Data",
               msg: "Your current data"
@@ -188,9 +211,60 @@ class AzureSearch extends CloudLocal {
         });
       });
 
+
+      this.app.get("/nosql/indexes/create", function(req, res) {
+          let collection = nosql.db.collection(config.databaseName);
+          // Create the index
+          collection.createIndex(
+            config.indexNoSQLColumns, {unique: true}, function(err, rows) {
+            if (err){
+              res.status(500).render("error.html", { error: err });
+            } else {
+              res.status(200).render("nosqlresults.html", {
+                rows: rows,
+                title: "Create Indexes",
+                msg: "Index Created"
+              });
+            }
+          });
+      });
+
+      this.app.get("/nosql/indexes/drop", function(req, res) {
+        let collection = nosql.db.collection(config.databaseName);
+        collection.dropIndex(
+          config.indexNoSQLColumns, function(err, rows) {
+          if (err){
+            res.status(500).render("error.html", { error: err });
+          } else {
+            res.status(200).render("nosqlresults.html", {
+              rows: rows,
+              title: "Drop Indexes",
+              msg: "Index Dropped"
+            });
+          }
+        });
+      });
+
+      this.app.get("/nosql/indexes", function(req, res) {
+        let collection = nosql.db.collection(config.databaseName);
+        collection.getIndexes(
+          config.indexNoSQLColumns, function(err, rows) {
+          if (err){
+            res.status(500).render("error.html", { error: err });
+          } else {
+            res.status(200).render("nosqlresults.html", {
+              rows: rows,
+              title: "View Indexes",
+              msg: "Your current Indexes"
+            });
+          }
+        });
+      });
+
       this.app.get("/nosql/count", function(req, res) {
         let top = parseInt(req.query.top);
         let skip = parseInt(req.query.skip);
+        let orderby = req.query.orderby;
 
         let query = {};
         let response;
@@ -201,8 +275,9 @@ class AzureSearch extends CloudLocal {
           };
           return res.json(response);
         }
-        query.skip  = skip;
+        query.skip = skip;
         query.limit = top;
+        query.sort = { [orderby]: 1 };
 
         nosql.find({}, {}, query, function(err, rows) {
           if (err) {
@@ -213,7 +288,7 @@ class AzureSearch extends CloudLocal {
             });
           } else {
             // response = { error: false, message: data };
-            res.status(200).render("count.html", {
+            res.status(200).render("nosqlresults.html", {
               rows: rows,
               title: "NoSQL Data",
               msg: "Your current data"

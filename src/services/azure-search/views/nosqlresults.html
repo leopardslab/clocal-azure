@@ -30,23 +30,26 @@
   </head>
 
   <body>
-    <div class="container firstContainer">
+    <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-          <h4>Search Results</h4>
+          <h4><%= title %></h4>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-4 text-center"></div>
 
-      <div class="col-4">
-        <pre style="background-color: #e4e4e4">
-          <%= JSON.stringify(rows, null, 4) %>
-        </pre>
-        <p class="text-center"><a href="/sql/">Back</a></p>
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center">Message: <%= msg %></p>
+          <p class="text-center">
+            <a href="/nosql/">Back</a>
+          </p>
+
+          <p>Server:</p>
+          <pre style="background-color: #e4e4e4">
+            <%= JSON.stringify(rows, null, 4) %>
+          </pre>
+        </div>
       </div>
-      <div class="col-4 text-center"></div>
     </div>
   </body>
 </html>

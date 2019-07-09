@@ -12,14 +12,14 @@ mongoose.connect('mongodb://'+ config.serviceHost +':'+ config.nosqlDbServicePor
     }
   }
   );
-let mongoSchema =   mongoose.Schema;
+// let mongoSchema =   mongoose.Schema;
 
-let userSchema  = {
+let userSchema  = mongoose.Schema ({
     [config.filter1] : String,
     [config.filter2] : String,
     [config.filter3]: String,
     [config.filter4]: String,
     [config.filter5]: String,
-};
+});
 
 module.exports = mongoose.model(config.databaseTable, userSchema);
