@@ -177,6 +177,27 @@ class AzureSearch extends CloudLocal {
         }
       });
 
+      this.app.get("/sql/facet", function(req, res) {
+        let category = (req.query.category);
+        let count = parseInt(req.query.count);
+
+        sql.connection.query(
+          "SELECT "+ category + " FROM " + config.databaseTable +" Limit "+ count,
+          function(err, rows, fields) {
+            if (err) {
+              res.status(500).render("error.html", { error: err });
+            } else {
+              res.status(200).render("sqlresults.html", {
+                rows: rows,
+                title: "Facet Count",
+                msg: "Your facet count values"
+              });
+            }
+          }
+        );
+      });
+
+
       // NOSQL
 
       this.app.get("/nosql", function(req, res) {
