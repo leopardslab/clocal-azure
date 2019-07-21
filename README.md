@@ -1,12 +1,18 @@
-# Clocal Azure
+<h1 align="center">
+  <a href=""><img src="./src/assets/clocal-logo.png"></a>
+</h1>
 
-![CLocal-Azure](./src/assets/clocal-logo.png)
+<p align="center">
+ <a href="https://github.com/cloudlibz/clocal-azure"><img src="https://img.shields.io/badge/CLocal-Azure-blue.svg"></a>
+ <a href="https://gitter.im/cloudlibz/clocal-azure"><img src="https://badges.gitter.im/cloudlibz/clocal-azure.svg"></a>
+ <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
+ <a href="http://hits.dwyl.io/cloudlibz/clocal-azure"><img src="http://hits.dwyl.io/cloudlibz/clocal-azure.svg"></a>
 
 ![[CLocal-Azure](https://github.com/cloudlibz/clocal-azure)](https://img.shields.io/badge/CLocal-Azure-blue.svg)
 [![Join the chat at https://gitter.im/cloudlibz/clocal-azure](https://badges.gitter.im/cloudlibz/clocal-azure.svg)](https://gitter.im/cloudlibz/clocal-azure?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![HitCount](http://hits.dwyl.io/cloudlibz/clocal-azure.svg)](http://hits.dwyl.io/cloudlibz/clocal-azure)
-
+</p>
 
 Emulation engine for Azure Services 
 
@@ -176,10 +182,9 @@ $ clocal api-start <folder> <init-file>
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
-* **[Azure SQL Service](./docs/azure-sql-service.md)**
+* **[Azure SQL Service](./docs/azure-sql-server.md)**
 * **[Azure Search](./docs/azure-search.md)**
 * **[Azure CLI](./docs/azure-cli.md)**
-
 
 
 ## 📺 Demo Video Series
@@ -204,6 +209,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./L
 
 The project clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [Rumesh](https://github.com/rehrumesh), [Lasitha](https://github.com/lasitha-petthawadu) and [Rajika](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
 
- Second phase of clocal-azure carried out for Google Summer of Code 2019. Once again I would like to thank my mentors [Rumesh](https://github.com/rehrumesh), [Sammani](https://mvp.microsoft.com/en-us/mvp/Sammani%20Palansuriya-5000835), [Rajika](https://github.com/rajikaimal) and [Dilantha](https://github.com/dilantha111).
+Second phase of clocal-azure carried out for Google Summer of Code 2019. Once again I would like to thank my mentors [Rumesh](https://github.com/rehrumesh), [Sammani](https://mvp.microsoft.com/en-us/mvp/Sammani%20Palansuriya-5000835), [Rajika](https://github.com/rajikaimal) and [Dilantha](https://github.com/dilantha111).
 
 

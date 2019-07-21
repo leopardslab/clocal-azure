@@ -27,7 +27,7 @@ The guide will be divided into two sections depending on the data source.
 
 ### Step 1:
 
-Before starting the service, it is recommended to start MySQL server which is having in your machine or run our [MYSQL server docker image](./azure-sql-service.md). 
+Before starting the service, it is recommended to start MySQL server which is having in your machine or run our [MYSQL server docker image](./azure-sql-server.md). 
 
 If you are using the provided Azure MySQL service, there are few configurations needs to be given in order to get a successful connection. 
 
