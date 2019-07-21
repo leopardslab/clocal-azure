@@ -318,6 +318,31 @@ class AzureSearch extends CloudLocal {
           // res.json(response);
         });
       });
+
+      this.app.get("/nosql/facet", function(req, res) {
+        let category = (req.query.category);
+        let count = parseInt(req.query.count);
+
+        let query = {};
+        query.select = category;
+        query.limit = count;
+
+        nosql.find({}, {}, query, function(err, rows) {
+          if (err) {
+            res.status(500).render("error.html", {
+              error: true,
+              message: "Error fetching data"
+            });
+          } else {
+            res.status(200).render("nosqlresults.html", {
+              rows: rows,
+              title: "NoSQL Data",
+              msg: "Your current data"
+            });
+          }
+        });
+      });
+
     }
   }
 }
