@@ -2,19 +2,18 @@
   <a href=""><img src="./src/assets/clocal-logo.png"></a>
 </h1>
 
+<h4 align="center">
+An emulation engine for Azure Services 
+</h4>
+
 <p align="center">
  <a href="https://github.com/cloudlibz/clocal-azure"><img src="https://img.shields.io/badge/CLocal-Azure-blue.svg"></a>
  <a href="https://gitter.im/cloudlibz/clocal-azure"><img src="https://badges.gitter.im/cloudlibz/clocal-azure.svg"></a>
+ <a href="https://saythanks.io/to/lakindu95"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg"></a>
  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
  <a href="http://hits.dwyl.io/cloudlibz/clocal-azure"><img src="http://hits.dwyl.io/cloudlibz/clocal-azure.svg"></a>
 
-![[CLocal-Azure](https://github.com/cloudlibz/clocal-azure)](https://img.shields.io/badge/CLocal-Azure-blue.svg)
-[![Join the chat at https://gitter.im/cloudlibz/clocal-azure](https://badges.gitter.im/cloudlibz/clocal-azure.svg)](https://gitter.im/cloudlibz/clocal-azure?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![HitCount](http://hits.dwyl.io/cloudlibz/clocal-azure.svg)](http://hits.dwyl.io/cloudlibz/clocal-azure)
 </p>
-
-Emulation engine for Azure Services 
 
 _Clocal-azure_ provides an easy-to-use test/mocking framework for developing Cloud applications.
 
