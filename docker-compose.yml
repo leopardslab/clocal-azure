@@ -16,6 +16,13 @@ services:
     image: "azure-api-app-image"
     ports: 
      - "9567:9000"
+  cli:
+    image: "microsoft/azure-cli"
+  sql-server:
+    image: "mysql/mysql-server"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
 
   # Uncomment if your using windows OS 
   # cosmosdb:

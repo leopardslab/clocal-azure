@@ -21,13 +21,14 @@ Currently features are under development.
 * NodeJS (^8.9.4)
 * yarn (^1.6.0)
 * Docker
-* MYSQL 
+* MYSQL
+* MongoDB 
 
 ```
 $ git clone https://github.com/cloudlibz/clocal-azure.git
 $ cd clocal-azure
 $ yarn
-$ yarn link
+$ yarn link (Install clocal commands)
 $ yarn start <command>
          or
 $ clocal <command>
@@ -38,12 +39,13 @@ $ clocal <command>
 _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 
 ## 📟 Services & Ports
-* **Azure Functions** at http://localhost:9574
-* **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
-* **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
-* **Azure Search** at http://localhost:9520
+* **[Azure Functions](./docs/azure-functions.md)** at http://localhost:9574
+* **[Azure Storage](./docs/azure-storage.md)** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
+* **[Azure CosmosDB](./docs/azure-cosmosdb.md)** (Only windows supported) port will be given by the emulator with the IP address
+* **[Azure SQL Service](./docs/azure-sql-server.md)** at http://localhost:3306
+* **[Azure Search](./docs/azure-search.md)** at http://localhost:9520
 * **Azure API App Service** at http://localhost:9567
-* **Azure CLI 2.0** No ports
+* **[Azure CLI 2.0](./docs/azure-cli.md)** No ports
 
 ## Commands
 
@@ -124,11 +126,26 @@ $ clocal cosmosdb-start
 $ clocal cosmosdb-stop
 ```
 
+### Azure SQL Server
+
+* **Start SQL Service**
+```
+$ clocal sql-start
+```
+* **Stop SQL Service**
+```
+$ exit
+```
+
 ### Azure Search
 
 * **Start Search**
 ```
 $ clocal search-start
+```
+* **Stop Search**
+```
+$ cmd + c / ctrl + c
 ```
 
 ### Azure CLI 2.0
@@ -159,6 +176,11 @@ $ clocal api-start <folder> <init-file>
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
+* **[Azure SQL Service](./docs/azure-sql-service.md)**
+* **[Azure Search](./docs/azure-search.md)**
+* **[Azure CLI](./docs/azure-cli.md)**
+
+
 
 ## 📺 Demo Video Series
 
@@ -180,6 +202,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./L
 
 ## Acknowledgments
 
-clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [@rehrumesh](https://github.com/rehrumesh), [@lasitha-petthawadu](https://github.com/lasitha-petthawadu) and [@rajikaimal](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
+The project clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [Rumesh](https://github.com/rehrumesh), [Lasitha](https://github.com/lasitha-petthawadu) and [Rajika](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
+
+ Second phase of clocal-azure carried out for Google Summer of Code 2019. Once again I would like to thank my mentors [Rumesh](https://github.com/rehrumesh), [Sammani](https://mvp.microsoft.com/en-us/mvp/Sammani%20Palansuriya-5000835), [Rajika](https://github.com/rajikaimal) and [Dilantha](https://github.com/dilantha111).
 
 
