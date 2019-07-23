@@ -190,11 +190,19 @@ $ clocal api-start <folder> <init-file>
 
 * **[Video Playlist](https://www.youtube.com/watch?v=rpUJ44D_7Tk&list=PLbd4A5tkijhDGRQp6BcrwGhRvS0TU8zhQ)**
 
+
 ## 🔧 Testing
 
 ```
 $ yarn test
 ```
+
+## 📝 Architecture 
+
+<p align="center">
+  <a href=""><img src="./src/assets/architecture.jpg"></a>
+  Sent by Gaurav Pandey
+</p>
 
 ## 🙋 Contributing
 
