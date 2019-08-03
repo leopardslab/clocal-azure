@@ -26,6 +26,7 @@ class AzureStorage extends CloudLocal {
    */
 
   start() {
+    let currentPath = process.cwd();
     docker.createContainer(
       {
         Image: "vault",
@@ -34,10 +35,16 @@ class AzureStorage extends CloudLocal {
         PortBindings: {
           "8200/tcp": [{ HostPort: "8200" }]
         },
-        // Volume - $PWD/example:/tmp/example
-        //- $PWD/logs/:/tmp/logs
-        
-        //cap_add - IPC_LOCK
+        Volumes: {
+          '/example': {},
+          // '/logs':{}
+        },
+        HostConfig: {
+          'Binds': ['/'+ currentPath+'/src/services/azure-keyvault/example:/example/'],
+    
+        }
+    
+        // cap_add: "IPC_LOCK"
       },
       function(err, container) {
         if (err) {
@@ -58,7 +65,8 @@ class AzureStorage extends CloudLocal {
 
 function runExec(container) {
   let options = {
-    Cmd: ["server -config /tmp/example/config.hcl"],
+    Cmd: ["sh", "server -config /example/config.hcl"],
+    // Cmd: ["server -config /example/config.hcl"],
     AttachStdout: true,
     AttachStderr: true
   };
