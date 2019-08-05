@@ -31,20 +31,16 @@ class AzureStorage extends CloudLocal {
       {
         Image: "vault",
         Tty: true,
-        ExposedPorts: { "8200/tcp": {} },
+        ExposedPorts: { "8200/tcp": {}, "8201/tcp":{} },
         PortBindings: {
-          "8200/tcp": [{ HostPort: "8200" }]
-        },
-        Volumes: {
-          '/example': {},
-          // '/logs':{}
+          "8200/tcp": [{ HostPort: "8200" }],
+          "8201/tcp": [{ HostPort: "8201" }]
         },
         HostConfig: {
-          'Binds': ['/'+ currentPath+'/src/services/azure-keyvault/example:/example/'],
-    
-        }
-    
-        // cap_add: "IPC_LOCK"
+          'Binds': ['/'+ currentPath+'/src/services/azure-keyvault/example:/tmp/example/', 
+          '/'+ currentPath+'/src/services/azure-keyvault/logs:/tmp/logs/'],
+        },
+        cap_add: "IPC_LOCK"
       },
       function(err, container) {
         if (err) {
@@ -65,8 +61,7 @@ class AzureStorage extends CloudLocal {
 
 function runExec(container) {
   let options = {
-    Cmd: ["sh", "server -config /example/config.hcl"],
-    // Cmd: ["server -config /example/config.hcl"],
+    Cmd: ["vault", "server", "-config",`/tmp/example/config.hcl`],
     AttachStdout: true,
     AttachStderr: true
   };
