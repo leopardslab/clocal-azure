@@ -182,7 +182,7 @@ class AzureSearch extends CloudLocal {
         let count = parseInt(req.query.count);
 
         sql.connection.query(
-          "SELECT "+ category + " FROM " + config.databaseTable +" Limit "+ count,
+          "SELECT DISTINCT "+ category + " FROM " + config.databaseTable +" Limit "+ count,
           function(err, rows, fields) {
             if (err) {
               res.status(500).render("error.html", { error: err });
@@ -326,8 +326,9 @@ class AzureSearch extends CloudLocal {
         let query = {};
         query.select = category;
         query.limit = count;
+        query.distinct = category;
 
-        nosql.find({}, {}, query, function(err, rows) {
+        nosql.aggregate([{$sortByCount: "$"+category}, {$limit  : count}], function(err, rows) {
           if (err) {
             res.status(500).render("error.html", {
               error: true,
