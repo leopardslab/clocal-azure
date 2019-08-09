@@ -32,15 +32,16 @@ class AzureStorage extends CloudLocal {
         Image: "vault",
         Tty: true,
         ExposedPorts: { "8200/tcp": {}, "8201/tcp":{} },
-        PortBindings: {
-          "8200/tcp": [{ HostPort: "8200" }],
-          "8201/tcp": [{ HostPort: "8201" }]
-        },
+        
         HostConfig: {
-          'Binds': ['/'+ currentPath+'/src/services/azure-keyvault/example:/tmp/example/', 
+          Binds: ['/'+ currentPath+'/src/services/azure-keyvault/example:/tmp/example/', 
           '/'+ currentPath+'/src/services/azure-keyvault/logs:/tmp/logs/'],
+          PortBindings: {
+            "8200/tcp": [{ HostPort: "8200" }],
+            "8201/tcp": [{ HostPort: "8201" }]
+          }
         },
-        cap_add: "IPC_LOCK"
+        Cmd: ["sh"]
       },
       function(err, container) {
         if (err) {
