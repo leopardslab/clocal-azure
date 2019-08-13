@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+
 let docker;
 
 if(process.platform != 'win32'){

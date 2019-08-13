@@ -1,14 +1,19 @@
-# Clocal Azure
+<h1 align="center">
+  <a href=""><img src="./src/assets/clocal-logo.png"></a>
+</h1>
 
-![CLocal-Azure](./src/assets/clocal-logo.png)
+<h4 align="center">
+An emulation engine for Azure Services 
+</h4>
 
-![[CLocal-Azure](https://github.com/cloudlibz/clocal-azure)](https://img.shields.io/badge/CLocal-Azure-blue.svg)
-[![Join the chat at https://gitter.im/cloudlibz/clocal-azure](https://badges.gitter.im/cloudlibz/clocal-azure.svg)](https://gitter.im/cloudlibz/clocal-azure?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![HitCount](http://hits.dwyl.io/cloudlibz/clocal-azure.svg)](http://hits.dwyl.io/cloudlibz/clocal-azure)
+<p align="center">
+ <a href="https://github.com/cloudlibz/clocal-azure"><img src="https://img.shields.io/badge/CLocal-Azure-blue.svg"></a>
+ <a href="https://gitter.im/cloudlibz/clocal-azure"><img src="https://badges.gitter.im/cloudlibz/clocal-azure.svg"></a>
+ <a href="https://saythanks.io/to/lakindu95"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg"></a>
+ <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
+ <a href="http://hits.dwyl.io/cloudlibz/clocal-azure"><img src="http://hits.dwyl.io/cloudlibz/clocal-azure.svg"></a>
 
-
-Emulation engine for Azure Services 
+</p>
 
 _Clocal-azure_ provides an easy-to-use test/mocking framework for developing Cloud applications.
 
@@ -21,11 +26,14 @@ Currently features are under development.
 * NodeJS (^8.9.4)
 * yarn (^1.6.0)
 * Docker
+* MYSQL
+* MongoDB 
 
 ```
 $ git clone https://github.com/cloudlibz/clocal-azure.git
 $ cd clocal-azure
 $ yarn
+$ yarn link (Install clocal commands)
 $ yarn start <command>
          or
 $ clocal <command>
@@ -36,10 +44,13 @@ $ clocal <command>
 _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 
 ## 📟 Services & Ports
-* **Azure Functions** at http://localhost:9574
-* **Azure Storage** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
-* **Azure CosmosDB** (Only windows supported) port will be given by the emulator with the IP address
+* **[Azure Functions](./docs/azure-functions.md)** at http://localhost:9574
+* **[Azure Storage](./docs/azure-storage.md)** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
+* **[Azure CosmosDB](./docs/azure-cosmosdb.md)** (Only windows supported) port will be given by the emulator with the IP address
+* **[Azure SQL Service](./docs/azure-sql-server.md)** at http://localhost:3306
+* **[Azure Search](./docs/azure-search.md)** at http://localhost:9520
 * **Azure API App Service** at http://localhost:9567
+* **[Azure CLI 2.0](./docs/azure-cli.md)** No ports
 
 ## Commands
 
@@ -120,6 +131,39 @@ $ clocal cosmosdb-start
 $ clocal cosmosdb-stop
 ```
 
+### Azure SQL Server
+
+* **Start SQL Service**
+```
+$ clocal sql-start
+```
+* **Stop SQL Service**
+```
+$ exit
+```
+
+### Azure Search
+
+* **Start Search**
+```
+$ clocal search-start
+```
+* **Stop Search**
+```
+$ cmd + c / ctrl + c
+```
+
+### Azure CLI 2.0
+
+* **Start CLI**
+```
+$ clocal cli-start
+```
+* **Exit CLI**
+```
+$ exit
+```
+
 ### Azure API App Service 
 
 Azure API working directory is located in example/azure-api-service.
@@ -137,16 +181,28 @@ $ clocal api-start <folder> <init-file>
 * **[Azure Functions](./docs/azure-functions.md)**
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
+* **[Azure SQL Service](./docs/azure-sql-server.md)**
+* **[Azure Search](./docs/azure-search.md)**
+* **[Azure CLI](./docs/azure-cli.md)**
+
 
 ## 📺 Demo Video Series
 
 * **[Video Playlist](https://www.youtube.com/watch?v=rpUJ44D_7Tk&list=PLbd4A5tkijhDGRQp6BcrwGhRvS0TU8zhQ)**
+
 
 ## 🔧 Testing
 
 ```
 $ yarn test
 ```
+
+## 📝 Architecture 
+
+<p align="center">
+  <a href=""><img src="./src/assets/architecture.jpg"></a>
+  Sent by Gaurav Pandey
+</p>
 
 ## 🙋 Contributing
 
@@ -158,6 +214,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE.md](./L
 
 ## Acknowledgments
 
-clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [@rehrumesh](https://github.com/rehrumesh), [@lasitha-petthawadu](https://github.com/lasitha-petthawadu) and [@rajikaimal](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
+The project clocal-azure is initially developed for the Google Summer of Code 2018. Special thanks goes to my mentors [Rumesh](https://github.com/rehrumesh), [Lasitha](https://github.com/lasitha-petthawadu) and [Rajika](https://github.com/rajikaimal) and [CloudLibz Organization](https://github.com/cloudlibz).
+
+Second phase of clocal-azure carried out for Google Summer of Code 2019. Once again I would like to thank my mentors [Rumesh](https://github.com/rehrumesh), [Sammani](https://mvp.microsoft.com/en-us/mvp/Sammani%20Palansuriya-5000835), [Rajika](https://github.com/rajikaimal) and [Dilantha](https://github.com/dilantha111).
 
 

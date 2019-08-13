@@ -16,7 +16,21 @@ services:
     image: "azure-api-app-image"
     ports: 
      - "9567:9000"
-
+  cli:
+    image: "microsoft/azure-cli"
+  sql-server:
+    image: "mysql/mysql-server"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+  keyvault:
+      image: vault
+      volumes:
+        - $PWD/src/services/azure-keyvault/example:/tmp/example/
+        - $PWD/src/services/azure-keyvault/logs:/tmp/logs/
+      command: server -config /tmp/example/config.hcl
+      ports:
+        - "8200:8200"
   # Uncomment if your using windows OS 
   # cosmosdb:
   #   env_file: 
