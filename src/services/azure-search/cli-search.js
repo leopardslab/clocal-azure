@@ -4,13 +4,14 @@
 
 const chalk = require("chalk");
 const AzureSearch = require("./azure-search");
+const logger = require("../../bin/logger");
 const search = new AzureSearch();
 
 let config = require("./config");
 
 const action = () => {
   try {
-    console.log(
+    logger.info(
       chalk.blueBright(
         "Starting Azure Search ..." +
           `\nNow listening on:
@@ -22,7 +23,7 @@ const action = () => {
     );
     const res = search.start();
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

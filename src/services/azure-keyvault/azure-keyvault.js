@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const logger = require("../../bin/logger");
 
 let docker;
 
@@ -45,12 +46,12 @@ class AzureStorage extends CloudLocal {
       },
       function(err, container) {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
         container.start({}, function(err, data) {
           if (err) {
-            console.log(err);
+            logger.error(err);
             return;
           }
           runExec(container);
@@ -69,12 +70,12 @@ function runExec(container) {
 
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       if (process.argv[2] == "keyvault-start") {
@@ -107,7 +108,7 @@ function removeContainer() {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
       setTimeout(function() {
-        console.log("Key Vault container stopped");
+        logger.info("Key Vault container stopped");
         return process.exit(0);
       }, 5000);
     });

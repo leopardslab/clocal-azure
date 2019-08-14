@@ -4,6 +4,7 @@
 
 const chalk = require("chalk");
 const AzureFunction = require("./azure-function");
+const logger = require("../../bin/logger");
 const functions = new AzureFunction();
 
 const action = () => {
@@ -11,7 +12,7 @@ const action = () => {
     const res = functions.start();
    
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

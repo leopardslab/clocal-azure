@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const logger = require("../../bin/logger");
 const config = require('./config');
 
 mongoose.connect('mongodb://'+ config.serviceHost +':'+ config.nosqlDbServicePort +'/' + config.databaseName, { useNewUrlParser: true }, err => {
     if (!err) {
-      console.log("NoSQL Database connection success");
+      logger.info("NoSQL Database connection success");
     } else {
-      console.log(
+      logger.error(
         "NoSQL database connection failed \n Error: " +
           JSON.stringify(err, undefined, 2)
       );

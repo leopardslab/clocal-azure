@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const logger = require("../../bin/logger");
 
 let docker;
 
@@ -42,12 +43,12 @@ class AzureStorage extends CloudLocal {
       },
       function(err, container) {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
         container.start({}, function(err, data) {
           if (err) {
-            console.log(err);
+            logger.error(err);
             return;
           }
           runExec(container);
@@ -66,12 +67,12 @@ function runExec(container) {
 
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       if (process.argv[2] == "storage-start") {
@@ -97,7 +98,7 @@ function customTerminal(container) {
       else if ( inputService.includes("clocal storage-query") ) {
         commandHandlers['clocal storage-query'](container, inputService);
       } else {
-        console.log("Invalid Command");
+        logger.error("Invalid Command");
       }
     });
   }, 4000);
@@ -108,7 +109,7 @@ function removeContainer() {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
       setTimeout(function() {
-        console.log("Storage container stopped");
+        logger.info("Storage container stopped");
         return process.exit(0);
       }, 5000);
     });
@@ -133,16 +134,16 @@ function listFiles(container, fileName) {
   };
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.modem.demuxStream(stream, process.stdout, process.stdin);
-      console.log("All files listed.");
+      logger.info("All files listed.");
     });
   });
 };
@@ -155,16 +156,16 @@ function clearFiles(container) {
   };
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.modem.demuxStream(stream, process.stdout, process.stderr);
-      console.log("Storage successfully cleared.");
+      logger.info("Storage successfully cleared.");
     });
   });
 }

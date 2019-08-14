@@ -4,16 +4,17 @@
 
 const chalk = require("chalk");
 const AzureKeyVault = require("./azure-keyvault");
+const logger = require("../../bin/logger");
 const vault = new AzureKeyVault();
 
 const action = () => {
   try {
 
     const res = vault.start();
-    console.log(chalk.blueBright("Initialising Azure Key Vault..."));
+    logger.info(chalk.blueBright("Initialising Azure Key Vault..."));
    
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

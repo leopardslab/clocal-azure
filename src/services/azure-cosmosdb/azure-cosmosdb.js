@@ -3,6 +3,7 @@
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 const tar = require("tar-fs");
+const logger = require("../../bin/logger");
 
 let docker = new Docker({
   socketPath: "//./pipe/docker_engine"
@@ -94,12 +95,12 @@ function startContainer() {
     },
     function(err, container) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.start({}, function(err, data) {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
         runExec(container);
@@ -118,12 +119,12 @@ function runExec(container) {
   };
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.modem.demuxStream(stream, process.stdout, process.stderr);
@@ -136,7 +137,7 @@ function removeContainer() {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
       setTimeout(function() {
-        console.log("Cosmos DB container stopped");
+        logger.info("Cosmos DB container stopped");
         return process.exit(0);
       }, 5000);
     });
