@@ -4,16 +4,17 @@
 
 const chalk = require("chalk");
 const AzureSQL = require("./azure-sql-server");
+const logger = require("../../bin/logger");
 const sql = new AzureSQL();
 
 const action = () => {
   try {
 
     const res = sql.start();
-    console.log(chalk.blueBright("Initialising Azure SQL Server..."));
+    logger.info(chalk.blueBright("Initialising Azure SQL Server..."));
    
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

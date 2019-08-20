@@ -4,16 +4,19 @@
 
 const chalk = require("chalk");
 const AzureCLI = require("./azure-cli");
+const logger = require('../../bin/logger');
+
 const cli = new AzureCLI();
 
 const action = () => {
   try {
 
     const res = cli.start();
-    console.log(chalk.blueBright("Initialising Azure CLI..."));
+    logger.info(chalk.blueBright('Initialising Azure CLI...'));
+
    
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

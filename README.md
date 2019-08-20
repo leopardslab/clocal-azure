@@ -48,6 +48,7 @@ _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 * **[Azure Storage](./docs/azure-storage.md)** at http://localhost:9569 (Blobs), http://localhost:9570 (Queues), http://localhost:9571 (Tables)
 * **[Azure CosmosDB](./docs/azure-cosmosdb.md)** (Only windows supported) port will be given by the emulator with the IP address
 * **[Azure SQL Service](./docs/azure-sql-server.md)** at http://localhost:3306
+* **[Azure Key Vault](./docs/azure-keyvault.md)** at http://localhost:8200
 * **[Azure Search](./docs/azure-search.md)** at http://localhost:9520
 * **Azure API App Service** at http://localhost:9567
 * **[Azure CLI 2.0](./docs/azure-cli.md)** No ports
@@ -142,6 +143,18 @@ $ clocal sql-start
 $ exit
 ```
 
+### Azure KeyVault
+
+* **Start KeyVault**
+```
+$ clocal keyvault-start
+```
+
+* **Stop KeyVault**
+```
+$ clocal keyvault-stop
+```
+
 ### Azure Search
 
 * **Start Search**
@@ -182,6 +195,7 @@ $ clocal api-start <folder> <init-file>
 * **[Azure Storage](./docs/azure-storage.md)**
 * **[Azure Cosmos DB](./docs/azure-cosmosdb.md)**
 * **[Azure SQL Service](./docs/azure-sql-server.md)**
+* **[Azure KeyVault](./docs/azure-keyvault.md)**
 * **[Azure Search](./docs/azure-search.md)**
 * **[Azure CLI](./docs/azure-cli.md)**
 

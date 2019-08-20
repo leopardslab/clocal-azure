@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const logger = require("../../bin/logger");
 let config = require("./config");
 let sql = {};
 
@@ -13,9 +14,9 @@ sql.connection = mysql.createConnection({
 
   sql.connection.connect(err => {
     if (!err) {
-      console.log("SQL Database connection success");
+      logger.info("SQL Database connection success");
     } else {
-      console.log(
+      logger.error(
         "SQL Database connection failed \n Error: " +
           JSON.stringify(err, undefined, 2)
       );

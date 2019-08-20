@@ -4,21 +4,21 @@
 
 const chalk = require("chalk");
 const AzureApiAppService = require("./azure-api-app-service");
+const logger = require('../../bin/logger');
 const APIService = new AzureApiAppService();
 
 const action = (cmd, path) => {
   try {
     const res = APIService.start();
-    console.log(
-      chalk.blueBright(
-        "Starting azure api app service ..." +
-          "\nNow listening on: http://localhost:" +
-          APIService.port +
-          ". Press Ctrl+C to shut down."
-      )
-    );
+    logger.info(chalk.blueBright(
+      "Starting azure api app service ..." +
+        "\nNow listening on: http://localhost:" +
+        APIService.port +
+        ". Press Ctrl+C to shut down."
+    ));
+      
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

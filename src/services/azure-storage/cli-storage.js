@@ -4,11 +4,12 @@
 
 const chalk = require("chalk");
 const AzureStorage = require("./azure-storage");
+const logger = require("../../bin/logger");
 const storage = new AzureStorage();
 
 const action = () => {
   try {
-    console.log(
+    logger.info(
       chalk.blueBright(
         "Starting Azure Storage ..." +
           `\nNow listening on:
@@ -20,7 +21,7 @@ Enter \"clocal storage-stop\" to stop service.`
     );
     const res = storage.start();
   } catch (err) {
-    console.log(chalk.blueBright.bgRed(err));
+    logger.error(chalk.blueBright.bgRed(err));
   }
 };
 

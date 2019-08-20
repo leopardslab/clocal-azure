@@ -2,6 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
+const logger = require("../../bin/logger");
 
 let docker;
 if (process.platform != "win32") {
@@ -80,7 +81,7 @@ function runExec(container) {
   };
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     const attach_opts = {
@@ -92,7 +93,7 @@ function runExec(container) {
 
     exec.start(attach_opts, function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       if (process.argv[2] == "sql-start") {

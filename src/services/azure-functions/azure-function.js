@@ -2,7 +2,7 @@
 
 const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
-const stream = require("stream");
+const logger = require("../../bin/logger");
 const chalk = require("chalk");
 const tar = require("tar-fs");
 
@@ -64,7 +64,7 @@ function customTerminal(container) {
       ) {
         commandHandlers[inputService](container);
       } else {
-        console.log("Invalid Command");
+        logger.error("Invalid Command");
       }
     });
   }, 4000);
@@ -83,16 +83,16 @@ function startContainer() {
     },
     function(err, container) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.start({}, function(err, data) {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
-        console.log("Starting azure function container");
-        console.log(
+        logger.info("Starting azure function container");
+        logger.info(
           chalk.blueBright(
             `
                       %%%%%%
@@ -130,12 +130,12 @@ function runExec(container) {
 
   container.exec(options, function(err, exec) {
     if (err) {
-      console.log(err);
+      logger.error(err);
       return;
     }
     exec.start(function(err, stream) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
       container.modem.demuxStream(stream, process.stdout, process.stderr);
@@ -148,7 +148,7 @@ function removeContainer() {
     containers.forEach(function(containerInfo) {
       docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
       setTimeout(function() {
-        console.log("Functions container stopped");
+        logger.info("Functions container stopped");
         return process.exit(0);
       }, 5000);
     });

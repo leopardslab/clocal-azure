@@ -1,12 +1,22 @@
-import test, { beforeEach, afterEach } from "ava";
+import test, { beforeEach, afterEach, before } from "ava";
+import delay from "delay";
 import http from "ava-http";
+
 const Docker = require("dockerode");
 const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
 
-let docker = new Docker({
-   socketPath: "/var/run/docker.sock"
-});
+let docker, testContainer, errorContainer;
+
+if (process.platform != "win32") {
+  docker = new Docker({
+    socketPath: "/var/run/docker.sock"
+  });
+} else {
+  docker = new Docker({
+    socketPath: "//./pipe/docker_engine"
+  });
+}
 
 function timeout(ms, fn) {
   return function(t) {
@@ -17,21 +27,6 @@ function timeout(ms, fn) {
     fn(t);
   };
 }
-
-test("Function port check", t => {
-  const res = http.get(functionUrl);
-  t.is(res.port, "9574");
-});
-
-test("Function returns an object", t => {
-  const res = http.get(functionUrl);
-  t.true(typeof res === "object");
-});
-
-test("Function response status", async t => {
-  const res = await http.getResponse(functionUrl);
-  t.is(res.statusCode, 200);
-});
 
 test(
   "Build Image",
@@ -56,3 +51,49 @@ test(
     t.pass();
   })
 );
+
+test.before(async t => {
+  "Create container", await delay(1000);
+  docker.createContainer(
+    {
+      Image: "azure-functions-image",
+      Tty: true,
+      Cmd: ["/bin/sh"],
+      ExposedPorts: { "80/tcp": {} },
+      PortBindings: {
+        "80/tcp": [{ HostPort: "9574" }]
+      }
+    },
+    function(err, container) {
+      t.is(err, null);
+      t.is(container, true);
+      testContainer = container.id;
+      errorContainer = err;
+    }
+  );
+});
+
+test("Container Create", async t => {
+  await delay(1000);
+  t.not(testContainer, undefined);
+});
+
+test("Container Error null", async t => {
+    await delay(1000);
+    t.is(errorContainer, null);
+});
+
+test("Function port check", t => {
+  const res = http.get(functionUrl);
+  t.is(res.port, "9574");
+});
+
+test("Function returns an object", t => {
+  const res = http.get(functionUrl);
+  t.true(typeof res === "object");
+});
+
+test("Function response status", async t => {
+  const res = await http.getResponse(functionUrl);
+  t.is(res.statusCode, 200);
+});
