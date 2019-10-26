@@ -56,7 +56,8 @@ class AzureSearch extends CloudLocal {
             } else {
               res
                 .status(200)
-                .render("sqlresults.html", { rows: rows, 
+                .render("sqlresults.html", {
+                  rows: rows,
                   title: "Searched Results",
                   msg: ""
                 });
@@ -145,23 +146,36 @@ class AzureSearch extends CloudLocal {
           );
         } else {
           if (top !== top && skip !== skip) {
-            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby;
-          }
-
-          else if (skip !== skip && orderby == undefined) {
+            query =
+              "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby;
+          } else if (skip !== skip && orderby == undefined) {
             query = "SELECT * FROM " + config.databaseTable + " LIMIT " + top;
-      
           } else if (skip !== skip) {
-            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby +
-              " LIMIT " + top;
-          
+            query =
+              "SELECT * FROM " +
+              config.databaseTable +
+              " ORDER BY " +
+              orderby +
+              " LIMIT " +
+              top;
           } else if (orderby == undefined) {
-            query = "SELECT * FROM " + config.databaseTable + " LIMIT " +
-              skip + "," + top;
-
+            query =
+              "SELECT * FROM " +
+              config.databaseTable +
+              " LIMIT " +
+              skip +
+              "," +
+              top;
           } else {
-            query = "SELECT * FROM " + config.databaseTable + " ORDER BY " + orderby +
-              " LIMIT " + skip + "," + top;
+            query =
+              "SELECT * FROM " +
+              config.databaseTable +
+              " ORDER BY " +
+              orderby +
+              " LIMIT " +
+              skip +
+              "," +
+              top;
           }
           sql.connection.query(query, function(err, rows, fields) {
             if (err) {
@@ -178,11 +192,16 @@ class AzureSearch extends CloudLocal {
       });
 
       this.app.get("/sql/facet", function(req, res) {
-        let category = (req.query.category);
+        let category = req.query.category;
         let count = parseInt(req.query.count);
 
         sql.connection.query(
-          "SELECT DISTINCT "+ category + " FROM " + config.databaseTable +" Limit "+ count,
+          "SELECT DISTINCT " +
+            category +
+            " FROM " +
+            config.databaseTable +
+            " Limit " +
+            count,
           function(err, rows, fields) {
             if (err) {
               res.status(500).render("error.html", { error: err });
@@ -196,7 +215,6 @@ class AzureSearch extends CloudLocal {
           }
         );
       });
-
 
       // NOSQL
 
@@ -232,13 +250,14 @@ class AzureSearch extends CloudLocal {
         });
       });
 
-
       this.app.get("/nosql/indexes/create", function(req, res) {
-          let collection = nosql.db.collection(config.databaseName);
-          // Create the index
-          collection.createIndex(
-            config.indexNoSQLColumns, {unique: true}, function(err, rows) {
-            if (err){
+        let collection = nosql.db.collection(config.databaseName);
+        // Create the index
+        collection.createIndex(
+          config.indexNoSQLColumns,
+          { unique: true },
+          function(err, rows) {
+            if (err) {
               res.status(500).render("error.html", { error: err });
             } else {
               res.status(200).render("nosqlresults.html", {
@@ -247,14 +266,14 @@ class AzureSearch extends CloudLocal {
                 msg: "Index Created"
               });
             }
-          });
+          }
+        );
       });
 
       this.app.get("/nosql/indexes/drop", function(req, res) {
         let collection = nosql.db.collection(config.databaseName);
-        collection.dropIndex(
-          config.indexNoSQLColumns, function(err, rows) {
-          if (err){
+        collection.dropIndex(config.indexNoSQLColumns, function(err, rows) {
+          if (err) {
             res.status(500).render("error.html", { error: err });
           } else {
             res.status(200).render("nosqlresults.html", {
@@ -268,9 +287,8 @@ class AzureSearch extends CloudLocal {
 
       this.app.get("/nosql/indexes", function(req, res) {
         let collection = nosql.db.collection(config.databaseName);
-        collection.getIndexes(
-          config.indexNoSQLColumns, function(err, rows) {
-          if (err){
+        collection.getIndexes(config.indexNoSQLColumns, function(err, rows) {
+          if (err) {
             res.status(500).render("error.html", { error: err });
           } else {
             res.status(200).render("nosqlresults.html", {
@@ -320,7 +338,7 @@ class AzureSearch extends CloudLocal {
       });
 
       this.app.get("/nosql/facet", function(req, res) {
-        let category = (req.query.category);
+        let category = req.query.category;
         let count = parseInt(req.query.count);
 
         let query = {};
@@ -328,22 +346,24 @@ class AzureSearch extends CloudLocal {
         query.limit = count;
         query.distinct = category;
 
-        nosql.aggregate([{$sortByCount: "$"+category}, {$limit  : count}], function(err, rows) {
-          if (err) {
-            res.status(500).render("error.html", {
-              error: true,
-              message: "Error fetching data"
-            });
-          } else {
-            res.status(200).render("nosqlresults.html", {
-              rows: rows,
-              title: "NoSQL Data",
-              msg: "Your current data"
-            });
+        nosql.aggregate(
+          [{ $sortByCount: "$" + category }, { $limit: count }],
+          function(err, rows) {
+            if (err) {
+              res.status(500).render("error.html", {
+                error: true,
+                message: "Error fetching data"
+              });
+            } else {
+              res.status(200).render("nosqlresults.html", {
+                rows: rows,
+                title: "NoSQL Data",
+                msg: "Your current data"
+              });
+            }
           }
-        });
+        );
       });
-
     }
   }
 }

@@ -9,7 +9,6 @@ const queueUrl = "http://localhost:9570";
 const tableUrl = "http://localhost:9571";
 const urlPath = "/devstoreaccount1";
 
-
 let docker, testContainer, errorContainer;
 
 if (process.platform != "win32") {
@@ -51,10 +50,10 @@ test("Container Create", async t => {
 });
 
 test("Container Error null", async t => {
-    await delay(1000);
-    t.is(errorContainer, null);
+  await delay(1000);
+  t.is(errorContainer, null);
 });
-  
+
 test("Blob port check", t => {
   const res = http.get(blobUrl + urlPath);
   t.is(res.port, "9569");

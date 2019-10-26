@@ -9,9 +9,17 @@ const azureSearch = require("./azure-search/cli-search");
 const azureSQL = require("./azure-sql-server/cli-sql-server");
 const azureKeyVault = require("./azure-keyvault/cli-keyvault");
 
-const commandsArray = [azureFunctions, azureAPIService, azureCosmosDB, azureStorage, azureCli, azureSearch, azureSQL, azureKeyVault];
+const commandsArray = [
+  azureFunctions,
+  azureAPIService,
+  azureCosmosDB,
+  azureStorage,
+  azureCli,
+  azureSearch,
+  azureSQL,
+  azureKeyVault
+];
 
 module.exports = {
   commands: commandsArray
 };
- 

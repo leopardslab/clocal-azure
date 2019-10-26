@@ -6,18 +6,18 @@ const logger = require("../../bin/logger");
 
 let docker;
 
-if(process.platform != 'win32'){
+if (process.platform != "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
 } else {
   docker = new Docker({
     socketPath: "//./pipe/docker_engine"
-  })
-} 
+  });
+}
 
 let commandHandlers = {
-  "clocal keyvault-stop": removeContainer,
+  "clocal keyvault-stop": removeContainer
 };
 
 class AzureStorage extends CloudLocal {
@@ -32,11 +32,15 @@ class AzureStorage extends CloudLocal {
       {
         Image: "vault",
         Tty: true,
-        ExposedPorts: { "8200/tcp": {}, "8201/tcp":{} },
-        
+        ExposedPorts: { "8200/tcp": {}, "8201/tcp": {} },
+
         HostConfig: {
-          Binds: ['/'+ currentPath+'/src/services/azure-keyvault/example:/tmp/example/', 
-          '/'+ currentPath+'/src/services/azure-keyvault/logs:/tmp/logs/'],
+          Binds: [
+            "/" +
+              currentPath +
+              "/src/services/azure-keyvault/example:/tmp/example/",
+            "/" + currentPath + "/src/services/azure-keyvault/logs:/tmp/logs/"
+          ],
           PortBindings: {
             "8200/tcp": [{ HostPort: "8200" }],
             "8201/tcp": [{ HostPort: "8201" }]
@@ -63,7 +67,7 @@ class AzureStorage extends CloudLocal {
 
 function runExec(container) {
   let options = {
-    Cmd: ["vault", "server", "-config",`/tmp/example/config.hcl`],
+    Cmd: ["vault", "server", "-config", `/tmp/example/config.hcl`],
     AttachStdout: true,
     AttachStderr: true
   };
@@ -92,9 +96,7 @@ function customTerminal(container) {
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
       let inputService = d.toString().trim();
-      if (
-        inputService == "clocal keyvault-stop"
-      ) {
+      if (inputService == "clocal keyvault-stop") {
         commandHandlers[inputService](container);
       } else {
         console.log("Invalid Command");

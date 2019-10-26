@@ -4,13 +4,13 @@
 
 const chalk = require("chalk");
 const AzureCosmosDB = require("./azure-cosmosdb");
-const logger = require('../../bin/logger');
+const logger = require("../../bin/logger");
 const cosmosdb = new AzureCosmosDB();
 
 const action = () => {
   try {
+    cosmosdb.start();
     logger.info(chalk.blueBright("Starting Azure Cosmos DB ..."));
-    const res = cosmosdb.start();
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

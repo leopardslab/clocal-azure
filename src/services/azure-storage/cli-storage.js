@@ -19,7 +19,7 @@ const action = () => {
 Enter \"clocal storage-stop\" to stop service.`
       )
     );
-    const res = storage.start();
+    storage.start();
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

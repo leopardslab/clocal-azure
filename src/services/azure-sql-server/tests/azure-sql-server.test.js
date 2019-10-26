@@ -19,17 +19,17 @@ test.before(async t => {
   "Create container", await delay(1000);
   docker.createContainer(
     {
-    AttachStdin: true,
-    AttachStdout: true,
-    AttachStderr: true,
-    Tty: true,
-    OpenStdin: true,
-    StdinOnce: false,
-    Env: ["MYSQL_ROOT_PASSWORD=pwd"],
-    Cmd: ["mysqld"],
-    Image: "mysql/mysql-server",
-    ExposedPorts: { "3306/tcp": {}, "33060/tcp": {} },
-    PortBindings: {
+      AttachStdin: true,
+      AttachStdout: true,
+      AttachStderr: true,
+      Tty: true,
+      OpenStdin: true,
+      StdinOnce: false,
+      Env: ["MYSQL_ROOT_PASSWORD=pwd"],
+      Cmd: ["mysqld"],
+      Image: "mysql/mysql-server",
+      ExposedPorts: { "3306/tcp": {}, "33060/tcp": {} },
+      PortBindings: {
         "3306/tcp": [{ HostPort: "3306" }],
         "33060/tcp": [{ HostPort: "33060" }]
       }
@@ -49,7 +49,6 @@ test("Container Create", async t => {
 });
 
 test("Container Error null", async t => {
-    await delay(1000);
-    t.is(errorContainer, null);
+  await delay(1000);
+  t.is(errorContainer, null);
 });
-  

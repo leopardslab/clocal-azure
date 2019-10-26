@@ -9,10 +9,8 @@ const sql = new AzureSQL();
 
 const action = () => {
   try {
-
-    const res = sql.start();
+    sql.start();
     logger.info(chalk.blueBright("Initialising Azure SQL Server..."));
-   
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

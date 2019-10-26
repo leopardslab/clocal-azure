@@ -23,11 +23,15 @@ test.before(async t => {
     {
       Image: "vault",
       Tty: true,
-      ExposedPorts: { "8200/tcp": {}, "8201/tcp":{} },
-      
+      ExposedPorts: { "8200/tcp": {}, "8201/tcp": {} },
+
       HostConfig: {
-        Binds: ['/'+ currentPath+'/src/services/azure-keyvault/example:/tmp/example/', 
-        '/'+ currentPath+'/src/services/azure-keyvault/logs:/tmp/logs/'],
+        Binds: [
+          "/" +
+            currentPath +
+            "/src/services/azure-keyvault/example:/tmp/example/",
+          "/" + currentPath + "/src/services/azure-keyvault/logs:/tmp/logs/"
+        ],
         PortBindings: {
           "8200/tcp": [{ HostPort: "8200" }],
           "8201/tcp": [{ HostPort: "8201" }]
@@ -50,7 +54,6 @@ test("Container Create", async t => {
 });
 
 test("Container Error null", async t => {
-    await delay(1000);
-    t.is(errorContainer, null);
+  await delay(1000);
+  t.is(errorContainer, null);
 });
-  
