@@ -9,8 +9,7 @@ const functions = new AzureFunction();
 
 const action = () => {
   try {
-    const res = functions.start();
-   
+    functions.start();
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

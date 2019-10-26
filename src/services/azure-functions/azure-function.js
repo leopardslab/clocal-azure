@@ -7,15 +7,15 @@ const chalk = require("chalk");
 const tar = require("tar-fs");
 
 let docker;
-if(process.platform != 'win32'){
+if (process.platform != "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
 } else {
   docker = new Docker({
     socketPath: "//./pipe/docker_engine"
-  })
-} 
+  });
+}
 
 let workingDir = "./example/azure-functions/";
 let folder;

@@ -21,7 +21,7 @@ const action = () => {
           config.servicePort
       )
     );
-    const res = search.start();
+    search.start();
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

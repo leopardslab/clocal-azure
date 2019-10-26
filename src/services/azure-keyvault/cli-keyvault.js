@@ -9,10 +9,8 @@ const vault = new AzureKeyVault();
 
 const action = () => {
   try {
-
-    const res = vault.start();
+    vault.start();
     logger.info(chalk.blueBright("Initialising Azure Key Vault..."));
-   
   } catch (err) {
     logger.error(chalk.blueBright.bgRed(err));
   }

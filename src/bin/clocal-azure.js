@@ -3,7 +3,7 @@
 "use strict";
 
 const program = require("commander");
-const logger = require('../bin/logger');
+const logger = require("../bin/logger");
 const commandsArray = require("../services/index").commands;
 
 program.version("1.0.0", "-v, --version").description("CLocal Azure");
@@ -20,7 +20,6 @@ program.command("list").action(() => {
     return `${prev}\n${current}`;
   }, "");
   logger.info(commandNameList.toString());
-
 });
 
 program.parse(process.argv);

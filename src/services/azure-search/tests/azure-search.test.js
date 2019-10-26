@@ -1,6 +1,6 @@
 import https from "ava-http";
-const http = require('http');
-const test = require('ava');
+const http = require("http");
+const test = require("ava");
 
 const url = "http://localhost:9520";
 const AzureSearch = require("../azure-search");
@@ -16,7 +16,7 @@ test.after.always(t => {
 
 test.serial("Search app port check", async t => {
   const result = https.get(url);
-  t.is(result.port, '9520');
+  t.is(result.port, "9520");
 });
 
 test("Search app returns an object", t => {
