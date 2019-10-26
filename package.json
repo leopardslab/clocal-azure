@@ -7,7 +7,7 @@
     "start": "node src/bin/clocal-azure",
     "service": "sh compose.sh",
     "dev": "nodemon src/bin/clocal-azure",
-    "test": "node_modules/.bin/ava src/services/**/tests/azure-search.test.js --verbose",
+    "test": "node_modules/.bin/ava src/services/**/tests/*.test.js --verbose",
     "test:watch": "node_modules/.bin/ava --verbose --watch",
     "cover": "node_modules/.bin/nyc yarn test"
   },
@@ -40,7 +40,6 @@
     "fs": "0.0.1-security",
     "fs-extra": "^6.0.1",
     "fstream": "^1.0.12",
-    "get-port": "^5.0.0",
     "got": "^8.3.1",
     "inquirer": "^6.0.0",
     "jsonpath": "^1.0.0",
@@ -56,7 +55,6 @@
     "swaggerize-ui": "^1.0.1",
     "tar": "^4.4.4",
     "tar.gz": "^1.0.7",
-    "test-listen": "^1.1.0",
     "url": "^0.11.0",
     "winston": "^3.2.1"
   },
