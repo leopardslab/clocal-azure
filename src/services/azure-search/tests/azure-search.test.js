@@ -1,18 +1,30 @@
-import test, { beforeEach, afterEach } from "ava";
-import http from "ava-http";
-const url = "http://localhost:9520";
+import https from "ava-http";
+const http = require('http');
+const test = require('ava');
 
-test("Search app port check", t => {
-  const res = http.get(url);
-  t.is(res.port, "9520");
+const url = "http://localhost:9520";
+const AzureSearch = require("../azure-search");
+const search = new AzureSearch();
+
+test.before(async t => {
+  search.start();
+});
+
+test.after.always(t => {
+  search.stop();
+});
+
+test.serial("Search app port check", async t => {
+  const result = https.get(url);
+  t.is(result.port, '9520');
 });
 
 test("Search app returns an object", t => {
-  const res = http.get(url);
-  t.true(typeof res === "object");
+  const result = https.get(url);
+  t.true(typeof result === "object");
 });
 
 test("Search app response status", async t => {
-  const res = await http.getResponse(url);
-  t.is(res.statusCode, 200);
+  const result = await https.getResponse(url);
+  t.is(result.statusCode, 200);
 });
