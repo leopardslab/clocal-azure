@@ -207,6 +207,8 @@ $ clocal api-start <folder> <init-file>
 
 ## 🔧 Testing
 
+Before runs the tests, make sure all docker images have been installed.
+
 ```
 $ yarn test
 ```
