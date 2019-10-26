@@ -40,6 +40,7 @@
     "fs": "0.0.1-security",
     "fs-extra": "^6.0.1",
     "fstream": "^1.0.12",
+    "get-port": "^5.0.0",
     "got": "^8.3.1",
     "inquirer": "^6.0.0",
     "jsonpath": "^1.0.0",
