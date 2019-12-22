@@ -113,28 +113,20 @@ function runExec(container) {
           previousKey = key;
         });
 
-        docker.getEvents({}, (err, evtSource) => {
+        docker.getEvents({}, function (err, evtSource) {
           evtSource.on("data", function (data) {
             let dockerEventState = JSON.parse(String.fromCharCode.apply(String, data)); // Prevents unexpected tokens from being checked, unexpected token in JSON
             if (dockerEventState.Actor.Attributes.execID === exec.id && dockerEventState.status === "exec_die") {
+
               // As we cannot gracefully exit, we will forcefully kill and remove the container causing the terminal to update
               console.log(data);
               container.remove({ force: true })
-              .then(() => {
-                console.log("Successfully removed container")
+              .then(function() {
+                console.log("Successfully removed container");
               });
             }
           });
         });
-
-        // docker.getEvents({}, (err, eventStream)=>{
-        //   eventStream.on("data", function(data){
-        //     let text = JSON.parse(String.fromCharCode.apply(String, data));
-        //     if (text.status=="exec_die" && text.Actor.Attributes.execID==exec.id) {
-        //       container.remove({force:true});
-        //     }
-        //   });
-        // });
 
         container.wait(function(err, data) {
           exit(stream, isRaw);
