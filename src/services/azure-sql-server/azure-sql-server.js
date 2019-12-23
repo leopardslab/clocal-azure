@@ -115,18 +115,55 @@ function runExec(container) {
 
         docker.getEvents({}, function (err, evtSource) {
           evtSource.on("data", function (data) {
-            let dockerEventState = JSON.parse(String.fromCharCode.apply(String, data)); // Prevents unexpected tokens from being checked, unexpected token in JSON
-            if (dockerEventState.Actor.Attributes.execID === exec.id && dockerEventState.status === "exec_die") {
 
-              // As we cannot gracefully exit, we will forcefully kill and remove the container causing the terminal to update
-              console.log(data);
-              container.remove({ force: true })
-              .then(function() {
-                console.log("Successfully removed container");
-              });
+            let dockerEventState = null;
+
+            try {
+              dockerEventState = JSON.parse(data); 
+
+              if (dockerEventState.Actor.Attributes.execID === exec.id && dockerEventState.status === "exec_die") {
+
+                // Manually tries to shut mysqld down
+                var options = {
+                  Cmd: ['bash', '-c', 'mysqld stop'],
+                  AttachStdout: true,
+                  AttachStderr: true
+                };
+              
+                container.exec(options, function(err, exec) {
+                  if (err) return;
+                  exec.start(function(err, stream) {
+                    if (err) return;
+              
+                    container.modem.demuxStream(stream, process.stdout, process.stderr);
+              
+                    exec.inspect(function(err, data) {
+                      if (err) return;
+                    });
+                  });
+                });
+
+                // Stop will send SIGKILL to mysqld, causing it to shut down. We can then gracefully exit the process.
+                container.stop().then(function() {
+                  process.exit(0)
+                })
+                
+              }
+            } catch (exception) { // Catches exception caused by malformatted JSON emitted by healthchecker 
+              console.error(exception)
             }
+           
           });
         });
+
+
+  
+          
+
+
+
+
+
 
         container.wait(function(err, data) {
           exit(stream, isRaw);
