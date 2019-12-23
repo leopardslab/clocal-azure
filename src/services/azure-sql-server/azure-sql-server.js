@@ -145,26 +145,16 @@ function runExec(container) {
 
                 // Stop will send SIGKILL to mysqld, causing it to shut down. We can then gracefully exit the process.
                 container.stop().then(function() {
-                  process.exit(0)
+                  exit(stream, isRaw);
                 })
                 
               }
             } catch (exception) { // Catches exception caused by malformatted JSON emitted by healthchecker 
-              console.error(exception)
+              console.error(exception);
             }
            
           });
         });
-
-
-  
-          
-
-
-
-
-
-
         container.wait(function(err, data) {
           exit(stream, isRaw);
         });
