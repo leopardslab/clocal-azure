@@ -24,10 +24,15 @@ Currently features are under development.
 ### Requirements
 
 * NodeJS (^8.9.4)
+	* **[Installation guide](https://nodejs.org/en/download/package-manager)**
 * yarn (^1.6.0)
+	* **[Installation guide](https://yarnpkg.com/lang/en/docs/install/#windows-stable)**
 * Docker
+	* **[Installation guide](https://docs.docker.com/install)**
 * MYSQL
+	* **[Installation guide](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en)**
 * MongoDB 
+	* **[Installation guide](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)**
 
 ```
 $ git clone https://github.com/cloudlibz/clocal-azure.git
