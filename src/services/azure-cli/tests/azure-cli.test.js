@@ -31,8 +31,7 @@ test.before(async t => {
     function(err, container) {
       t.is(err, null);
       t.is(container, true);
-      testContainer = container.id;
-      errorContainer = err;
+      testContainer = container;
     }
   );
 });
