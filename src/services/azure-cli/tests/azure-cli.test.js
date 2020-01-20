@@ -37,6 +37,13 @@ test.before(async t => {
   );
 });
 
+test("Initialization function receives correct values", async t => {
+  await delay(1000);
+  t.not(container, undefined);
+  t.not(container.id, undefined);
+  t.is(err, null);
+});
+
 test("Container Create", async t => {
   await delay(1000);
   t.not(testContainer, undefined);
@@ -45,4 +52,15 @@ test("Container Create", async t => {
 test("Container Error null", async t => {
   await delay(1000);
   t.is(errorContainer, null);
+});
+
+test("Container Starts", async t => {
+  await delay(20000);
+
+  function handler(err, data) {
+    t.is(err, null);
+  }
+
+  container.start(handler);
+  t.pass()
 });

@@ -97,3 +97,15 @@ test("Function response status", async t => {
   const res = await http.getResponse(functionUrl);
   t.is(res.statusCode, 200);
 });
+
+test(
+  "Inspect beforeEach container", async t => {
+  var newContainer = docker.getContainer(testContainer);
+
+  function handler(err, data) {
+    t.is(err, null);
+    t.not(data, undefined)
+  }
+
+  newContainer.inspect(handler);
+});

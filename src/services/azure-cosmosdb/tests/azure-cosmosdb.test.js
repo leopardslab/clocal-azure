@@ -3,11 +3,11 @@ const Docker = require("dockerode");
 const tar = require("tar-fs");
 
 if (process.platform != "win32") {
-  docker = new Docker({
+  var docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
 } else {
-  docker = new Docker({
+  var docker = new Docker({
     socketPath: "//./pipe/docker_engine"
   });
 }
@@ -69,6 +69,41 @@ test(
         t.is(container, true);
       }
     );
+    t.pass();
+  })
+);
+
+test(
+  "Inspect container",
+  timeout(60000, async t => {
+    var testContainer;
+    docker.createContainer(
+      {
+        AttachStdin: true,
+        AttachStdout: true,
+        AttachStderr: true,
+        Tty: true,
+        OpenStdin: true,
+        StdinOnce: false,
+        Cmd: ["cmd"],
+        Image: "azure-cosmosdb-image"
+      },
+      function(err, container) {
+        t.is(err, null);
+        t.is(container, true);
+        testContainer = container.id;
+        errorContainer = err;
+      }
+    );
+    var newContainer = docker.getContainer(testContainer);
+    function handler(err, data) {
+      t.is(err, null);
+      t.not(data, undefined)
+    }
+
+    newContainer.inspect({}, handler);
+    t.not(newContainer, undefined)
+
     t.pass();
   })
 );
