@@ -6,6 +6,8 @@ const Docker = require("dockerode");
 const tar = require("tar-fs");
 const functionUrl = "http://localhost:9574";
 
+var testImage = "azure-functions-image";
+
 let docker, testContainer, errorContainer;
 
 if (process.platform != "win32") {
@@ -27,6 +29,20 @@ function timeout(ms, fn) {
     fn(t);
   };
 }
+
+test(
+  "Inspect Image", t => {
+    var image = docker.getImage(testImage);
+    t.not(image, undefined);
+
+    function handler(err, data) {
+      t.is(err, null);
+      t.not(data, undefined)
+    }
+
+    image.inspect(handler);
+  }
+)
 
 test(
   "Build Image",
@@ -110,3 +126,13 @@ test(
   t.not(newContainer, null);
   newContainer.inspect(handler);
 });
+
+test("Close containers", async t => {
+  docker.listContainers(function(err, containers) {
+    containers.forEach(function(containerInfo) {
+      docker.getContainer(containerInfo.Id).kill(containerInfo.Id);
+    });
+  });
+
+  test.pass();
+})
