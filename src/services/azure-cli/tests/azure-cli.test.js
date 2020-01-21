@@ -5,6 +5,8 @@ const Docker = require("dockerode");
 
 let docker, testContainer, errorContainer;
 
+var testContainer = "microsoft/azure-cli";
+
 if (process.platform != "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
@@ -37,10 +39,11 @@ test.before(async t => {
 });
 
 test("Initialization function receives correct values", async t => {
+  var newContainer = docker.getContainer(testContainer);
+
+  t.not(newContainer, undefined);
+  t.not(newContainer.id, undefined);
   await delay(1000);
-  t.not(container, undefined);
-  t.not(container.id, undefined);
-  t.is(err, null);
 });
 
 test("Container Create", async t => {
