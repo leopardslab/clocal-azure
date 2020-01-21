@@ -37,7 +37,7 @@ test(
 
     function handler(err, data) {
       t.is(err, null);
-      t.not(data, undefined)
+      t.not(data, undefined);
     };
 
     image.inspect(handler);
