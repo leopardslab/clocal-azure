@@ -121,7 +121,7 @@ test(
   function handler(err, data) {
     t.is(err, null);
     t.not(data, undefined);
-  };
+  }
 
   t.not(newContainer, null);
   newContainer.inspect(handler);
