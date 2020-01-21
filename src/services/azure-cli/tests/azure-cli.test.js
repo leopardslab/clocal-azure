@@ -3,7 +3,7 @@ import delay from "delay";
 
 const Docker = require("dockerode");
 
-let docker, testContainer, errorContainer;
+let docker, errorContainer;
 
 var testContainer = "microsoft/azure-cli";
 

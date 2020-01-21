@@ -38,11 +38,11 @@ test(
     function handler(err, data) {
       t.is(err, null);
       t.not(data, undefined)
-    }
+    };
 
     image.inspect(handler);
   }
-)
+);
 
 test(
   "Build Image",
@@ -120,8 +120,8 @@ test(
 
   function handler(err, data) {
     t.is(err, null);
-    t.not(data, undefined)
-  }
+    t.not(data, undefined);
+  };
 
   t.not(newContainer, null);
   newContainer.inspect(handler);
@@ -134,5 +134,5 @@ test("Close containers", async t => {
     });
   });
 
-  test.pass();
+  t.pass();
 })

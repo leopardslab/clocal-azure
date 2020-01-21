@@ -74,8 +74,7 @@ test(
 );
 
 test(
-  "Inspect container",
-  timeout(60000, async t => {
+  "Inspect container", t => {
     var testContainer;
     docker.createContainer(
       {
@@ -97,12 +96,12 @@ test(
     var newContainer = docker.getContainer(testContainer);
     function handler(err, data) {
       t.is(err, null);
-      t.not(data, undefined)
+      t.not(data, undefined);
     }
 
     newContainer.inspect({}, handler);
-    t.not(newContainer, undefined)
+    t.not(newContainer, undefined);
 
     t.pass();
-  })
+  }
 );
