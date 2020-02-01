@@ -7,7 +7,7 @@ let config = require("./config");
 
 class AzureSearch extends CloudLocal {
   init() {
-    if (process.argv[2] == "search-start") {
+    if (process.argv[2] === "search-start") {
       let sql = require("./sql-connect");
       let nosql = require("./nosql-connect");
 
@@ -129,7 +129,7 @@ class AzureSearch extends CloudLocal {
         let orderby = req.query.orderby;
         let query;
 
-        if (top !== top && skip !== skip && orderby == undefined) {
+        if (top !== top && skip !== skip && orderby === undefined) {
           sql.connection.query(
             "SELECT * FROM " + config.databaseTable,
             function(err, rows, fields) {
@@ -158,7 +158,7 @@ class AzureSearch extends CloudLocal {
               orderby +
               " LIMIT " +
               top;
-          } else if (orderby == undefined) {
+          } else if (orderby === undefined) {
             query =
               "SELECT * FROM " +
               config.databaseTable +

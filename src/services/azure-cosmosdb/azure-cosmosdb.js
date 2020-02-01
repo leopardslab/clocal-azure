@@ -48,8 +48,8 @@ function customTerminal(container) {
     stdin.addListener("data", function(d) {
       let inputService = d.toString().trim();
       if (
-        inputService == "clocal cosmosdb-start" ||
-        inputService == "clocal cosmosdb-stop"
+        inputService === "clocal cosmosdb-start" ||
+        inputService === "clocal cosmosdb-stop"
       ) {
         commandHandlers[inputService](container);
       } else {

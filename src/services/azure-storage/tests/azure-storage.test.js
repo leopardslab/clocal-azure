@@ -11,7 +11,7 @@ const urlPath = "/devstoreaccount1";
 
 let docker, testContainer, errorContainer;
 
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });

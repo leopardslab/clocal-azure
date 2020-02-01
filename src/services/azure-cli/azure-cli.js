@@ -4,7 +4,7 @@ const CloudLocal = require("./../azure/cloud-local");
 const Docker = require("dockerode");
 
 let docker;
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
@@ -80,7 +80,7 @@ class AzureCLI extends CloudLocal {
         w: process.stderr.columns
       };
 
-      if (dimensions.h != 0 && dimensions.w != 0) {
+      if (dimensions.h !== 0 && dimensions.w !== 0) {
         container.resize(dimensions, function() {});
       }
     }

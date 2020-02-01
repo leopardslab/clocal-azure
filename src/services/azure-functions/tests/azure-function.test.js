@@ -8,7 +8,7 @@ const functionUrl = "http://localhost:9574";
 
 let docker, testContainer, errorContainer;
 
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });

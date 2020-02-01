@@ -96,7 +96,7 @@ function customTerminal(container) {
     let stdin = process.openStdin();
     stdin.addListener("data", function(d) {
       let inputService = d.toString().trim();
-      if (inputService == "clocal keyvault-stop") {
+      if (inputService === "clocal keyvault-stop") {
         commandHandlers[inputService](container);
       } else {
         console.log("Invalid Command");
