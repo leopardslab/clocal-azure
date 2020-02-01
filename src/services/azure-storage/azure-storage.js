@@ -6,7 +6,7 @@ const logger = require("../../bin/logger");
 
 let docker;
 
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
@@ -75,7 +75,7 @@ function runExec(container) {
         logger.error(err);
         return;
       }
-      if (process.argv[2] == "storage-start") {
+      if (process.argv[2] === "storage-start") {
         container.modem.demuxStream(stream, process.stdout, process.stderr);
         customTerminal(container);
       }
@@ -90,8 +90,8 @@ function customTerminal(container) {
     stdin.addListener("data", function(d) {
       let inputService = d.toString().trim();
       if (
-        inputService == "clocal storage-stop" ||
-        inputService == "clocal storage-clear"
+        inputService === "clocal storage-stop" ||
+        inputService === "clocal storage-clear"
       ) {
         commandHandlers[inputService](container);
       } else if (inputService.includes("clocal storage-query")) {

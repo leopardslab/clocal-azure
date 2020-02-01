@@ -2,7 +2,7 @@ import test, { beforeEach, afterEach } from "ava";
 const Docker = require("dockerode");
 const tar = require("tar-fs");
 
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });

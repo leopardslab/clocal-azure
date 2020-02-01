@@ -5,7 +5,7 @@ const Docker = require("dockerode");
 const logger = require("../../bin/logger");
 
 let docker;
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
@@ -96,7 +96,7 @@ function runExec(container) {
         logger.error(err);
         return;
       }
-      if (process.argv[2] == "sql-start") {
+      if (process.argv[2] === "sql-start") {
         // Show outputs
         stream.pipe(process.stdout);
 

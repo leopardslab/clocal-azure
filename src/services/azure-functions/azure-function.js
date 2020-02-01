@@ -7,7 +7,7 @@ const chalk = require("chalk");
 const tar = require("tar-fs");
 
 let docker;
-if (process.platform != "win32") {
+if (process.platform !== "win32") {
   docker = new Docker({
     socketPath: "/var/run/docker.sock"
   });
@@ -20,7 +20,7 @@ if (process.platform != "win32") {
 let workingDir = "./example/azure-functions/";
 let folder;
 
-if (process.argv[2] == "function-init") {
+if (process.argv[2] === "function-init") {
   folder = process.argv[3];
 }
 
@@ -59,8 +59,8 @@ function customTerminal(container) {
     stdin.addListener("data", function(d) {
       let inputService = d.toString().trim();
       if (
-        inputService == "clocal function-start" ||
-        inputService == "clocal function-stop"
+        inputService === "clocal function-start" ||
+        inputService === "clocal function-stop"
       ) {
         commandHandlers[inputService](container);
       } else {

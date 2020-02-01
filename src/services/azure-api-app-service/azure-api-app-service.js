@@ -22,7 +22,7 @@ class AzureApiAppService extends CloudLocal {
       res.send("Welcome to clocal azure api app service");
     });
     this.app.use(bodyParser.json());
-    if (process.argv[2] == "api-start") {
+    if (process.argv[2] === "api-start") {
       this.app.use(
         swaggerize({
           api: path.resolve(workingDir + folder + "/" + initFile),
