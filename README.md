@@ -59,14 +59,12 @@ _Clocal-azure_ spins up the following core Cloud APIs on your local machine:
 
 Step 1: Go to ```compose.env``` file and specify the path to create the images for *azure functions* and *azure api app service* and *azure cosmosdb*.
 
-Step 2: Run the shell script below.
-```
-$ sh compose.sh
-```
-or
-```
-$ yarn service
-```
+Step 2: Run the shell script as below.
+
+Ubuntu OS: `$ yarn service` or `$ bash compose.sh` 
+
+Mac OS: `$ yarn service` or `$ bash compose.sh` or `$ sh compose.sh`
+
 ![Compose-Result](./src/assets/compose-result.png)
 
 
