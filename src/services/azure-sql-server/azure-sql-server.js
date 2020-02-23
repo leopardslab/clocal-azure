@@ -113,6 +113,48 @@ function runExec(container) {
           previousKey = key;
         });
 
+        docker.getEvents({}, function (err, evtSource) {
+          evtSource.on("data", function (data) {
+
+            let dockerEventState = null;
+
+            try {
+              dockerEventState = JSON.parse(data); 
+
+              if (dockerEventState.Actor.Attributes.execID === exec.id && dockerEventState.status === "exec_die") {
+
+                // Manually tries to shut mysqld down
+                var options = {
+                  Cmd: ['bash', '-c', 'mysqld stop'],
+                  AttachStdout: true,
+                  AttachStderr: true
+                };
+              
+                container.exec(options, function(err, exec) {
+                  if (err) return;
+                  exec.start(function(err, stream) {
+                    if (err) return;
+              
+                    container.modem.demuxStream(stream, process.stdout, process.stderr);
+              
+                    exec.inspect(function(err, data) {
+                      if (err) return;
+                    });
+                  });
+                });
+
+                // Stop will send SIGKILL to mysqld, causing it to shut down. We can then gracefully exit the process.
+                container.stop().then(function() {
+                  exit(stream, isRaw);
+                })
+                
+              }
+            } catch (exception) { // Catches exception caused by malformatted JSON emitted by healthchecker 
+              console.error(exception);
+            }
+           
+          });
+        });
         container.wait(function(err, data) {
           exit(stream, isRaw);
         });
