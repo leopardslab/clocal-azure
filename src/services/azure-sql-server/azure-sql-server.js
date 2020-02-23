@@ -113,6 +113,16 @@ function runExec(container) {
           previousKey = key;
         });
 
+        // listens on docker event "exec_die". If this started exec dies(exit), kill the container manually
+        docker.getEvents({}, (err, eventStream)=>{
+          eventStream.on("data", function(data){
+            let text = JSON.parse(String.fromCharCode.apply(String, data));
+            if (text.status=="exec_die" && text.Actor.Attributes.execID==exec.id) {
+              container.remove({force:true});
+            }
+          });
+        });
+
         container.wait(function(err, data) {
           exit(stream, isRaw);
         });
