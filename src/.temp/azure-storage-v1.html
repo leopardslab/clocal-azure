@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Blob Storage is up and running</title>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    text-align: center;
+}
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top:15px;
+  padding-bottom:15px;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+h2 {
+font-family: 'Harabara Bold', Arial, sans-serif;
+font-weight:normal;
+font-style:normal;
+}
+.bg {
+    /* The image used */
+    background-image: url("/bg.jpg" );
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.btn {
+  border-radius: 24px;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  margin: 1em 0.5em;
+  padding: 1em 2em;
+  border: none;
+}
+.btn:hover {
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.2);
+}
+.btn[disabled] {
+  background-color: #aeb8c0;
+  border: 1px solid #aeb8c0;
+}
+.btn--success {
+  border: 1px solid #008afc;
+  background: #008afc;
+}
+
+</style>
+</head>
+<body>
+<div class="bg"> 
+    <div class="container">   
+    <img src=/azure-logo.png width="250px;">
+    <h2 class="text-center">Emulation engine for Azure by CloudLibz</h2>
+    <img src="/clocal-logo.png" width="250px" style="position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;">
+
+    <form style="display: inline-block;margin-top:2rem;" method='post' action='upload' enctype="multipart/form-data">
+        <input class="btn btn--success" type='file' name='fileUploaded'>
+        <input class="btn btn--success" type='submit'>
+    </form>
+
+</div>
+</div>
+
+</body>
+</html>
