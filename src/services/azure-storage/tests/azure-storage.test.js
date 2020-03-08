@@ -69,6 +69,22 @@ test("Table port check", t => {
   t.is(res.port, "9571");
 });
 
+test("Blob response status", async t => {
+  const res = await http.getResponse(blobUrl);
+  t.is(res.statusCode, 200);
+});
+
+test("Queue response status", async t => {
+  const res = await http.getResponse(queueUrl);
+  t.is(res.statusCode, 200);
+});
+
+test("Table response status", async t => {
+  const res = await http.getResponse(tableUrl);
+  t.is(res.statusCode, 200);
+});
+
+
 test("Blob List returns true with an object", t => {
   const res = http.get(blobUrl + "/devstoreaccount1?comp=list");
   t.true(typeof res === "object");

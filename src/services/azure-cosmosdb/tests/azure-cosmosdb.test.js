@@ -1,4 +1,5 @@
 import test, { beforeEach, afterEach } from "ava";
+import http from "ava-http";
 const Docker = require("dockerode");
 const tar = require("tar-fs");
 
