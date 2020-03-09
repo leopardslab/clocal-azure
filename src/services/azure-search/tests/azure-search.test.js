@@ -28,3 +28,8 @@ test("Search app response status", async t => {
   const result = await https.getResponse(url);
   t.is(result.statusCode, 200);
 });
+
+test("Search app errors without config", async t => {
+  const result = await https.getResponse(url + "/sql/indexes/create");
+  t.jsonContains(result, "err");
+})

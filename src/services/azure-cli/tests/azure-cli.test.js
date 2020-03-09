@@ -3,7 +3,9 @@ import delay from "delay";
 
 const Docker = require("dockerode");
 
-let docker, testContainer, errorContainer;
+let docker, errorContainer;
+
+var testContainer = "microsoft/azure-cli";
 
 if (process.platform != "win32") {
   docker = new Docker({
@@ -31,10 +33,17 @@ test.before(async t => {
     function(err, container) {
       t.is(err, null);
       t.is(container, true);
-      testContainer = container.id;
-      errorContainer = err;
+      testContainer = container;
     }
   );
+});
+
+test("Initialization function receives correct values", async t => {
+  var newContainer = docker.getContainer(testContainer);
+
+  t.not(newContainer, undefined);
+  t.not(newContainer.id, undefined);
+  await delay(1000);
 });
 
 test("Container Create", async t => {
@@ -45,4 +54,15 @@ test("Container Create", async t => {
 test("Container Error null", async t => {
   await delay(1000);
   t.is(errorContainer, null);
+});
+
+test("Container Starts", async t => {
+  await delay(20000);
+
+  function handler(err, data) {
+    t.is(err, null);
+  }
+
+  container.start(handler);
+  t.pass()
 });

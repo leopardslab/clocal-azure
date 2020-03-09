@@ -16,3 +16,8 @@ test("API app response status", async t => {
   const res = await http.getResponse(APIUrl);
   t.is(res.statusCode, 200);
 });
+
+test("API app returns message", async t => {
+  const res = await http.getResponse(APIUrl);
+  t.is(res.jsonContains, "Welcome to clocal azure api app service");
+});
