@@ -22,6 +22,8 @@ let commandHandlers = {
   "clocal storage-query": listFiles
 };
 
+const CONTAINER_NAME = "clocal-storage";
+
 class AzureStorage extends CloudLocal {
   /**
    * Get env list from running container
@@ -29,32 +31,62 @@ class AzureStorage extends CloudLocal {
    */
 
   start() {
-    docker.createContainer(
+    docker.listContainers(
       {
-        Image: "arafato/azurite",
-        Tty: true,
-        Cmd: ["/bin/sh"],
-        ExposedPorts: { "10000/tcp": {}, "10001/tcp": {}, "10002/tcp": {} },
-        PortBindings: {
-          "10000/tcp": [{ HostPort: "9569" }],
-          "10001/tcp": [{ HostPort: "9570" }],
-          "10002/tcp": [{ HostPort: "9571" }]
+        all: true,
+        filters: { 
+          name: ["clocal-storage"],
+        } 
+      }, 
+      function(err, containers){
+        if (err) return logger.error(err);
+
+        // no clocal-storage container existent
+        if (containers.length==0) {
+          docker.createContainer(
+            {
+              name: CONTAINER_NAME,
+              Image: "arafato/azurite",
+              Tty: true,
+              Cmd: ["/bin/sh"],
+              ExposedPorts: { "10000/tcp": {}, "10001/tcp": {}, "10002/tcp": {} },
+              PortBindings: {
+                "10000/tcp": [{ HostPort: "9569" }],
+                "10001/tcp": [{ HostPort: "9570" }],
+                "10002/tcp": [{ HostPort: "9571" }]
+              }
+            },
+            function(err, container) {
+              if (err) {
+                logger.error(err);
+                return;
+              }
+              container.start({}, function(err, data) {
+                if (err) {
+                  logger.error(err);
+                  return;
+                }
+                runExec(container);
+              });
+            }
+          );
+
+        // a paused/stopped clocal-storage container existent
+        }else if ( containers[0].State!="running" ) {
+          let container = docker.getContainer(containers[0].Id);
+          container.start({}, function(err, data) {
+            if (err) {
+              logger.error(err);
+              return;
+            }
+            runExec(container);
+          });
+
+        // a running clocal-storage container existent
+        }else{
+          console.log("clocal-storage is already running");
         }
-      },
-      function(err, container) {
-        if (err) {
-          logger.error(err);
-          return;
-        }
-        container.start({}, function(err, data) {
-          if (err) {
-            logger.error(err);
-            return;
-          }
-          runExec(container);
-        });
-      }
-    );
+      });
   }
 }
 
