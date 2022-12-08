@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "body-parser": "^1.9.0",
-    "express": "^4.0.0",
+    "express": "^4.17.3",
     "jsonpath": "^0.2.0",
     "swaggerize-express": "^3.0.0",
     "swaggerize-ui": "^1.0.1"
