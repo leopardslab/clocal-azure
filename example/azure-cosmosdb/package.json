@@ -14,7 +14,7 @@
     "async": "^2.1.2",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
+    "debug": "~3.1.0",
     "documentdb": "^1.10.2",
     "express": "~4.14.0",
     "jade": "~1.11.0",
